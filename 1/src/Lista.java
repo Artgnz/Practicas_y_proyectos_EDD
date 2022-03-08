@@ -285,6 +285,7 @@ public class Lista<T> implements Collection<T> {
         Nodo actual = cabeza;
         cabeza = ultimo;
         ultimo = actual;
+        actual = cabeza;
         while (actual != null) {
             Nodo aux = actual.siguiente;
             actual.siguiente = actual.anterior;
