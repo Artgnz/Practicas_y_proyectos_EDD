@@ -320,11 +320,12 @@ public class Lista<T> implements Collection<T> {
      */
     public void append(Lista<T> lista) {
         // Tu codigo aqui
-        // Falta ver que sean del mismo tipo
-        if (lista == null) {
-            return;
+        Nodo nuevo = lista.cabeza;
+        while (nuevo != null) {
+            add(nuevo.elemento);
+            nuevo = nuevo.siguiente;
         }
-        return ;
+        return;
     }
 
     /**
@@ -351,7 +352,7 @@ public class Lista<T> implements Collection<T> {
             n = n.siguiente;
             index++;
         }
-        return index;
+        return -1;
 
     }
     
