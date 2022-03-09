@@ -9,12 +9,41 @@ public class Practica1 {
     // Aqui va tu comentario
     public static Lista<Integer> AgregaOrdenado(Lista<Integer> lista, int nuevo) {
         //Tu codigo aqui
-        return null;
+        Iterator<Integer> iterador = lista.iterator();
+        int indice = 0;
+        while (iterador.hasNext()) {
+            if (iterador.next() >= nuevo) {
+                break;
+            }
+            indice++;
+        }
+        lista.insert(indice, nuevo);
+        return lista;
     }
 
     // Aqui va tu comentario
     public static void Union(Lista<Integer> lista1,Lista<Integer> lista2) {
-         return ;
+        IteradorLista<Integer> iterador1 = lista1.iteradorLista();
+        IteradorLista<Integer> iterador2 = lista2.iteradorLista();
+        int tamanoOriginal = lista1.size();
+
+        while (iterador2.hasNext()) {
+            int i = 0;
+            int aAgregar = iterador2.next();
+            boolean yaEsta = false;
+            while (i < tamanoOriginal) {
+                if (aAgregar == iterador1.next()) {
+                    yaEsta = true;
+                    break;
+                }
+                i++;
+            }
+            iterador1.start();
+            if (!yaEsta) {
+                lista1.add(aAgregar);
+            }
+        }
+        return;
     }
 
     // Aqui va tu comentario
@@ -170,7 +199,7 @@ public class Practica1 {
         primera.add(3);
         segunda.add(2);
         Union(primera, segunda);
-
+        
         if (!(primera.contains(1) && primera.contains(2) && primera.contains(3) && primera.size() == 3)) {
             System.out.println("1 La union no funciona!");
         }
