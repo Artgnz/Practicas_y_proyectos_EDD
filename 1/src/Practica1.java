@@ -19,7 +19,17 @@ public class Practica1 {
 
     // Aqui va tu comentario
     public static void Interseccion(Lista<Integer> lista,Lista<Integer> lista2) {
-        
+	/** Lista<Integer> lista3 = new Lista<Integer>();
+	if((lista==null) || (lista2 == null))
+	    lista3.empty();
+
+	else{
+	    Nodo n = cabeza;
+	    while(lista2.contains(n)== false)
+		n = n.siguiente;
+	    lista3.add(n);
+	}
+	*/
         return ;
     }
 

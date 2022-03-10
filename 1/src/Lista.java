@@ -375,7 +375,29 @@ public class Lista<T> implements Collection<T> {
      */
     public void insert(int i, T elemento) {
         // Tu codigo aqui
-        return ;
+	if (elemento == null) {
+            throw new IllegalArgumentException("El elemento es null");
+        }
+	if(i<=0){
+	    this.agregaInicio(elemento);
+	}
+	if(i>=longi){
+	    this.agregaFinal(elemento);
+	}
+	else{
+	    Nodo nuevo = new Nodo(elemento);
+	    Nodo n = cabeza;
+	    int index = 0;
+	    while(index!=i){
+		n = n.siguiente;
+		index++;
+	    }
+	    nuevo.anterior = n.anterior;
+	    nuevo.siguiente = n;
+	    n.anterior.siguiente = nuevo;
+	    longi++;
+	    
+       }
     }
 
     // Tu comentario
