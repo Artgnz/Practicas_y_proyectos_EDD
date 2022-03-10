@@ -281,15 +281,15 @@ public class Lista<T> implements Collection<T> {
      * 
      */
     public void reverse() {
-        // Tu codigo aqui
         Nodo actual = cabeza;
         cabeza = ultimo;
         ultimo = actual;
         actual = cabeza;
         while (actual != null) {
-            Nodo aux = actual.siguiente;
+            // Para guardar temporalmente un nodo y poder intercambiarlos.
+            Nodo tmp = actual.siguiente;
             actual.siguiente = actual.anterior;
-            actual.anterior = aux;
+            actual.anterior = tmp;
             actual = actual.siguiente;
         }
         return;
@@ -307,6 +307,7 @@ public class Lista<T> implements Collection<T> {
         while(n != null){
             toReturn += n.elemento;
             n = n.siguiente;
+            // Para no agregar la flecha después del último elemento.
             if (n != null) { 
                 toReturn += " -> ";
             }
@@ -319,8 +320,11 @@ public class Lista<T> implements Collection<T> {
      * 
      */
     public void append(Lista<T> lista) {
-        // Tu codigo aqui
+        if (lista == null) {
+            throw new IllegalArgumentException("La lista es null.");
+        }
         Nodo nuevo = lista.cabeza;
+        // Crea copias de los nodos de lista
         while (nuevo != null) {
             add(nuevo.elemento);
             nuevo = nuevo.siguiente;
@@ -339,9 +343,8 @@ public class Lista<T> implements Collection<T> {
      *         <code>null</code>.
      */
     public int indexOf(T elemento) {
-        // Tu codigo aqui
         if (elemento == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("El elemento es null.");
         }
         Nodo n = cabeza;
         int index = 0;
@@ -352,6 +355,7 @@ public class Lista<T> implements Collection<T> {
             n = n.siguiente;
             index++;
         }
+        // Si el elemento no está en la lista.
         return -1;
 
     }
