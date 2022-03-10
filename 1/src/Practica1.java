@@ -6,11 +6,11 @@ public class Practica1 {
     
 
 
-    // Aqui va tu comentario
+    // Agrega un número entero en una lista ordenada.
     public static Lista<Integer> AgregaOrdenado(Lista<Integer> lista, int nuevo) {
-        //Tu codigo aqui
         Iterator<Integer> iterador = lista.iterator();
         int indice = 0;
+        // Busca el primer elemento mayor o igual al elemento nuevo.
         while (iterador.hasNext()) {
             if (iterador.next() >= nuevo) {
                 break;
@@ -21,7 +21,7 @@ public class Practica1 {
         return lista;
     }
 
-    // Aqui va tu comentario
+    // Obtiene la unión de dos listas.
     public static void Union(Lista<Integer> lista1,Lista<Integer> lista2) {
         IteradorLista<Integer> iterador1 = lista1.iteradorLista();
         IteradorLista<Integer> iterador2 = lista2.iteradorLista();
@@ -31,6 +31,7 @@ public class Practica1 {
             int i = 0;
             int aAgregar = iterador2.next();
             boolean yaEsta = false;
+            // Para comparar únicamente con los elementos que la lista originalmente tenía.
             while (i < tamanoOriginal) {
                 if (aAgregar == iterador1.next()) {
                     yaEsta = true;
@@ -39,6 +40,7 @@ public class Practica1 {
                 i++;
             }
             iterador1.start();
+            // Si el elemento no está, lo agrega.
             if (!yaEsta) {
                 lista1.add(aAgregar);
             }
