@@ -277,7 +277,7 @@ public class Lista<T> implements Collection<T> {
 
     
     /**
-     * Metodo que invierte el orden de la lista .
+     * Metodo que invierte el orden de la lista.
      * 
      */
     public void reverse() {
@@ -317,7 +317,8 @@ public class Lista<T> implements Collection<T> {
 
     /**
      * Junta dos listas siempre y cuando sean del mismo tipo.
-     * 
+     * @param lista Lista con los elementos a agregar.
+     * @throws IllegalArgumentException si <code>lista</code> es <code></null>
      */
     public void append(Lista<T> lista) {
         if (lista == null) {
@@ -402,17 +403,18 @@ public class Lista<T> implements Collection<T> {
 	    
        }
     }
+
     /**
-     Dados 2 ejemplares de nuestra clase Lista A y B, necesitamos unirlas de manera
-     alternada, es decir, a un elemento de A le seguirá un elemento de la lista B y viceversa.
-     @param lista Lista con la cual se quiere mezclar con la lista que llama al metodo.
+     * Dados 2 ejemplares de nuestra clase Lista A y B, necesitamos unirlas de manera
+     * alternada, es decir, a un elemento de A le seguirá un elemento de la lista B y viceversa.
+     * @param lista Lista con la cual se quiere mezclar con la lista que llama al método.
      */
     public void mezclaAlternada(Lista<T> lista){
 	IteradorLista<T> iterador2 =lista.iteradorLista();
 	int contador = 0;
         while(iterador2.hasNext()){
 	    T i2 = iterador2.next();
-	    this.insert(contador*2+1,i2);
+	    this.insert(contador * 2 + 1, i2);
 	    contador++;
 	}
         return;
