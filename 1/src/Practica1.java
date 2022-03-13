@@ -17,7 +17,14 @@ public class Practica1 {
          return ;
     }
 
-    // Aqui va tu comentario
+    /**
+     * Como mejorar el metodo? Podriamos incluir metodos de la clase HashSet de Java, 
+     * proveyendo rendimientos de orden constante para los metodos contains y remove (para sustituir delete).
+     * Dados dos ejemplares de nuestra clase Lista queremos obtener la intersección de estos.
+     * @param lista Primer lista con la que se quiere hacer la interseccion, esta solo contendra a los elementos 
+     * compartidosterminara despues de ejecutar el metodo.
+     * @param lista2 Segunda lista con la que se quiere hacer la interseccion.
+     */
     public static void Interseccion(Lista<Integer> lista,Lista<Integer> lista2) {
 	IteradorLista<Integer> iterador = lista.iteradorLista();
 

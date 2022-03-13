@@ -399,9 +399,19 @@ public class Lista<T> implements Collection<T> {
 	    
        }
     }
-
-    // Tu comentario
+    /**
+     Dados 2 ejemplares de nuestra clase Lista A y B, necesitamos unirlas de manera
+     alternada, es decir, a un elemento de A le seguirá un elemento de la lista B y viceversa.
+     @param lista Lista con la cual se quiere mezclar con la lista que llama al metodo.
+     */
     public void mezclaAlternada(Lista<T> lista){
+	IteradorLista<T> iterador2 =lista.iteradorLista();
+	int contador = 0;
+        while(iterador2.hasNext()){
+	    T i2 = iterador2.next();
+	    this.insert(contador*2+1,i2);
+	    contador++;
+	}
         return;
     }
 
