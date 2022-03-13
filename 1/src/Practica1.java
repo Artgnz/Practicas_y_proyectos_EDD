@@ -19,17 +19,13 @@ public class Practica1 {
 
     // Aqui va tu comentario
     public static void Interseccion(Lista<Integer> lista,Lista<Integer> lista2) {
-	/** Lista<Integer> lista3 = new Lista<Integer>();
-	if((lista==null) || (lista2 == null))
-	    lista3.empty();
+	IteradorLista<Integer> iterador = lista.iteradorLista();
 
-	else{
-	    Nodo n = cabeza;
-	    while(lista2.contains(n)== false)
-		n = n.siguiente;
-	    lista3.add(n);
+	while(iterador.hasNext()){
+	    int i = iterador.next();
+	    if(!lista2.contains(i))
+		lista.delete(i);
 	}
-	*/
         return ;
     }
 
@@ -152,7 +148,6 @@ public class Practica1 {
             System.out.println("1 la mezclaAlternada no funciona!");
         }
 
-
         // Tests Agrega Ordenado
         primera = new Lista<Integer>();
         segunda = new Lista<Integer>();
@@ -184,7 +179,7 @@ public class Practica1 {
         if (!(primera.contains(1) && primera.contains(2) && primera.contains(3) && primera.size() == 3)) {
             System.out.println("1 La union no funciona!");
         }
-        
+
         // Tests interseccion
         primera = new Lista<Integer>();
         segunda = new Lista<Integer>();
