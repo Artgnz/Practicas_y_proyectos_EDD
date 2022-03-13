@@ -6,15 +6,45 @@ public class Practica1 {
     
 
 
-    // Aqui va tu comentario
+    // Agrega un número entero en una lista ordenada.
     public static Lista<Integer> AgregaOrdenado(Lista<Integer> lista, int nuevo) {
-        //Tu codigo aqui
-        return null;
+        Iterator<Integer> iterador = lista.iterator();
+        int indice = 0;
+        // Busca el primer elemento mayor o igual al elemento nuevo.
+        while (iterador.hasNext()) {
+            if (iterador.next() >= nuevo) {
+                break;
+            }
+            indice++;
+        }
+        lista.insert(indice, nuevo);
+        return lista;
     }
 
-    // Aqui va tu comentario
+    // Obtiene la unión de dos listas.
+    // El tiempo de ejecución del método se puede mejorar usando la clase HashSet de
+    // java.util.HashSet, que, de acuerdo a su documentación (https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html),
+    // ofrece rendimiento constante para operaciones como agregar y ver si un elemento ya está
+    // en el HashSet.
+    // El algoritmo sería el siguiente:
+    //     1. Iterar sobre la lista 1 y guardar cada elemento en el HashSet
+    //        con el método add de la clase HashSet.
+    //     2. Iterar sobre la segunda lista, guardar el siguiente elemento en una variable
+    //        invocar el método contains del hashSet y, si el elemento no está, se agrega
+    //        a la lista y al hashSet (para evitar agregar duplicados).
+    // El tiempo de ejecución de esta alternativa es O(N + M) porque se itera una vez
+    // sobre las dos listas y todos los métodos que se ejecutan son de tiempo constante.
+    // El almacenamiento es O(N + M) porque se almacenan todos los elementos de ambas listas.
     public static void Union(Lista<Integer> lista1,Lista<Integer> lista2) {
-         return ;
+        IteradorLista<Integer> iterador = lista2.iteradorLista();
+
+        while (iterador.hasNext()) {
+            Integer elemento = iterador.next();
+            if (!lista1.contains(elemento)) {
+                lista1.add(elemento);
+            }
+        }
+        return;
     }
 
     /**
@@ -49,7 +79,7 @@ public class Practica1 {
             primera.add(i);
         }
         
-        String test = "1 -> 2 -> 3 -> 4 -> 5";
+        String test = "0 -> 1 -> 2 -> 3 -> 4 -> 5";
         if (!primera.toString().equals(test)) {
             System.out.println("1 El toString no funciona!");
         }
