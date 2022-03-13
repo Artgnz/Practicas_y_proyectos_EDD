@@ -5,8 +5,11 @@ import java.util.Iterator;
 public class Practica1 {
     
 
-
-    // Agrega un número entero en una lista ordenada.
+    /**
+     * Agrega un número entero en una lista ordenada.
+     * @param lista Lista de números ordenados donde se agrega el elemento.
+     * @param nuevo Número entero que se agrega a la lista.
+     */
     public static Lista<Integer> AgregaOrdenado(Lista<Integer> lista, int nuevo) {
         Iterator<Integer> iterador = lista.iterator();
         int indice = 0;
@@ -21,20 +24,25 @@ public class Practica1 {
         return lista;
     }
 
-    // Obtiene la unión de dos listas.
-    // El tiempo de ejecución del método se puede mejorar usando la clase HashSet de
-    // java.util.HashSet, que, de acuerdo a su documentación (https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html),
-    // ofrece rendimiento constante para operaciones como agregar y ver si un elemento ya está
-    // en el HashSet.
-    // El algoritmo sería el siguiente:
-    //     1. Iterar sobre la lista 1 y guardar cada elemento en el HashSet
-    //        con el método add de la clase HashSet.
-    //     2. Iterar sobre la segunda lista, guardar el siguiente elemento en una variable
-    //        invocar el método contains del hashSet y, si el elemento no está, se agrega
-    //        a la lista y al hashSet (para evitar agregar duplicados).
-    // El tiempo de ejecución de esta alternativa es O(N + M) porque se itera una vez
-    // sobre las dos listas y todos los métodos que se ejecutan son de tiempo constante.
-    // El almacenamiento es O(N + M) porque se almacenan todos los elementos de ambas listas.
+    /**
+     * Obtiene la unión de dos listas.
+     * El tiempo de ejecución del método se puede mejorar usando la clase HashSet de
+     * java.util.HashSet, que, de acuerdo a su documentación (https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html),
+     * ofrece rendimiento constante para operaciones como agregar y ver si un elemento ya está
+     * en el HashSet.
+     * El algoritmo sería el siguiente:
+     * 1. Iterar sobre la lista 1 y guardar cada elemento en el HashSet
+     *    con el método add de la clase HashSet.
+     * 2. Iterar sobre la segunda lista, guardar el siguiente elemento en una variable
+     *    invocar el método contains del hashSet y, si el elemento no está, se agrega
+     *    a la lista y al hashSet (para evitar agregar duplicados).
+     * El tiempo de ejecución de esta alternativa es O(N + M) porque se itera una vez
+     * sobre las dos listas y todos los métodos que se ejecutan son de tiempo constante.
+     * El almacenamiento es O(N + M) porque se almacenan todos los elementos de ambas listas.
+     * @param lista1 Primer lista con la que se realiza la unión, guardará los elementos de la
+     *               unión.
+     * @param lista2 Segunda lista con la que se realiza la unión.
+     */
     public static void Union(Lista<Integer> lista1,Lista<Integer> lista2) {
         IteradorLista<Integer> iterador = lista2.iteradorLista();
 
@@ -52,7 +60,7 @@ public class Practica1 {
      * proveyendo rendimientos de orden constante para los metodos contains y remove (para sustituir delete).
      * Dados dos ejemplares de nuestra clase Lista queremos obtener la intersección de estos.
      * @param lista Primer lista con la que se quiere hacer la interseccion, esta solo contendra a los elementos 
-     * compartidosterminara despues de ejecutar el metodo.
+     * compartidos terminará despues de ejecutar el metodo.
      * @param lista2 Segunda lista con la que se quiere hacer la interseccion.
      */
     public static void Interseccion(Lista<Integer> lista,Lista<Integer> lista2) {
