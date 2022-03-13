@@ -307,7 +307,7 @@ public class Lista<T> implements Collection<T> {
         while(n != null){
             toReturn += n.elemento;
             n = n.siguiente;
-            // Para no agregar la flecha después del último elemento.
+            // No agregar flecha después de último elemento.
             if (n != null) { 
                 toReturn += " -> ";
             }
@@ -356,8 +356,7 @@ public class Lista<T> implements Collection<T> {
             index++;
         }
         // Si el elemento no está en la lista.
-        return -1;
-
+        throw new NoSuchElementException();
     }
     
     /**
