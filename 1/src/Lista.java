@@ -378,11 +378,43 @@ public class Lista<T> implements Collection<T> {
      */
     public void insert(int i, T elemento) {
         // Tu codigo aqui
-        return ;
+	if (elemento == null) {
+            throw new IllegalArgumentException("El elemento es null");
+        }
+	if(i<=0){
+	    this.agregaInicio(elemento);
+	}
+	if(i>=longi){
+	    this.agregaFinal(elemento);
+	}
+	else{
+	    Nodo nuevo = new Nodo(elemento);
+	    Nodo n = cabeza;
+	    int index = 0;
+	    while(index!=i){
+		n = n.siguiente;
+		index++;
+	    }
+	    nuevo.anterior = n.anterior;
+	    nuevo.siguiente = n;
+	    n.anterior.siguiente = nuevo;
+	    longi++;
+	    
+       }
     }
-
-    // Tu comentario
+    /**
+     Dados 2 ejemplares de nuestra clase Lista A y B, necesitamos unirlas de manera
+     alternada, es decir, a un elemento de A le seguirá un elemento de la lista B y viceversa.
+     @param lista Lista con la cual se quiere mezclar con la lista que llama al metodo.
+     */
     public void mezclaAlternada(Lista<T> lista){
+	IteradorLista<T> iterador2 =lista.iteradorLista();
+	int contador = 0;
+        while(iterador2.hasNext()){
+	    T i2 = iterador2.next();
+	    this.insert(contador*2+1,i2);
+	    contador++;
+	}
         return;
     }
 
