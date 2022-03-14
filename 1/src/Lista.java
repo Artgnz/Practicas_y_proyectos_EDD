@@ -4,7 +4,11 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 // iterador
 //next
-
+/**
+ * 
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class Lista<T> implements Collection<T> {
 
     // Clase Nodo

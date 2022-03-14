@@ -2,6 +2,11 @@ package Clases;
 
 import java.util.Iterator;
 
+/**
+ * 
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class Practica1 {
     
 
