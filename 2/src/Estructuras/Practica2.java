@@ -12,7 +12,22 @@ public class Practica2 {
 
     public static void main(String[] args) {
         // Escribe aqui tu codigo para probar los metodos anteriores. 
-        // No olvides comentar tu codigo y escribir tu nombre en el readme. 
+        // No olvides comentar tu codigo y escribir tu nombre en el readme.
+        Pila<Integer> pila = new Pila<>();
+        // pila.push(1);
+        // pila.push(2);
+        // pila.push(3);
+        // pila.push(4);
+        // pila.push(5);
+        pila.push(1);
+        // pila.push(2);
+        // pila.push(3);
+        pila.push(4);
+        // pila.push(5);
+        System.out.println(pila);
+        Pila<Integer> nueva = pila.clone();
+        System.out.println(nueva);
+        System.out.println(nueva.size());
+        System.out.println(pila.size());
     }
-
 }

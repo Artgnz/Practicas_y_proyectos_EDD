@@ -26,18 +26,22 @@ public class Pila<T> extends PushPop<T>{
      * @return un clon de la estructura.
      */
     public Pila<T> clone(){
-        Pila<T> nueva = new Pila<T>();
-        if (this.isEmpty()) {
-            return nueva;
-        }
-        nueva.push(this.cabeza.elemento);
-        Nodo n = this.cabeza;
-        while (n.siguiente != null) {
-           nueva.push(n.siguiente.elemento);
-           n = n.siguiente;
-        }
-        return nueva;
+        return clone(cabeza);
+    }
 
+    /**
+     * Regresa un clon de la estructura.
+     * 
+     * @param n Nodo actual
+     * @return un clon de la estructura.
+     */
+    private Pila<T> clone(Nodo n){
+        if (n == null) {
+            return new Pila<T>();
+        }
+        Pila<T> nueva = clone(n.siguiente);
+        nueva.push(n.elemento);
+        return nueva;
     }
 
     public String toString(){
