@@ -1,10 +1,14 @@
-package edd.src.Estructuras;
+package Clases;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 // iterador
 //next
-
+/**
+ * 
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class Lista<T> implements Collection<T> {
 
     // Clase Nodo
@@ -266,43 +270,33 @@ public class Lista<T> implements Collection<T> {
      * @return <tt>true</tt> si la coleccion es igual a la coleccion recibido
      *         <tt>false</tt> en otro caso.
      */
-    @Override public boolean equals(Object o){
-        if (!(o instanceof Lista) ) {
-            System.out.println("El ejemplar no es una lista");
-            return false;
-        }
-        @SuppressWarnings("unchecked") Lista<T> lista2 = (Lista<T>)o;
-        if (this.longi != lista2.longi) {
-            System.out.println("Los tamaños no son iguales.");
-            return false;
-        }
-        if(this.isEmpty() && lista2.isEmpty()){
+    public boolean equals(Collection<T> coleccion){
+        // lo vemos en clase
+        if(coleccion instanceof Lista) {
             return true;
         }
-        if( (this.isEmpty() && !lista2.isEmpty()) || (lista2.isEmpty() && !this.isEmpty())){
-            return false;
-        }
-        Nodo aux1 = this.cabeza;
-        Nodo aux2 = lista2.cabeza;
-        while (aux1!= null && aux2 != null)  {
-            if (!aux1.elemento.equals(aux2.elemento)) {
-                return false;
-            }
-            aux1 = aux1.siguiente;
-            aux2 = aux2.siguiente;
-        }
-        return true;
+        return false;
     }
 
 
     
     /**
-     * Metodo que invierte el orden de la lista .
+     * Metodo que invierte el orden de la lista.
      * 
      */
     public void reverse() {
-        // Tu codigo aqui
-        return ;
+        Nodo actual = cabeza;
+        cabeza = ultimo;
+        ultimo = actual;
+        actual = cabeza;
+        while (actual != null) {
+            // Para guardar temporalmente un nodo y poder intercambiarlos.
+            Nodo tmp = actual.siguiente;
+            actual.siguiente = actual.anterior;
+            actual.anterior = tmp;
+            actual = actual.siguiente;
+        }
+        return;
     }
 
     /**
@@ -312,17 +306,35 @@ public class Lista<T> implements Collection<T> {
      * a -> b -> c -> d
      */
     public String toString(){
-        // Tu codigo aqui
-        return "";
+        String toReturn = "";
+        Nodo n = cabeza;
+        while(n != null){
+            toReturn += n.elemento;
+            n = n.siguiente;
+            // No agregar flecha después de último elemento.
+            if (n != null) { 
+                toReturn += " -> ";
+            }
+        }
+        return toReturn;
     }
 
     /**
      * Junta dos listas siempre y cuando sean del mismo tipo.
-     * 
+     * @param lista Lista con los elementos a agregar.
+     * @throws IllegalArgumentException si <code>lista</code> es <code></null>
      */
     public void append(Lista<T> lista) {
-        // Tu codigo aqui
-        return ;
+        if (lista == null) {
+            throw new IllegalArgumentException("La lista es null.");
+        }
+        Nodo nuevo = lista.cabeza;
+        // Crea copias de los nodos de lista
+        while (nuevo != null) {
+            add(nuevo.elemento);
+            nuevo = nuevo.siguiente;
+        }
+        return;
     }
 
     /**
@@ -336,9 +348,20 @@ public class Lista<T> implements Collection<T> {
      *         <code>null</code>.
      */
     public int indexOf(T elemento) {
-        // Tu codigo aqui
-        return 0;
-
+        if (elemento == null) {
+            throw new IllegalArgumentException("El elemento es null.");
+        }
+        Nodo n = cabeza;
+        int index = 0;
+        while(n != null){
+            if (elemento.equals(n.elemento)) {
+                return index;
+            }
+            n = n.siguiente;
+            index++;
+        }
+        // Si el elemento no está en la lista.
+        throw new NoSuchElementException();
     }
     
     /**
@@ -360,11 +383,44 @@ public class Lista<T> implements Collection<T> {
      */
     public void insert(int i, T elemento) {
         // Tu codigo aqui
-        return ;
+	if (elemento == null) {
+            throw new IllegalArgumentException("El elemento es null");
+        }
+	if(i<=0){
+	    this.agregaInicio(elemento);
+	}
+	if(i>=longi){
+	    this.agregaFinal(elemento);
+	}
+	else{
+	    Nodo nuevo = new Nodo(elemento);
+	    Nodo n = cabeza;
+	    int index = 0;
+	    while(index!=i){
+		n = n.siguiente;
+		index++;
+	    }
+	    nuevo.anterior = n.anterior;
+	    nuevo.siguiente = n;
+	    n.anterior.siguiente = nuevo;
+	    longi++;
+	    
+       }
     }
 
-    // Tu comentario
+    /**
+     * Dados 2 ejemplares de nuestra clase Lista A y B, necesitamos unirlas de manera
+     * alternada, es decir, a un elemento de A le seguirá un elemento de la lista B y viceversa.
+     * @param lista Lista con la cual se quiere mezclar con la lista que llama al método.
+     */
     public void mezclaAlternada(Lista<T> lista){
+	IteradorLista<T> iterador2 =lista.iteradorLista();
+	int contador = 0;
+        while(iterador2.hasNext()){
+	    T i2 = iterador2.next();
+	    this.insert(contador * 2 + 1, i2);
+	    contador++;
+	}
         return;
     }
 

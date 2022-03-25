@@ -1,4 +1,4 @@
-package edd.src.Estructuras;
+package Clases;
 
 //import java.util.Comparator;
 
@@ -66,7 +66,7 @@ public interface Collection<T> {
      * @return <tt>true</tt> si la coleccion es igual a la coleccion recibido;
      *         <tt>false</tt> en otro caso.
      */
-    public boolean equals(Object o);
+    public boolean equals(Collection<T> coleccion);
 
     /**
      * Regresa una representación en cadena de la coleccion.
