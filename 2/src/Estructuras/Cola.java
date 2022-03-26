@@ -43,16 +43,11 @@ public class Cola<T> extends PushPop<T> {
         if (this.isEmpty()) {
             return "";
         }
-        // 6, 5, 4, 3, 2, 1, 0
         String aux = this.cabeza.elemento.toString();
         Nodo n = this.cabeza;
         while (n.siguiente != null) {
-            aux += " ," + n.siguiente.elemento.toString();
+            aux += ", " + n.siguiente.elemento.toString();
             n = n.siguiente;
-        }
-        String reverso = "";
-        for (int i = aux.length() - 1; i >= 0; i--) {
-            reverso += aux.charAt(i);
         }
         return aux;
     }
