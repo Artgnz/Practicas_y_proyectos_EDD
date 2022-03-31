@@ -7,12 +7,13 @@ public class Practica2 {
     }
 
     public static void binarioColas(int N){
-        Cola<String> aux = new Cola<>();
-        aux.push("1");
+        Cola<String> binario = new Cola<>();
+        binario.push("1");
+
         for (int i = 0; i < N; i++) {
-            String current = aux.pop();
-            aux.push(current + "0");
-            aux.push(current + "1");
+            String current = binario.pop();
+            binario.push(current + "0");
+            binario.push(current + "1");
             System.out.println(current);
         }
     }
@@ -45,14 +46,15 @@ public class Practica2 {
             System.out.println("El método clone de Cola no sirve.");
         }
 
-        Pila<Integer> origen = new Pila<>();
-        int cantidadDiscos = 4;
-        for (int i = 1; i <= cantidadDiscos; i++) {
-            origen.push(i);
-        }
         for (int i = 1; i <= 10; i++) {
             System.out.println("Binario de N: " + i + " números:");
             binarioColas(i);
         }
+        pila.empty();
+        pila.push(1);
+        pila.push(2);
+        pila.push(3);
+        System.out.println("Pila: " + pila);
+
     }
 }
