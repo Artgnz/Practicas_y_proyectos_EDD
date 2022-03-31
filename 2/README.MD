@@ -1,5 +1,5 @@
-## Nombres ->
-        ->
+## Nombres -> Emilio Arsenio Raudry Rico 318289276
+##         	-> Arturo González Peñaloza 319091193
 
 compilar -> javac -d . src/Estructuras/*.java
 

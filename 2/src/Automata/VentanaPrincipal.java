@@ -3,10 +3,10 @@ package edd.src.Automata;
 
 
 /*
-*@Author Macias Gomez Jorge
-*
-*
-*/
+ *@Author Macias Gomez Jorge
+ *
+ *
+ */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     private AutomataCelular automata;
@@ -57,10 +57,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          * AutomataCelular a = new Mondrian();
          * AutomataCelular a = new juego();
          */
-       //AutomataCelular a = new JuegoVida();
-       AutomataCelular a = new Mondrian();
-       //AutomataCelular a=new juego();
-       vp = new VentanaPrincipal(a);
+        //AutomataCelular a = new JuegoVida();
+        AutomataCelular a = new Mondrian();
+        // AutomataCelular a = new Mondrian2();
+        //AutomataCelular a=new juego();
+        vp = new VentanaPrincipal(a);
     }
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -77,29 +78,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout imagenLayout = new javax.swing.GroupLayout(imagen);
         imagen.setLayout(imagenLayout);
         imagenLayout.setHorizontalGroup(
-            imagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
+                                        imagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGap(0, 900, Short.MAX_VALUE)
+                                        );
         imagenLayout.setVerticalGroup(
-            imagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
-        );
+                                      imagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                      .addGap(0, 650, Short.MAX_VALUE)
+                                      );
 
         botonIniciar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         botonIniciar.setText("Iniciar");
         botonIniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonIniciarActionPerformed(evt);
-            }
-        });
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    botonIniciarActionPerformed(evt);
+                }
+            });
 
         botonDetener.setFont(new java.awt.Font("Tahoma", 1, 14)); 
         botonDetener.setText("Reiniciar");
         botonDetener.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonDetenerActionPerformed(evt);
-            }
-        });
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    botonDetenerActionPerformed(evt);
+                }
+            });
 
         labelEvolucion.setFont(new java.awt.Font("Tahoma", 1, 14));
         labelEvolucion.setText("Evolucion: ");
@@ -107,31 +108,31 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelEvolucion)
-                        .addGap(252, 252, 252)
-                        .addComponent(botonIniciar)
-                        .addGap(57, 57, 57)
-                        .addComponent(botonDetener)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                                  layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                  .addGroup(layout.createSequentialGroup()
+                                            .addContainerGap()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                      .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                      .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(labelEvolucion)
+                                                                .addGap(252, 252, 252)
+                                                                .addComponent(botonIniciar)
+                                                                .addGap(57, 57, 57)
+                                                                .addComponent(botonDetener)))
+                                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                  );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelEvolucion)
-                    .addComponent(botonIniciar)
-                    .addComponent(botonDetener))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
+                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                          .addContainerGap()
+                                          .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                          .addGap(10, 10, 10)
+                                          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(labelEvolucion)
+                                                    .addComponent(botonIniciar)
+                                                    .addComponent(botonDetener))
+                                          .addContainerGap(21, Short.MAX_VALUE))
+                                );
 
         pack();
     }
