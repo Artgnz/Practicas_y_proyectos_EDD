@@ -66,20 +66,43 @@ public class Imagen extends JPanel {
             for (int j=1;j<matriz.length+1;j++) {
                 int aux1i = (sizeCell*(i-1)+i);
                 int aux1j = (sizeCell*(j-1)+j);
+
+                Color rojoSandía = new Color(255, 135, 124);
+                Color verdeSandía = new Color(69, 250, 176);
+                
+                Color azulAlgodon = new Color(79, 220, 206);
+                Color amarilloAlgodon = new Color(212, 183, 0);
+
+                Color azulPlaya = new Color(0, 179, 223);
+                Color carne = new Color(255, 213, 156);
+
+                Color verdeNautica = new Color(0, 194, 156);
+                Color azulNautica = new Color(42, 61, 82);
                switch (matriz [i-1][j-1]) {
                     case 0:
-                        gc.setColor(Color.YELLOW); break;
+                        gc.setColor(rojoSandía);
+                        break;
                     case 1:
-                        gc.setColor(Color.BLUE); break;
+                        gc.setColor(verdeSandía);
+                        break;
                     case 2:
-                        gc.setColor(Color.WHITE); break;
+                        gc.setColor(azulPlaya);
+                        break;
                     case 3:
-                        gc.setColor(Color.BLACK); break;
+                        gc.setColor(carne);
+                        break;
                     case 4:
-                        gc.setColor(Color.RED); break;
-                    case 5: 
-                        gc.setColor(Color.GREEN); break;
-                    
+                        gc.setColor(verdeNautica);
+                        break;
+                    case 5:
+                        gc.setColor(azulNautica);
+                        break;
+                    case 6:
+                        gc.setColor(amarilloAlgodon);
+                        break;
+                    case 7:
+                        gc.setColor(azulAlgodon);
+                        break;
                 }
                 gc.fillRect(aux1i,aux1j,sizeCell,sizeCell);
             }

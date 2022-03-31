@@ -1,8 +1,8 @@
 package edd.src.Estructuras;
 
 public class Pila<T> extends PushPop<T>{
-    
-    
+
+
     // Agregar al inicio.
     public void push(T elemento){
         if(elemento == null){
@@ -22,25 +22,23 @@ public class Pila<T> extends PushPop<T>{
 
     /**
      * Regresa un clon de la estructura.
-     * 
+     *
      * @return un clon de la estructura.
      */
     public Pila<T> clone(){
-        return clone(cabeza);
-    }
-
-    /**
-     * Regresa un clon de la estructura.
-     * 
-     * @param n Nodo actual
-     * @return un clon de la estructura.
-     */
-    private Pila<T> clone(Nodo n){
-        if (n == null) {
-            return new Pila<T>();
+        Pila<T> nueva = new Pila<T>();
+        Pila<T> aux = new Pila<T>();
+        if (this.isEmpty()) {
+            return nueva;
         }
-        Pila<T> nueva = clone(n.siguiente);
-        nueva.push(n.elemento);
+        Nodo aux2 = this.cabeza;
+        while(aux2 != null){
+            aux.push(aux2.elemento);
+            aux2 = aux2.siguiente;
+        }
+        while (!aux.isEmpty()) {
+            nueva.push(aux.pop());
+        }
         return nueva;
     }
 
@@ -57,5 +55,5 @@ public class Pila<T> extends PushPop<T>{
         return regreso;
     }
 
-    
+
 }
