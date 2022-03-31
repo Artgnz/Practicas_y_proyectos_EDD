@@ -56,7 +56,7 @@ public class Practica2 {
        Metodo que compara el tamanio del disco cabeza de dos pilas, para luego tomar el mas chico y meterlo en la otra pila.
        @param p1 Primer pila a comparar.
        @param p2 Segunda pila a comparar.
-     */
+    */
     private static void mover(Pila<Integer> p1, Pila<Integer> p2){
 
 	if((!p1.isEmpty()) && ((p2.isEmpty()) || (p1.peek() < p2.peek())) ) //Si p1 es no vacia y p2 es vacia o la cabeza de p1 es menor que la de p2, quitamos este disco de p1 y se lo apilamos a p2.
@@ -82,26 +82,36 @@ public class Practica2 {
 	System.out.println("pilarFinal < " + destino); //Estado de la pila final.
     }
 
+    /**
+     * Genera los números de 0 a N en binario.
+     * @param N Último número decimal a generar en binario.
+     */
     public static void binarioColas(int N){
+        System.out.println("0");
+        // Para guardar los números en binario.
         Cola<String> binario = new Cola<>();
+        // Agregamos el primer número en binario.
         binario.push("1");
-
         for (int i = 0; i < N; i++) {
-            String current = binario.pop();
-            binario.push(current + "0");
-            binario.push(current + "1");
-            System.out.println(current);
+            // Quitamos el primer elemento de la cola.
+            String actual = binario.pop();
+            binario.push(actual + "0");
+            binario.push(actual + "1");
+            System.out.println(actual);
         }
     }
 
     public static void main(String[] args) {
         // Escribe aqui tu codigo para probar los metodos anteriores.
+
         // No olvides comentar tu codigo y escribir tu nombre en el readme.
         Pila<Integer> pila = new Pila<>();
         pila.push(1);
         pila.push(2);
         pila.push(3);
         Pila<Integer> nueva = pila.clone();
+
+        // Prueba unitaria de clone de Pila
         if (!pila.equals(nueva)) {
             System.out.println("El método clone de Pila no sirve.");
         }
@@ -109,6 +119,11 @@ public class Practica2 {
         cola.push(1);
         cola.push(2);
         cola.push(3);
+        // Prueba unitaria de push de Cola.
+        if (cola.size() != 3) {
+            System.out.println("El método push de cola no sirve.");
+        }
+        // Prueba unitaria de toString de Cola.
         if (!cola.toString().equals("1, 2, 3")) {
             System.out.println("El método toString no sirve.");
         }
@@ -117,20 +132,28 @@ public class Practica2 {
         if (!cola.toString().equals("2, 3, 5")) {
             System.out.println("El método toString no sirve.");
         }
+
         Cola<Integer> copiaCola = cola.clone();
+        // Prueba unitaria de clone de Cola.
         if (!copiaCola.equals(cola)) {
             System.out.println("El método clone de Cola no sirve.");
         }
 
+        // Prueba unitaria de binarioColas
         for (int i = 1; i <= 10; i++) {
-            System.out.println("Binario de N: " + i + " números:");
+            System.out.println("Números en binario hasta: " + i);
             binarioColas(i);
         }
-        pila.empty();
-        pila.push(1);
-        pila.push(2);
-        pila.push(3);
-        System.out.println("Pila: " + pila);
 
+        Pila<Integer> origen = new Pila<>();
+        int cantidadDiscos = 4;
+        for (int i = 1; i <= cantidadDiscos; i++) {
+            origen.push(i);
+        }
+
+	//Prueba unitaria de torresHanoi
+	Pila<Integer> auxiliar = new Pila<>();
+	Pila<Integer> destino = new Pila<>();
+	torresHanoi(cantidadDiscos, origen, auxiliar, destino);
     }
 }
