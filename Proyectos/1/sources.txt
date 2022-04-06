@@ -1,0 +1,8 @@
+./src/Estructuras/Lista.java
+./src/Estructuras/IteradorLista.java
+./src/Estructuras/Collection.java
+./src/Estructuras/Pila.java
+./src/Estructuras/Practica2.java
+./src/Estructuras/Cola.java
+./src/Estructuras/PushPop.java
+./src/Jugador/Jugador.java
