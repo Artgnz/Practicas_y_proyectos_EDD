@@ -2,7 +2,13 @@
 ./src/Estructuras/IteradorLista.java
 ./src/Estructuras/Collection.java
 ./src/Estructuras/Pila.java
-./src/Estructuras/Practica2.java
 ./src/Estructuras/Cola.java
 ./src/Estructuras/PushPop.java
-./src/Jugador/Jugador.java
+./src/Elementos/Datos.java
+./src/Elementos/Carta.java
+./src/Elementos/Jugador.java
+./src/Elementos/Baraja.java
+./src/Interfaz/Interfaz.java
+./src/Logica/Juego.java
+./src/Logica/Truco.java
+./src/Logica/Ronda.java
