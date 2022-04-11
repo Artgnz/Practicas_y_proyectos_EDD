@@ -1,13 +1,10 @@
 package edd.src.Jugador;
 
-import Clases.Lista;
+import edd.src.Estructuras.*;
 
 public class Jugador {
     private String nombre;
-    private Lista<Carta> mano;
 
     public Jugador(String nombre) {
-        this.nombre = nombre;
-        mano = new Lista<>();
     }
 }
