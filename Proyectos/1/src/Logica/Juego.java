@@ -2,10 +2,10 @@ package edd.src.Logica;
 
 import java.util.Scanner;
 import java.util.Random;
+import java.util.Iterator;
 
-import edd.src.Jugador.*;
 import edd.src.Estructuras.*;
-
+import edd.src.Elementos.*;
 /*
   Variables:
   Lista<Carta> baraja HECHO
@@ -25,12 +25,28 @@ public class Juego {
 
     public Juego() {
         baraja = new Lista<>();
-        ronda = 1;
-        totalRondas = 1;
+        ronda = 0;
+        totalRondas = 0;
         numJugadores = 0;
         jugadores = new Lista<>();
+        inicializarBaraja();
     }
 
+    public void inicializarBaraja() {
+        String[] palos = {"rojo", "amarillo", "verde", "azul"};
+
+        for (int i = 0; i < palos.length; i++) {
+            for (int j = 1; j <= 13; j++) {
+                baraja.add(new Carta(i, palos[i]));
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            baraja.add(new Carta(0, "especial"));
+        }
+        for (int i = 0; i < 4; i++) {
+            baraja.add(new Carta(14, "especial"));
+        }
+    }
     public void agregaJugador(String nombre) {
         jugadores.add(new Jugador(nombre));
         numJugadores++;
@@ -38,8 +54,25 @@ public class Juego {
 
     public void jugar() {
         int totalRondas = 60 / numJugadores;
-        for (int i = 0; i < totalRondas; i++) {
-            barajearMazo();
+        for (int i = 0; i < 1; i++) {
+            ronda++;
+            jugarRonda();
+        }
+    }
+
+    public void jugarRonda() {
+        barajearMazo();
+        Iterator<Jugador> it = jugadores.iterator();
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            for (int j = 0; j < ronda; j++) {
+                jugador.recibeCarta(baraja.pop());
+            }
+            
+        }
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            baraja.append(jugador.devuelveCartas());
         }
     }
 
