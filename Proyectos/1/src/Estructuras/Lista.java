@@ -195,8 +195,16 @@ public class Lista<T> implements Collection<T> {
      * 
      * @return El elemento a sacar.
      */
-    public T pop(){
+    public T pop() {
+        if (longi == 0) {
+            throw new NoSuchElementException("");
+        }
         T valor = ultimo.elemento;
+        if (longi == 1) {
+            cabeza = ultimo = null;
+            longi = 0;
+            return valor;
+        }
         ultimo = ultimo.anterior;
         ultimo.siguiente = null;
         longi --;
