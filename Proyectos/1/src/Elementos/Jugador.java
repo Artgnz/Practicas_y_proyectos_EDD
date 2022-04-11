@@ -1,4 +1,4 @@
-package edd.src.Jugador;
+package edd.src.Elementos;
 
 import edd.src.Estructuras.*;
 
