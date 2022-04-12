@@ -23,13 +23,14 @@ public class Jugador {
         return this.mano;
     }
 
-    public Carta tomarCarta() {
-        /* Escoga su carta
-         * 1. Mago
-         * 2. Mago
-         * 3. rojo 6
-         */
-        return null;
+    public void tomarCarta(Carta carta) {
+        Iterator it = mano.iterador();
+        while (it.hasNext()) {
+            Carta tmp = it.next();
+            if (tmp.equals(carta)) {
+                mano.delete(carta);
+            }
+        }
     }
     
     public void setEstado(){
