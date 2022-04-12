@@ -2,6 +2,7 @@ package edd.src.Elementos;
 
 import edd.src.Estructuras.*;
 import java.lang.Math.*;
+import java.util.Iterator;
 
 public class Jugador {
 
@@ -20,7 +21,7 @@ public class Jugador {
     public void recibeCarta (Carta carta) {
         mano.add(carta);
     }
-    
+
     public String getNombre(){
 	return this.nombre;
     }
@@ -30,7 +31,7 @@ public class Jugador {
     }
 
     public void tomarCarta(Carta carta) {
-        Iterator it = mano.iterador();
+        Iterator<Carta> it = mano.iterator();
         while (it.hasNext()) {
             Carta tmp = it.next();
             if (tmp.equals(carta)) {
@@ -38,7 +39,7 @@ public class Jugador {
             }
         }
     }
-    
+
 
     public int getApuesta(){
 	return this.apuesta;
@@ -58,7 +59,7 @@ public class Jugador {
 
     public void calcularPuntaje(){
 	if(this.apuesta == this.trucosGanados)
-	    this.puntaje = this.puntaje + (20 + 10(this.trucosGanados));
+	    this.puntaje = this.puntaje + (20 + 10 * (this.trucosGanados));
 	else{
 	    this.puntaje = this.puntaje + (-10 * Math.abs(this.apuesta - this.trucosGanados));
 	}
