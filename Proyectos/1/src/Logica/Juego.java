@@ -32,8 +32,8 @@ public class Juego {
         boolean jugar = true;
         int totalRondas = 60 / numJugadores;
         for (int i = 1; i <= totalRondas; i++) {
-            ronda = new Ronda(baraja, jugadores);
-            jugar = ronda.jugar(i);
+            ronda = new Ronda(baraja, jugadores, i);
+            jugar = ronda.jugar();
             historial.append(ronda.getHistorial());
             if (!jugar) {
                 System.out.println("Historial de la partida:");
