@@ -1,18 +1,20 @@
 package edd.src.Jugador;
 
 import edd.src.Estructuras.*;
+import java.lang.Math.*;
 
 public class Jugador {
+
     private String nombre;
     private Lista<Carta> mano;
-    private boolean esBarajeador;
-    private Datos estado;
+    private int apuesta, trucosGanados, puntaje;
 
-    public Jugador(String nombre) {
+    public Jugador(String nombre){
         this.nombre = nombre;
-        this.mano = mano = new Lista<>();
-	this.esBarajeador = false;
-	this.estado = estado = new Datos();
+        this.mano = new Lista<>();
+	this.apuesta = 0;
+	this.trucosGanados = 0;
+	this.puntaje = 0;
     }
 
     public String getNombre(){
@@ -23,28 +25,33 @@ public class Jugador {
 	return this.mano;
     }
     
-    public boolean getEsBarajeador(){
-	return this.esBarajeador;
+
+    public int getApuesta(){
+	return this.apuesta;
     }
 
-    public Datos getEstado(){
-	return this.estado;
+    public void setApuesta(int apuesta){
+	this.apuesta = apuesta;
     }
 
-    public void setEsBarajeador(boolean esBarajeador){
-	this.esBarajeador = esBarajeador
+    public int getTrucosGanados(){
+	return this.trucosGanados;
     }
 
-    public void setEstado(){
+    public void setTrucosGanados(int trucos){
+	this.trucosGanados = trucos;
+    }
 
+    public void calcularPuntaje(){
+	if(this.apuesta == this.trucosGanados)
+	    this.puntaje = this.puntaje + (20 + 10(this.trucosGanados));
+	else{
+	    this.puntaje = this.puntaje + (-10 * Math.abs(this.apuesta - this.trucosGanados));
+	}
     }
 
     @Override
     public String toString(){
-       if(this.esBarajeador == true)
-	return "Nombre: " + this.nombre + "\n Mano: " + this.mano.toString() +"\n Barajea : Si. \n Estado:" + this.estado.toString();
-
-       if(this.esBarajeador == false)
-	return "Nombre: " + this.nombre + "\n Mano: " + this.mano.toString() +"\n Barajea : No. \n Estado:" + this.estado.toString(); 
+	   return "Nombre: " + this.nombre + "\n Mano: " + this.mano.toString() + "\n Trucos ganados:" + this.trucosGanados + "\n Puntaje: " + this.puntaje ;
     }
 }

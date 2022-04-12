@@ -20,22 +20,22 @@ public class Carta {
 	return this.palo;
     }
 
-    public void setJugadoPor(Jugador jugadoPor){
-	this.jugadoPor = jugadoPor;
-    }
-
     public Jugador getJugadoPor(){
 	return this.jugadoPor;
     }
 
+    public void setJugadoPor(Jugador jugadoPor){
+	this.jugadoPor = jugadoPor;
+    }
+    
     @Override
     public String toString(){
 	if(this.numero == 0)
-	    return "Tipo: Bufon. \n Palo: Especial. \n Jugador:" + this.jugadoPor.getNombre();
+	    return "Tipo: Bufon.";
 	if(this.numero == 14)
-	    return "Tipo: Wizard. \n Palo: Especial. \n Jugador:" + this.jugadoPor.getNombre();
+	    return "Tipo: Wizard.";
 	else{
-	    return "Numero: " + this.numero + "\n Palo: " + this.palo "\n Jugador: " + this.jugadoPor.getNombre();
+	    return "Numero: " + this.numero + "\n Palo: " + this.palo;
 	}
     }
 }
