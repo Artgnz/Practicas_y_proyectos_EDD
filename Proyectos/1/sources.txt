@@ -4,7 +4,6 @@
 ./src/Estructuras/Pila.java
 ./src/Estructuras/Cola.java
 ./src/Estructuras/PushPop.java
-./src/Elementos/Datos.java
 ./src/Elementos/Carta.java
 ./src/Elementos/Jugador.java
 ./src/Elementos/Baraja.java
