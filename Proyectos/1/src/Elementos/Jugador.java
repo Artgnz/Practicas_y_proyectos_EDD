@@ -1,4 +1,4 @@
-package edd.src.Jugador;
+package edd.src.Elementos;
 
 import edd.src.Estructuras.*;
 import java.lang.Math.*;
@@ -12,17 +12,30 @@ public class Jugador {
     public Jugador(String nombre){
         this.nombre = nombre;
         this.mano = new Lista<>();
-	this.apuesta = 0;
-	this.trucosGanados = 0;
-	this.puntaje = 0;
+      	this.apuesta = 0;
+      	this.trucosGanados = 0;
+      	this.puntaje = 0;
     }
 
+    public void recibeCarta (Carta carta) {
+        mano.add(carta);
+    }
+    
     public String getNombre(){
 	return this.nombre;
     }
 
     public Lista<Carta> getMano(){
-	return this.mano;
+        return this.mano;
+    }
+
+    public Carta tomarCarta() {
+        /* Escoga su carta
+         * 1. Mago
+         * 2. Mago
+         * 3. rojo 6
+         */
+        return null;
     }
     
 
