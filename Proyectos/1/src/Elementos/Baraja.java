@@ -30,14 +30,15 @@ public class Baraja {
         Carta[] tmpBaraja = new Carta[baraja.size()];
 
         int indice = 0;
+
         while (!baraja.isEmpty()) {
             tmpBaraja[indice] = baraja.pop();
             indice++;
         }
 
-        Random rand = new Random();
+        Random rand = new Random(System.currentTimeMillis());
 
-        for (int i = baraja.size() - 1; i >= 0; i--) {
+        for (int i = tmpBaraja.length - 1; i >= 0; i--) {
             int paraCambiar = rand.nextInt(tmpBaraja.length - i);
             Carta tmp = tmpBaraja[paraCambiar];
             tmpBaraja[paraCambiar] = tmpBaraja[i];
