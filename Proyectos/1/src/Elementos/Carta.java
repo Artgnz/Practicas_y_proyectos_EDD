@@ -20,16 +20,17 @@ public class Carta {
 	return this.palo;
     }
 
-    public void setJugadoPor(Jugador jugadoPor){
-	this.jugadoPor = jugadoPor;
-    }
-
     public Jugador getJugadoPor(){
 	return this.jugadoPor;
     }
 
+    public void setJugadoPor(Jugador jugadoPor){
+	this.jugadoPor = jugadoPor;
+    }
+    
     @Override
     public String toString(){
+
         if(this.numero == 0) {
             return "Tipo: Bufon.";
         }
