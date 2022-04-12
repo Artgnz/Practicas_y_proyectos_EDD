@@ -1,7 +1,5 @@
 package edd.src.Interfaz;
 
-import edd.src.Jugador.*;
-
 import java.util.Scanner;
 import edd.src.Estructuras.*;
 import edd.src.Elementos.*;
@@ -44,6 +42,7 @@ public class Interfaz {
         juego = new Juego();
         System.out.println("Bienvenido al juego Wizard.");
         int numJugadores= getInt("Ingrese la cantidad de jugadores (3-6).", "Ingrese una opción válida.", 3, 6);
+        scn.nextLine();
         for (int i = 1; i <= numJugadores; i++) {
             String nombre = "";
             while (nombre.isEmpty()) {
@@ -52,5 +51,6 @@ public class Interfaz {
             }
             juego.agregaJugador(nombre);
         }
+        juego.jugar();
     }
 }

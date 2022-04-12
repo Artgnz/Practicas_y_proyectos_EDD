@@ -11,7 +11,7 @@ public class Carta {
 	this.palo = palo;
 	this.jugadoPor = null;
     }
-    
+
     public int getNumero(){
 	return this.numero;
     }
@@ -30,12 +30,15 @@ public class Carta {
     
     @Override
     public String toString(){
-	if(this.numero == 0)
-	    return "Tipo: Bufon.";
-	if(this.numero == 14)
-	    return "Tipo: Wizard.";
-	else{
-	    return "Numero: " + this.numero + "\n Palo: " + this.palo;
-	}
+
+        if(this.numero == 0) {
+            return "Tipo: Bufon.";
+        }
+        else if (this.numero == 14) {
+            return "Tipo: Wizard.";
+        }
+        else {
+            return "Numero: " + this.numero + "\n Palo: " + this.palo;
+        }
     }
 }
