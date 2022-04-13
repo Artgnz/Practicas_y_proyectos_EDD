@@ -86,7 +86,7 @@ public class Truco {
     private Jugador primerJugador;
     private Lista<String> historial;
 
-    public Truco(Lista<Jugador> jugadores, Jugador primerJugador, String paloDeTriunfo) {
+    public Truco(Lista<Jugador> jugadores, Jugador primerJugador, String paloDeTriunfo, Lista<String> historial) {
 	this.primerJugador = primerJugador;
 	this.jugadores = jugadores;
 	this.paloTriunfo = paloDeTriunfo;
@@ -94,7 +94,7 @@ public class Truco {
 	this.cartaGanadora = null;
 	this.jugadorGanador = null;
 	this.mesa = new Mesa();
-	historial = new Lista<>();
+	this.historial = historial;
     }
 
     public boolean jugar() {
@@ -104,7 +104,8 @@ public class Truco {
 	calcularCartaGanadora();
 	calcularGanador();
 	System.out.println("Truco ganado por: " + getGanador().getNombre());
-	historial.add("Truco ganado por: " + getGanador().getNombre() + "\n");
+	System.out.println();
+	historial.add("Truco ganado por: " + getGanador().getNombre() + "\n\n");
 	jugadorGanador.incrementarTrucosGanados();
 	return true;
     }
@@ -132,6 +133,7 @@ public class Truco {
 		    }
 		    it = jugadores.iterator();
 		}
+		return true;
 	    }
 	}
 	return true;
@@ -142,15 +144,14 @@ public class Truco {
 	Lista<Carta> manoFiltrada = jugador.getMano();
 	String mensaje = "";
 	if (paloTriunfo == null) {
-	    mensaje += "No hay palo de triunfo\n";
+	    mensaje += "No hay palo de triunfo.\n";
 	} else {
-	    mensaje += "Palo de triunfo " + paloTriunfo + "\n";
+	    mensaje += "Palo de triunfo " + paloTriunfo + ".\n";
 	}
 	if (paloLider == null) {
-	    mensaje += "No hay palo lider\n";
+	    mensaje += "No hay palo lider.\n\n";
 	} else {
-	    mensaje += "Palo lider " + paloLider + "\n";
-
+	    mensaje += "Palo lider " + paloLider + ".\n\n";
 	}
 	mensaje += "Es el turno de " + jugador.getNombre() + ", esta es su mano:\n";
 	int contador = 1;
@@ -160,30 +161,38 @@ public class Truco {
 	    mensaje += contador + ".\n" + carta.toString() + "\n";
 	    contador++;
 	}
-	mensaje += "Escoja una carta válida:";
-	mensaje += "Escriba -1 si desea concluir la partida:";
+	mensaje += "\nEscoja el índice de la carta que desea usar.\n";
+	mensaje += "Escriba -1 si desea concluir la partida.\n";
+	mensaje += "Escriba -2 si desea ver el historial.\n";
+
 	while (true) {
-	    int opcion = Interfaz.getInt(mensaje, "Ingrese una opción válida.", -1, manoFiltrada.size());
+	    int opcion = Interfaz.getInt(mensaje, "Ingrese una opción válida.", -2, manoFiltrada.size());
 	    if (opcion == -1) {
 		System.out.println(jugador.getNombre() + " terminó la partida.\n");
-		historial.add("\t" + jugador.getNombre() + " terminó la partida.\n");
+		historial.add(jugador.getNombre() + " terminó la partida.\n\n");
 		return false;
-	    }
-	    Interfaz.ignoreLine();
-	    Carta carta = tomarCartaIndice(manoFiltrada, opcion);
-	    System.out.println(carta);
+	    } else if (opcion == -2) {
+		System.out.println("Historial de la partida:");
+		imprimirHistorial();
+		System.out.println();		
+	    } else {
+		Interfaz.ignoreLine();
+		Carta carta = tomarCartaIndice(manoFiltrada, opcion);
 
-	    if (tomarCartaValida(manoFiltrada, carta)) {
-		if (paloLider == null && !carta.getPalo().equals("especial")) {
-		    paloLider = carta.getPalo();
+		if (tomarCartaValida(manoFiltrada, carta)) {
+		    if (paloLider == null && !carta.getPalo().equals("especial")) {
+			paloLider = carta.getPalo();
+		    }
+		    historial.add(jugador.getNombre() + " jugó:\n" + carta.toString() + "\n\n");
+		    System.out.println(jugador.getNombre() + " jugó:\n" + carta.toString() + "\n");
+		    carta.setJugadoPor(jugador);
+		    mesa.meterCarta(carta);
+		    jugador.tomarCarta(carta);
+		    break;
 		}
-		historial.add(jugador.getNombre() + " jugó:\n" + carta.toString() + "\n");
-		carta.setJugadoPor(jugador);
-		mesa.meterCarta(carta);
-		jugador.tomarCarta(carta);
-		break;
 	    }
 	}
+	System.out.println("");
 	return true;
     }
 
@@ -213,7 +222,7 @@ public class Truco {
 	if (carta.getPalo().equals(paloLider)) {
 	    return true;
 	}
-	if (carta.getPalo().equals("especiale")) {
+	if (carta.getPalo().equals("especial")) {
 	    return true;
 	}
 	return false;
@@ -251,5 +260,11 @@ public class Truco {
     }
     public Lista<String> getHistorial() {
 	return historial;
+    }
+    public void imprimirHistorial() {
+        Iterator<String> it = historial.iterator();
+        while (it.hasNext()) {
+            System.out.print(it.next());
+        }
     }
 }
