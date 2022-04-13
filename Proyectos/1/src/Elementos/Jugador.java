@@ -67,9 +67,41 @@ public class Jugador {
 	    this.puntaje = this.puntaje + (-10 * Math.abs(this.apuesta - this.trucosGanados));
 	}
     }
+    public int getPuntaje() {
+        return puntaje;
+    }
 
     @Override
     public String toString(){
 	   return "Nombre: " + this.nombre + "\n Mano: " + this.mano.toString() + "\n Trucos ganados:" + this.trucosGanados + "\n Puntaje: " + this.puntaje ;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Jugador)) {
+            return false;
+        }
+        Jugador otro = (Jugador) obj;
+        if (!otro.getNombre().equals(getNombre())) {
+            return false;
+        }
+        if (!otro.getMano().equals(getMano())) {
+            return false;
+        }
+
+        if (!(otro.getApuesta() == getApuesta())) {
+            return false;
+        }
+        if (!(otro.getTrucosGanados() == getTrucosGanados())) {
+            return false;
+        }
+        if (!(otro.getPuntaje() == getPuntaje())) {
+            return false;
+        }
+
+        return true;
     }
 }

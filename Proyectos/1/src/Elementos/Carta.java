@@ -45,19 +45,19 @@ public class Carta {
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
-     G       return false;
+            return false;
         }
         if (!(obj instanceof Carta)) {
             return false;
         }
-        Carta carta = (Carta) obj;
-        if (carta.getNumero() != getNumero()) {
+        Carta otro = (Carta) obj;
+        if (otro.getNumero() != getNumero()) {
             return false;
         } 
-        if (!carta.getPalo().equals(getPalo())) {
+        if (!otro.getPalo().equals(getPalo())) {
             return false;
         }
-        if (!carta.getJugadoPor().equals(getJugadoPor())) {
+        if (!otro.getJugadoPor().equals(getJugadoPor())) {
             return false;
         }
         return true;
