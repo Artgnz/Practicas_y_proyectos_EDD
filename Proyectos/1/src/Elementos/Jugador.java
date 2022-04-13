@@ -53,6 +53,7 @@ public class Jugador {
     public void incrementarTrucosGanados(){
 	this.trucosGanados = this.trucosGanados + 1;
     }
+
     public void calcularPuntaje(){
 	if(this.apuesta == this.trucosGanados)
 	    this.puntaje = this.puntaje + (20 + 10 * (this.trucosGanados));

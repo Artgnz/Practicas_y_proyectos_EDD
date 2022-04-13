@@ -97,13 +97,16 @@ public class Truco {
 	historial = new Lista<>();
     }
 
-    public void jugar() {
-	pedirCartas();
+    public boolean jugar() {
+	if (!pedirCartas()) {
+	    return false;
+	}
 	calcularCartaGanadora();
 	calcularGanador();
 	System.out.println("Truco ganado por: " + getGanador().getNombre());
 	historial.add("Truco ganado por: " + getGanador().getNombre() + "\n");
 	jugadorGanador.incrementarTrucosGanados();
+	return true;
     }
 
     public void calcularGanador() {
@@ -113,7 +116,7 @@ public class Truco {
 	return jugadorGanador;
     }
 
-    public void pedirCartas() {
+    public boolean pedirCartas() {
 	Iterator<Jugador> it = jugadores.iterator();
 	int contador = 0;
 	while (it.hasNext()) {
@@ -121,7 +124,9 @@ public class Truco {
 	    if (jugador.equals(primerJugador)) {
 		while (contador < jugadores.size()) {
 		    while (it.hasNext() && contador < jugadores.size()) {
-			jugarCarta(jugador);
+			if (!jugarCarta(jugador)) {
+			    return false;
+			}
 			jugador = it.next();
 			contador++;
 		    }
@@ -129,14 +134,25 @@ public class Truco {
 		}
 	    }
 	}
+	return true;
     }
 
-    private void jugarCarta(Jugador jugador) {
+    private boolean jugarCarta(Jugador jugador) {
 
-	Lista<Carta> manoFiltrada = filrarMano(jugador.getMano());
-	System.out.println("----------");
+	Lista<Carta> manoFiltrada = jugador.getMano();
+	String mensaje = "";
+	if (paloTriunfo == null) {
+	    mensaje += "No hay palo de triunfo\n";
+	} else {
+	    mensaje += "Palo de triunfo " + paloTriunfo + "\n";
+	}
+	if (paloLider == null) {
+	    mensaje += "No hay palo lider\n";
+	} else {
+	    mensaje += "Palo lider " + paloLider + "\n";
 
-	String mensaje = "Es el turno de " + jugador.getNombre() + ", escoja una carta:\n";
+	}
+	mensaje += "Es el turno de " + jugador.getNombre() + ", esta es su mano:\n";
 	int contador = 1;
 	Iterator<Carta> it = manoFiltrada.iterator();
 	while (it.hasNext()) {
@@ -144,13 +160,20 @@ public class Truco {
 	    mensaje += contador + ".\n" + carta.toString() + "\n";
 	    contador++;
 	}
-	int opcion = Interfaz.getInt(mensaje, "Ingrese una opción válida", 1, manoFiltrada.size());
-	Interfaz.ignoreLine();
-	contador = 1;
-	it = manoFiltrada.iterator();
-	while (it.hasNext()) {
-	    Carta carta = it.next();
-	    if (contador == opcion) {
+	mensaje += "Escoja una carta válida:";
+	mensaje += "Escriba -1 si desea concluir la partida:";
+	while (true) {
+	    int opcion = Interfaz.getInt(mensaje, "Ingrese una opción válida.", -1, manoFiltrada.size());
+	    if (opcion == -1) {
+		System.out.println(jugador.getNombre() + " terminó la partida.\n");
+		historial.add("\t" + jugador.getNombre() + " terminó la partida.\n");
+		return false;
+	    }
+	    Interfaz.ignoreLine();
+	    Carta carta = tomarCartaIndice(manoFiltrada, opcion);
+	    System.out.println(carta);
+
+	    if (tomarCartaValida(manoFiltrada, carta)) {
 		if (paloLider == null && !carta.getPalo().equals("especial")) {
 		    paloLider = carta.getPalo();
 		}
@@ -160,10 +183,40 @@ public class Truco {
 		jugador.tomarCarta(carta);
 		break;
 	    }
+	}
+	return true;
+    }
+
+    private Carta tomarCartaIndice(Lista<Carta> mano, int indice) {
+	Iterator<Carta> it = mano.iterator();
+	int contador = 1;
+	while(it.hasNext()){
+	    Carta carta = it.next();
+	    if (contador == indice) {
+		return carta;
+	    }
 	    contador++;
 	}
-	System.out.println("----------");
 
+	return null;
+    }
+    private boolean tomarCartaValida(Lista<Carta> mano, Carta carta) {
+	if (carta == null) {
+	    return false;
+	}
+	if (paloLider == null) {
+	    return true;
+	}
+	if (!contienePalo(mano, paloLider)) {
+	    return true;
+	}
+	if (carta.getPalo().equals(paloLider)) {
+	    return true;
+	}
+	if (carta.getPalo().equals("especiale")) {
+	    return true;
+	}
+	return false;
     }
 
     private boolean contienePalo(Lista<Carta> mano, String palo){
@@ -174,23 +227,7 @@ public class Truco {
 		return true;
 	    }
 	}
-	return false;   
-    }
-
-    private Lista<Carta> filrarMano(Lista<Carta> mano) {
-	if (paloLider == null || !contienePalo(mano, paloLider)) {
-	    return mano;
-	}
-
-	Lista<Carta> manoFiltrada = new Lista<>();
-	Iterator<Carta> it = mano.iterator();
-	while (it.hasNext()) {
-	    Carta carta = it.next();
-	    if (carta.getPalo().equals(paloLider) || carta.getPalo().equals("especial")) {
-		manoFiltrada.add(carta);
-	    }
-	}
-	return manoFiltrada;
+	return false;
     }
 
     public void calcularCartaGanadora(){

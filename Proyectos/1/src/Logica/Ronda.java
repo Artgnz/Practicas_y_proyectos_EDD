@@ -108,39 +108,91 @@ public class Ronda {
      * @return boolean Si no se forzó la terminación de la partida.
      */
     public boolean jugar() {
+        Iterator<Jugador> it = jugadores.iterator();
+
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            jugador.setTrucosGanados(0);
+        }
+
         historial.add("\nInicio de ronda: " + numRonda + "\n");
         System.out.println("Inicio de ronda: " + numRonda + "\n");
         baraja.barajear();
-        System.out.println("La baraja tiene: " + baraja.tamano());
         repartirCartas();
-        System.out.println("La baraja tiene después de reparitr: " + baraja.tamano());
         // Si se forzó la terminación de la partida
         if (!escogerPaloDeTriunfo()) {
+            agregarPuntajesHistorial();
             return false;
         }
         // Si se forzó la terminación de la partida
         if (!pedirApuestas()) {
+            agregarPuntajesHistorial();
             return false;
         }
-        System.out.println("Antes de trucos: " + baraja.tamano());
-        jugarTrucos();
-        System.out.println("Después de trucos: " + baraja.tamano());
+        if (!jugarTrucos()) {
+            agregarPuntajesHistorial();
+            return false;
+        }
+        calcularPuntajes();
         barajeador = null;
+        agregarPuntajesHistorial();
         historial.add("Fin de ronda: " + numRonda + "\n");
         System.out.println("Fin de ronda: " + numRonda + "\n");
         return true;
     }
 
-    private void jugarTrucos() {
+    private void agregarPuntajesHistorial() {
+        Iterator<Jugador> it = jugadores.iterator();
+
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            historial.add(jugador.getNombre() + " tiene un puntaje de: " +             jugador.getPuntaje() + "\n");
+        }
+    }
+
+    public Lista<Jugador> getGanadores() {
+        Lista<Jugador> ganadores = new Lista<>();
+        int max = Integer.MIN_VALUE;
+        Iterator<Jugador> it = jugadores.iterator();
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            System.out.println(jugador.getNombre() + " tiene el puntaje de " + jugador.getPuntaje());
+
+            if (jugador.getPuntaje() > max) {
+                max = jugador.getPuntaje();
+            }
+
+        }
+        it = jugadores.iterator();
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            if (jugador.getPuntaje() == max) {
+                ganadores.add(jugador);
+            }
+        }
+        return ganadores;
+    }
+    private void calcularPuntajes() {
+        Iterator<Jugador> it = jugadores.iterator();
+
+        while (it.hasNext()) {
+            Jugador jugador = it.next();
+            jugador.calcularPuntaje();
+        }
+    }
+    private boolean jugarTrucos() {
         Jugador primerJugador = barajeador;
         for (int i = 0; i < numRonda; i++) {
             Truco truco = new Truco(jugadores, primerJugador, paloDeTriunfo);
-            truco.jugar();
+            if (!truco.jugar()) {
+                return false;
+            }
             // truco.getGanador();
             System.out.println(baraja.tamano());
             baraja.devolverCartas(truco.getCartasUsadas());
             historial.append(truco.getHistorial());
         }
+        return true;
     }
 
     /**
