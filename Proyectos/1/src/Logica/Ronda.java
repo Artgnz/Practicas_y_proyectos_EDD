@@ -115,9 +115,11 @@ public class Ronda {
             Jugador jugador = it.next();
             jugador.setTrucosGanados(0);
         }
-
+        historial.add("--------------------");
+        System.out.println("--------------------");
         historial.add("\nInicio de ronda: " + numRonda + "\n\n");
         System.out.println("Inicio de ronda: " + numRonda + "\n");
+
         baraja.barajear();
         repartirCartas();
         // Si se forzó la terminación de la partida
@@ -143,6 +145,8 @@ public class Ronda {
         agregarPuntajesHistorial();
         historial.add("Fin de ronda: " + numRonda + "\n");
         System.out.println("Fin de ronda: " + numRonda + "\n");
+        historial.add("--------------------");
+        System.out.println("--------------------");
         return true;
     }
 
@@ -182,7 +186,7 @@ public class Ronda {
 
         while (it.hasNext()) {
             Jugador jugador = it.next();
-            System.out.println(jugador.getNombre() + " tiene un puntaje de: " +             jugador.getPuntaje());
+            System.out.println(jugador.getNombre() + " tiene un puntaje de: " + jugador.getPuntaje());
         }
         System.out.println();
     }
@@ -197,13 +201,21 @@ public class Ronda {
     private boolean jugarTrucos() {
         Jugador primerJugador = obtenerJugadorDespuesDeBarajeador();
 
-        for (int i = 0; i < numRonda; i++) {
+        for (int i = 1; i <= numRonda; i++) {
             Truco truco = new Truco(jugadores, primerJugador, paloDeTriunfo, historial);
+            historial.add("********************\n");
+            System.out.println("********************\n");
+            historial.add("Inicio de truco: " + i + ".\n\n");
+            System.out.println("Inicio de truco: " + i + ".\n");
             if (!truco.jugar()) {
                 return false;
             }
             primerJugador = truco.getGanador();
             baraja.devolverCartas(truco.getCartasUsadas());
+            historial.add("Fin de truco: " + i + "\n\n");
+            System.out.println("Fin de truco: " + i + "\n");
+            historial.add("********************\n");
+            System.out.println("********************\n");
         }
         return true;
     }
