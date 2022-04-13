@@ -5,6 +5,11 @@ import edd.src.Estructuras.*;
 import edd.src.Elementos.*;
 import edd.src.Logica.*;
 
+/**
+ *Clase encargada de mostrar la interfaz del juego Wizard y de ejecutar todo el programa.
+ * @author Arturo González Peñaloza
+ * @author Arsenio Raudry Rico
+ */
 public class Interfaz {
     private static Scanner scn;
     private static Juego juego;
@@ -37,7 +42,12 @@ public class Interfaz {
         }
     }
 
-
+    /**
+     *Metodo que pide al usiario un String
+     * @param mensaje Un mensaje que le indica al usuario que opciones puede ingresar.
+     * @param error Mensaje que indica que se introdujo una opción inválida.
+     * @param opciones Strings validos que puede insertar el usuario..
+     */
     public static String getString(String mensaje, String error, String[] opciones) {
         String entrada;
 
@@ -58,14 +68,21 @@ public class Interfaz {
         }
     }
 
+    /**
+     *Hace que el scanner pase a la siguiente linea.
+     */
     public static void ignoreLine() {
         scn.nextLine();
     }
 
+    /**
+     *Metodo main que inicializa todo el juego Wizard.
+     @param args Los argumentos de entrada.
+     */
     public static void main(String[] args) {
         scn = new Scanner(System.in);
 
-        juego = new Juego();
+        juego = new Juego(); //Crea un juego.
         System.out.println("Bienvenido al juego Wizard.");
         int numJugadores= getInt("Ingrese la cantidad de jugadores (3-6).", "Ingrese una opción válida.", 3, 6);
         scn.nextLine();
@@ -75,8 +92,8 @@ public class Interfaz {
                 System.out.println("Ingrese el nombre del jugador " + i);
                 nombre = scn.nextLine();
             }
-            juego.agregaJugador(nombre);
+            juego.agregaJugador(nombre); //Agrega los jugadores.
         }
-        juego.jugar();
+        juego.jugar(); //Comienza el juego.
     }
 }

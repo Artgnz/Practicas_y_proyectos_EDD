@@ -141,6 +141,9 @@ public class Ronda {
         return true;
     }
 
+    /**
+       Agrega los puntajes de cada jugador al historial en la ronda.
+     */
     private void agregarPuntajesHistorial() {
         Iterator<Jugador> it = jugadores.iterator();
 
@@ -150,6 +153,10 @@ public class Ronda {
         }
     }
 
+    /**
+       Devuelve en una lista los jugadores ganadores de la ronda.
+       *@return Lista<Jugador> Los ganadores de la ronda.
+     */
     public Lista<Jugador> getGanadores() {
         Lista<Jugador> ganadores = new Lista<>();
         int max = Integer.MIN_VALUE;
@@ -172,6 +179,10 @@ public class Ronda {
         }
         return ganadores;
     }
+
+    /**
+     Calcula el puntaje de cada jugador.
+     */
     private void calcularPuntajes() {
         Iterator<Jugador> it = jugadores.iterator();
 
@@ -180,6 +191,11 @@ public class Ronda {
             jugador.calcularPuntaje();
         }
     }
+
+    /**
+     *Juega los trucos correspondientes a la ronda.
+     @return boolean Si no se forzo la terminacion de la partida.
+     */
     private boolean jugarTrucos() {
         Jugador primerJugador = barajeador;
         for (int i = 0; i < numRonda; i++) {

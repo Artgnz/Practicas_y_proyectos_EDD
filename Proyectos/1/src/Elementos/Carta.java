@@ -58,5 +58,6 @@ public class Carta {
             return false;
         }
         return true;
+
     }
 }

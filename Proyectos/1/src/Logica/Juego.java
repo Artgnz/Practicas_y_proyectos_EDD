@@ -6,15 +6,46 @@ import edd.src.Estructuras.*;
 import edd.src.Elementos.*;
 import edd.src.Interfaz.*;
 
+/**
+ *Clase que representa el desarrollo de un juego de Wizard.
+ * @author Arturo González Peñaloza
+ * @author Arsenio Raudry Rico
+ */
 public class Juego {
 
+    /**
+     * Baraja con la 60 cartas del juego.
+     */
     private Baraja baraja;
+
+    /**
+     *Cantidad de rondas a jugar.
+    */
     private int totalRondas;
+
+    /**
+     *Ronda actual.
+     */
     private Ronda ronda;
+
+    /**
+     *Cantidad de jugadores a participar.
+     */
     private int numJugadores;
+
+    /**
+     * Lista con los jugadores a participar.
+     */
     private Lista<Jugador> jugadores;
+
+    /**
+     *Historial del juego.
+     */
     private Lista<String> historial;
 
+    /**
+     *Constructor sin parametros de Juego.
+     */
     public Juego() {
         baraja = new Baraja();
         totalRondas = 0;
@@ -23,20 +54,27 @@ public class Juego {
         historial = new Lista<>();
     }
 
+    /**
+     *Agrega jugadores al juego.
+     *@param nombre Nombre del jugador a ingresar.
+     */
     public void agregaJugador(String nombre) {
         jugadores.add(new Jugador(nombre));
         numJugadores++;
     }
 
+    /**
+     *Comienza un juego .
+     */
     public void jugar() {
         boolean jugar = true;
-        int totalRondas = 60 / numJugadores;
+        int totalRondas = 60 / numJugadores; //Determina la cantidad de rondas a partir del numero de jugadores.
         for (int i = 1; i <= totalRondas; i++) {
-            ronda = new Ronda(baraja, jugadores, i);
-            jugar = ronda.jugar();
-            historial.append(ronda.getHistorial());
+            ronda = new Ronda(baraja, jugadores, i);//Crea una nueva ronda.
+            jugar = ronda.jugar();//Juega la ronda.
+            historial.append(ronda.getHistorial()); //Incluye el historial de la ronda.
 
-            if (!jugar) {
+            if (!jugar) {//Si se interrumpe la ronda, se obtiene el/los ganador(es) hasta ese momento.
                 Lista<Jugador> ganadores = ronda.getGanadores();
                 if (ganadores.size() == 1) {
                     System.out.println("El jugador que iba ganando es:");
@@ -48,7 +86,7 @@ public class Juego {
                 imprimirHistorial();
                 return;
             }
-            if (i == totalRondas) {
+            if (i == totalRondas) { //Tras jugar todas las rondas se obtienen el/los ganador(es) finales.
                 Lista<Jugador> ganadores = ronda.getGanadores();
                 if (ganadores.size() == 1) {
                     System.out.println("El ganador es:");
@@ -60,6 +98,10 @@ public class Juego {
         }
     }
 
+    /**
+     *Imprime a los ganadores del juego.
+     *@param ganadores Lista de ganadores a imprimir.
+     */
     private void imprimirGanadores(Lista<Jugador> ganadores) {
         Iterator<Jugador> it = ganadores.iterator();
         while (it.hasNext()) {
@@ -67,6 +109,10 @@ public class Juego {
             System.out.println(jugador.getNombre() + " con un puntaje de: " + jugador.getPuntaje());
         }
     }
+
+    /**
+     Imprime el historial hasta el momento del juego.
+     */
     public void imprimirHistorial() {
         Iterator<String> it = historial.iterator();
         while (it.hasNext()) {
