@@ -62,5 +62,4 @@ public class Baraja {
     public void devolverCartas(Lista<Carta> cartas) {
         baraja.append(cartas);
     }
-
 }

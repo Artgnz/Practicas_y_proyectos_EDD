@@ -79,14 +79,16 @@ public class Truco {
     private Carta cartaGanadora;
     private Jugador jugadorGanador;
     private Mesa mesa;
-    
+    private Jugador primerJugador;
     /* lista de cartas en mesa
      * palo lider
      * carta ganadora
      * Lista de jugadores
      */
-    public Truco() {
-	this.jugadores = null;
+    public Truco(Lista<Jugador> jugadores, Jugador primerJugador, String paloDeTriunfo) {
+	this.primerJugador = primerJugador;
+	this.jugadores = jugadores;
+	this.paloTriunfo = paloDeTriunfo;
 	this.paloLider = null;
 	this.cartaGanadora = null;
 	this.jugadorGanador = null;
@@ -104,9 +106,28 @@ public class Truco {
 
         //     }
         // }
-	this.calcularCartaGanadora();
-	this.jugadorGanador = this.cartaGanadora.getJugadoPor();
-	this.jugadorGanador.incrementarTrucosGanados();
+	calcularCartaGanadora();
+	jugadorGanador = cartaGanadora.getJugadoPor();
+	jugadorGanador.incrementarTrucosGanados();
+    }
+
+    public void pedirCartas() {
+	Iterator<Jugador> it = jugadores.iterator();
+	while (it.hasNext()) {
+	    Jugador jugador = it.next();
+	    if (jugador.equals(primerJugador)) {
+		int contador = 1;
+		// QUE JUEGUE 
+		while (contador < jugadores.size()) {
+		    while (it.hasNext()) {
+			jugador = it.next();
+			// QUE JUEGUE
+			contador++;
+		    }
+		    it = jugadores.iterator();
+		}
+	    }
+	}
     }
 
     public void calcularCartaGanadora(){
@@ -125,10 +146,4 @@ public class Truco {
 	    }
 	}
     }
-    
-    /*
-    * Arreglo de n elementos cada uno con una carta del mazo
-     * 1.. n escoge carta
-     * 
-     */
 }

@@ -271,11 +271,31 @@ public class Lista<T> implements Collection<T> {
      *         <tt>false</tt> en otro caso.
      */
     public boolean equals(Collection<T> coleccion){
-        // lo vemos en clase
-        if(coleccion instanceof Lista) {
+        if (!(o instanceof Lista) ) {
+            System.out.println("El ejemplar no es una lista");
+            return false;
+        }
+        @SuppressWarnings("unchecked") Lista<T> lista2 = (Lista<T>)o;
+        if (this.longi != lista2.longi) {
+            System.out.println("Los tamaños no son iguales.");
+            return false;
+        }
+        if(this.isEmpty() && lista2.isEmpty()){
             return true;
         }
-        return false;
+        if( (this.isEmpty() && !lista2.isEmpty()) || (lista2.isEmpty() && !this.isEmpty())){
+            return false;
+        }
+        Nodo aux1 = this.cabeza;
+        Nodo aux2 = lista2.cabeza;
+        while (aux1!= null && aux2 != null)  {
+            if (!aux1.elemento.equals(aux2.elemento)) {
+                return false;
+            }
+            aux1 = aux1.siguiente;
+            aux2 = aux2.siguiente;
+        }
+        return true;
     }
 
 

@@ -107,23 +107,26 @@ public class Ronda {
 
         baraja.barajear();
         repartirCartas();
+        // Si se forzó la terminación de la partida
         if (!escogerPaloDeTriunfo()) {
             return false;
         }
+        // Si se forzó la terminación de la partida
         if (!pedirApuestas()) {
             return false;
         }
-
-        for (int i = 0; i < numRonda; i++) {
-            jugarTruco();
-        }
+        jugarTrucos();
         barajeador = null;
         historial.add("Fin de ronda: " + numRonda + "\n");
         return true;
     }
 
-    private void jugarTruco() {
-        Truco truco = new Truco();
+    private void jugarTrucos() {
+        Jugador primerJugador = barajeador;
+        for (int i = 0; i < numRonda; i++) {
+            Truco truco = new Truco(jugadores, primerJugador, paloDeTriunfo);
+            // Actualizar primer jugador
+        }
     }
 
     /**
