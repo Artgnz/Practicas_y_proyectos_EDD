@@ -62,7 +62,7 @@ public class Ronda {
             Carta cartaDeTriunfo = baraja.tomarCarta();
             // Si la carta es un mago.
             // if (cartaDeTriunfo.getNumero() == 14) {
-            if (cartaDeTriunfo.getNumero() == 104) {
+            if (cartaDeTriunfo.getNumero() == 14) {
                 String mensaje = "Escoge el palo del triunfo, " + barajeador.getNombre() + "\n";
                 mensaje += "Posibles opciones: \n";
                 mensaje += "\t rojo\n";
