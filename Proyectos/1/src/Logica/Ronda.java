@@ -81,7 +81,7 @@ public class Ronda {
                 paloDeTriunfo = opcion;
                 // Si la carta es un bufón.
             } else if (cartaDeTriunfo.getNumero() == 0) {
-                paloDeTriunfo = null;
+                paloDeTriunfo = "no hay";
                 // Si la carta tiene un número
             } else {
                 paloDeTriunfo = cartaDeTriunfo.getPalo();
@@ -89,10 +89,10 @@ public class Ronda {
             baraja.devolverCarta(cartaDeTriunfo);
             // Si no hay cartas en la baraja.
         } else {
-            paloDeTriunfo = null;
+            paloDeTriunfo = "no hay";
         }
         // Si no hay palo de triunfo
-        if (paloDeTriunfo == null) {
+        if (paloDeTriunfo == "no hay") {
             historial.add("\tRonda sin  palo de triunfo.\n");
             System.out.println("Ronda sin  palo de triunfo.\n");
         } else {
@@ -181,20 +181,37 @@ public class Ronda {
         }
     }
     private boolean jugarTrucos() {
-        Jugador primerJugador = barajeador;
+        Jugador primerJugador = obtenerJugadorDespuesDeBarajeador();
+
         for (int i = 0; i < numRonda; i++) {
             Truco truco = new Truco(jugadores, primerJugador, paloDeTriunfo);
             if (!truco.jugar()) {
                 return false;
             }
-            // truco.getGanador();
-            System.out.println(baraja.tamano());
+            primerJugador = truco.getGanador();
             baraja.devolverCartas(truco.getCartasUsadas());
             historial.append(truco.getHistorial());
         }
         return true;
     }
 
+    private Jugador obtenerJugadorDespuesDeBarajeador() {
+        Iterator<Jugador> it = jugadores.iterator();
+	while (it.hasNext()) {
+	    Jugador jugador = it.next();
+	    if (jugador.equals(barajeador)) {
+                if (it.hasNext()) {
+                    jugador = it.next();
+                    return jugador;
+                } else {
+                    it = jugadores.iterator();
+                    jugador = it.next();
+                    return jugador;
+                }
+	    }
+	}
+        return null;
+    }
     /**
      * Pide a los usuarios sus apuestas.
      * @return boolean Si no se forzó la terminación de la partida.
@@ -205,9 +222,10 @@ public class Ronda {
         while (it.hasNext()) {
             Jugador jugador = it.next();
             // Mensaje para pedir la apuesta
-            String mensaje = jugador.getNombre() + ", su mano es la siguiente:\n" + jugador.getManoToString() + "\n\n";
+            String mensaje = "El palo de triunfo es: " + paloDeTriunfo + "\n\n";
+            mensaje += jugador.getNombre() + ", su mano es la siguiente:\n" + jugador.getManoToString() + "\n";
 
-            mensaje += jugador.getNombre() + " introduzca su apuesta (0-" + numRonda + ")\n";
+            mensaje += jugador.getNombre() + ", introduzca su apuesta (0-" + numRonda + ")\n";
             // Mensaje por si el usuario desea concluir la partida
             mensaje += "Escriba -1 si desea concluir la partida.\n";
             int apuesta = Interfaz.getInt(mensaje, "Introduzca un valor válido.", -1, numRonda);
@@ -233,12 +251,14 @@ public class Ronda {
     private void repartirCartas() {
         Iterator<Jugador> it = jugadores.iterator();
         // Contador para escoger al barajeador.
-        int contador = 0;
+        int contador = 1;
 
         while (it.hasNext()) {
             Jugador jugador = it.next();
-            if (contador == (numRonda % jugadores.size())) {
+            if (contador == (numRonda % jugadores.size()) + 1) {
                 barajeador = jugador;
+                System.out.println(barajeador.getNombre() + " barajeó las cartas.");
+                historial.add(barajeador.getNombre() + " barajeó las cartas.");
             }
 
             for (int j = 0; j < numRonda; j++) {

@@ -132,6 +132,7 @@ public class Truco {
 		    }
 		    it = jugadores.iterator();
 		}
+		return true;
 	    }
 	}
 	return true;
@@ -142,16 +143,16 @@ public class Truco {
 	Lista<Carta> manoFiltrada = jugador.getMano();
 	String mensaje = "";
 	if (paloTriunfo == null) {
-	    mensaje += "No hay palo de triunfo\n";
+	    mensaje += "No hay palo de triunfo.\n";
 	} else {
-	    mensaje += "Palo de triunfo " + paloTriunfo + "\n";
+	    mensaje += "Palo de triunfo " + paloTriunfo + ".\n";
 	}
 	if (paloLider == null) {
-	    mensaje += "No hay palo lider\n";
+	    mensaje += "No hay palo lider.\n";
 	} else {
-	    mensaje += "Palo lider " + paloLider + "\n";
-
+	    mensaje += "Palo lider " + paloLider + ".\n";
 	}
+	System.out.println();
 	mensaje += "Es el turno de " + jugador.getNombre() + ", esta es su mano:\n";
 	int contador = 1;
 	Iterator<Carta> it = manoFiltrada.iterator();
@@ -160,7 +161,7 @@ public class Truco {
 	    mensaje += contador + ".\n" + carta.toString() + "\n";
 	    contador++;
 	}
-	mensaje += "Escoja una carta válida:";
+	mensaje += "Escoja el índice de la carta que desea usar.\n";
 	mensaje += "Escriba -1 si desea concluir la partida:";
 	while (true) {
 	    int opcion = Interfaz.getInt(mensaje, "Ingrese una opción válida.", -1, manoFiltrada.size());
@@ -171,19 +172,20 @@ public class Truco {
 	    }
 	    Interfaz.ignoreLine();
 	    Carta carta = tomarCartaIndice(manoFiltrada, opcion);
-	    System.out.println(carta);
 
 	    if (tomarCartaValida(manoFiltrada, carta)) {
 		if (paloLider == null && !carta.getPalo().equals("especial")) {
 		    paloLider = carta.getPalo();
 		}
 		historial.add(jugador.getNombre() + " jugó:\n" + carta.toString() + "\n");
+		System.out.println(jugador.getNombre() + " jugó:\n" + carta.toString() + "\n");
 		carta.setJugadoPor(jugador);
 		mesa.meterCarta(carta);
 		jugador.tomarCarta(carta);
 		break;
 	    }
 	}
+	System.out.println("");
 	return true;
     }
 
@@ -213,7 +215,7 @@ public class Truco {
 	if (carta.getPalo().equals(paloLider)) {
 	    return true;
 	}
-	if (carta.getPalo().equals("especiale")) {
+	if (carta.getPalo().equals("especial")) {
 	    return true;
 	}
 	return false;
