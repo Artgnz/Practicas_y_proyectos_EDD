@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import edd.src.Estructuras.*;
 import edd.src.Elementos.*;
+import edd.src.Interfaz.*;
 
 public class Truco {
 
@@ -71,7 +72,10 @@ public class Truco {
 	    }
 	    return null;
 	}
-	
+
+	public Lista<Carta> getCartasMesa() {
+	    return mesa;
+	}
     }
 
     private Lista<Jugador> jugadores;
@@ -80,11 +84,8 @@ public class Truco {
     private Jugador jugadorGanador;
     private Mesa mesa;
     private Jugador primerJugador;
-    /* lista de cartas en mesa
-     * palo lider
-     * carta ganadora
-     * Lista de jugadores
-     */
+    private Lista<String> historial;
+
     public Truco(Lista<Jugador> jugadores, Jugador primerJugador, String paloDeTriunfo) {
 	this.primerJugador = primerJugador;
 	this.jugadores = jugadores;
@@ -93,35 +94,35 @@ public class Truco {
 	this.cartaGanadora = null;
 	this.jugadorGanador = null;
 	this.mesa = new Mesa();
+	historial = new Lista<>();
     }
 
-    public void jugarTruco() {
-        // Iterator it = jugadores.iterador();
-        // while(it.hasNext()) {
-        //     Jugador jugador = it.next();
-        //     Lista<Carta> mano = jugador.getMano();
-        //     Iterator iterador = mano.iterador();
-        //     while (iterador.hasNext()) {
-        //         Carta carta = iterador.next();
-
-        //     }
-        // }
+    public void jugar() {
+	pedirCartas();
 	calcularCartaGanadora();
-	jugadorGanador = cartaGanadora.getJugadoPor();
+	calcularGanador();
+	System.out.println("Truco ganado por: " + getGanador().getNombre());
+	historial.add("Truco ganado por: " + getGanador().getNombre() + "\n");
 	jugadorGanador.incrementarTrucosGanados();
+    }
+
+    public void calcularGanador() {
+	jugadorGanador = cartaGanadora.getJugadoPor();
+    }
+    public Jugador getGanador() {
+	return jugadorGanador;
     }
 
     public void pedirCartas() {
 	Iterator<Jugador> it = jugadores.iterator();
+	int contador = 0;
 	while (it.hasNext()) {
 	    Jugador jugador = it.next();
 	    if (jugador.equals(primerJugador)) {
-		int contador = 1;
-		// QUE JUEGUE 
 		while (contador < jugadores.size()) {
-		    while (it.hasNext()) {
+		    while (it.hasNext() && contador < jugadores.size()) {
+			jugarCarta(jugador);
 			jugador = it.next();
-			// QUE JUEGUE
 			contador++;
 		    }
 		    it = jugadores.iterator();
@@ -130,20 +131,88 @@ public class Truco {
 	}
     }
 
+    private void jugarCarta(Jugador jugador) {
+
+	Lista<Carta> manoFiltrada = filrarMano(jugador.getMano());
+	System.out.println("----------");
+
+	String mensaje = "Es el turno de " + jugador.getNombre() + ", escoja una carta:\n";
+	int contador = 1;
+	Iterator<Carta> it = manoFiltrada.iterator();
+	while (it.hasNext()) {
+	    Carta carta = it.next();
+	    mensaje += contador + ".\n" + carta.toString() + "\n";
+	    contador++;
+	}
+	int opcion = Interfaz.getInt(mensaje, "Ingrese una opción válida", 1, manoFiltrada.size());
+	Interfaz.ignoreLine();
+	contador = 1;
+	it = manoFiltrada.iterator();
+	while (it.hasNext()) {
+	    Carta carta = it.next();
+	    if (contador == opcion) {
+		if (paloLider == null && !carta.getPalo().equals("especial")) {
+		    paloLider = carta.getPalo();
+		}
+		historial.add(jugador.getNombre() + " jugó:\n" + carta.toString() + "\n");
+		carta.setJugadoPor(jugador);
+		mesa.meterCarta(carta);
+		jugador.tomarCarta(carta);
+		break;
+	    }
+	    contador++;
+	}
+	System.out.println("----------");
+
+    }
+
+    private boolean contienePalo(Lista<Carta> mano, String palo){
+	Iterator<Carta> it = mano.iterator();
+	while(it.hasNext()){
+	    String paloCarta = it.next().getPalo();
+	    if(paloCarta.equals(palo)){
+		return true;
+	    }
+	}
+	return false;   
+    }
+
+    private Lista<Carta> filrarMano(Lista<Carta> mano) {
+	if (paloLider == null || !contienePalo(mano, paloLider)) {
+	    return mano;
+	}
+
+	Lista<Carta> manoFiltrada = new Lista<>();
+	Iterator<Carta> it = mano.iterator();
+	while (it.hasNext()) {
+	    Carta carta = it.next();
+	    if (carta.getPalo().equals(paloLider) || carta.getPalo().equals("especial")) {
+		manoFiltrada.add(carta);
+	    }
+	}
+	return manoFiltrada;
+    }
+
     public void calcularCartaGanadora(){
-	
-	if(this.mesa.contieneNumero(14))
-	    this.cartaGanadora = this.mesa.obtenerPrimeraNumerada(14);
+	if(mesa.contieneNumero(14))
+	    cartaGanadora = mesa.obtenerPrimeraNumerada(14);
 	else{
-	    if(this.mesa.contienePalo(this.paloTriunfo))
-		this.cartaGanadora = this.mesa.obtenerCartaMayor(this.paloTriunfo);
+	    if(mesa.contienePalo(paloTriunfo))
+		cartaGanadora = mesa.obtenerCartaMayor(paloTriunfo);
 	    else{
-		if(this.mesa.contienePalo(this.paloLider))
-		this.cartaGanadora = this.mesa.obtenerCartaMayor(this.paloLider);
+		if(mesa.contienePalo(paloLider))
+		    cartaGanadora = mesa.obtenerCartaMayor(paloLider);
 		else{
-		    this.cartaGanadora = this.mesa.obtenerPrimeraNumerada(0);
+		    cartaGanadora = mesa.obtenerPrimeraNumerada(0);
 		}
 	    }
 	}
+    }
+
+    public Lista<Carta> getCartasUsadas() {
+	return mesa.getCartasMesa();
+    }
+    public Lista<String> getHistorial() {
+	return historial;
     }
 }

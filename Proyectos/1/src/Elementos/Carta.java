@@ -38,7 +38,7 @@ public class Carta {
             return "Tipo: Wizard.";
         }
         else {
-            return "Numero: " + this.numero + "\n Palo: " + this.palo;
+            return "Numero: " + this.numero + "\nPalo: " + this.palo;
         }
     }
 
@@ -55,9 +55,6 @@ public class Carta {
             return false;
         } 
         if (!otro.getPalo().equals(getPalo())) {
-            return false;
-        }
-        if (!otro.getJugadoPor().equals(getJugadoPor())) {
             return false;
         }
         return true;
