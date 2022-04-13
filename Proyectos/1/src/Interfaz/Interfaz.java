@@ -1,22 +1,26 @@
 package edd.src.Interfaz;
 
+import edd.src.Logica.Juego;
+
 import java.util.Scanner;
-import edd.src.Estructuras.*;
-import edd.src.Elementos.*;
-import edd.src.Logica.*;
 
 /**
- *Clase encargada de mostrar la interfaz del juego Wizard y de ejecutar todo el programa.
+ * Clase encargada de mostrar la interfaz del juego Wizard y de ejecutar todo el programa.
  * @author Arturo González Peñaloza
  * @author Arsenio Raudry Rico
  */
 public class Interfaz {
+    /**
+     * Scanner para la lectura de datos.
+     */
     private static Scanner scn;
+    /**
+     * El juego que se jugará.
+     */
     private static Juego juego;
 
     /**
      * Método que pide al usuario un número entero.
-     * @param scn Scanner que lee la entrada de datos.
      * @param mensaje Un mensaje que le indica al usuario que opciones puede ingresar.
      * @param error Mensaje que indica que se introdujo una opción inválida.
      * @param min El valor mínimo que se puede introducir.
@@ -43,7 +47,7 @@ public class Interfaz {
     }
 
     /**
-     *Metodo que pide al usiario un String
+     * Metodo que pide al usuario un String.
      * @param mensaje Un mensaje que le indica al usuario que opciones puede ingresar.
      * @param error Mensaje que indica que se introdujo una opción inválida.
      * @param opciones Strings validos que puede insertar el usuario..
@@ -69,32 +73,35 @@ public class Interfaz {
     }
 
     /**
-     *Hace que el scanner pase a la siguiente linea.
+     * Hace que el scanner pase a la siguiente linea.
      */
     public static void ignoreLine() {
         scn.nextLine();
     }
 
     /**
-     *Metodo main que inicializa todo el juego Wizard.
-     @param args Los argumentos de entrada.
+     * Metodo main que inicializa todo el juego Wizard.
+     * @param args Los argumentos de entrada.
      */
     public static void main(String[] args) {
         scn = new Scanner(System.in);
-
-        juego = new Juego(); //Crea un juego.
+        //Crea un juego.
+        juego = new Juego();
         System.out.println("Bienvenido al juego Wizard.");
         int numJugadores= getInt("Ingrese la cantidad de jugadores (3-6).", "Ingrese una opción válida.", 3, 6);
         scn.nextLine();
         for (int i = 1; i <= numJugadores; i++) {
             String nombre = "";
+            // Para solo aceptar nombres con mínimo un caracter.
             while (nombre.isEmpty()) {
                 System.out.println("Ingrese el nombre del jugador " + i + ":");
                 nombre = scn.nextLine();
             }
-            juego.agregaJugador(nombre); //Agrega los jugadores.
+            //Agrega los jugadores.
+            juego.agregaJugador(nombre);
         }
         System.out.println();
-        juego.jugar(); //Comienza el juego.
+        //Comienza el juego.
+        juego.jugar();
     }
 }

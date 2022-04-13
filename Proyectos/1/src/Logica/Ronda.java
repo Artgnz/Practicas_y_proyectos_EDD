@@ -37,13 +37,13 @@ public class Ronda {
      * Número de la ronda
      */
     private int numRonda;
-    
+
     /**
      * Constructor de la ronda.
      * @param baraja Baraja para jugar la ronda.
      * @param jugadores Jugadores de la ronda.
      * @param numRonda Número de la ronda
-     *
+     * @param historial Historial del juego.
      */
     public Ronda(Baraja baraja, Lista<Jugador> jugadores, int numRonda, Lista<String> historial) {
         this.historial = historial;
@@ -60,8 +60,8 @@ public class Ronda {
         if (baraja.tieneCartas()) {
             // Se toma una carta para escoger el palo.
             Carta cartaDeTriunfo = baraja.tomarCarta();
+
             // Si la carta es un mago.
-            // if (cartaDeTriunfo.getNumero() == 14) {
             if (cartaDeTriunfo.getNumero() == 14) {
                 String mensaje = "Salió un mago.\n";
                 mensaje += "Escoge el palo del triunfo, " + barajeador.getNombre() + "\n";
@@ -135,6 +135,7 @@ public class Ronda {
             imprimirPuntajes();
             return false;
         }
+        // Si se forzó la terminación de la partida
         if (!jugarTrucos()) {
             agregarPuntajesHistorial();
             imprimirPuntajes();
@@ -152,34 +153,38 @@ public class Ronda {
     }
 
     /**
-       Agrega los puntajes de cada jugador al historial en la ronda.
+     *  Agrega los puntajes de cada jugador al historial en la ronda.
      */
     private void agregarPuntajesHistorial() {
         Iterator<Jugador> it = jugadores.iterator();
 
         while (it.hasNext()) {
             Jugador jugador = it.next();
-            historial.add(jugador.getNombre() + " tiene un puntaje de: " +             jugador.getPuntaje() + "\n");
+            historial.add(jugador.getNombre() + " tiene un puntaje de: " + jugador.getPuntaje() + "\n");
         }
         historial.add("\n");
     }
 
     /**
-       Devuelve en una lista los jugadores ganadores de la ronda.
-       *@return Lista<Jugador> Los ganadores de la ronda.
+     * Devuelve en una lista los jugadores ganadores de la ronda.
+     * @return Lista<Jugador> Los ganadores de la ronda.
      */
     public Lista<Jugador> getGanadores() {
         Lista<Jugador> ganadores = new Lista<>();
+        // Puntaje máximo de la partida.
         int max = Integer.MIN_VALUE;
         Iterator<Jugador> it = jugadores.iterator();
+        // While para conseguir el puntaje máximo
         while (it.hasNext()) {
             Jugador jugador = it.next();
+            // Si el puntaje es mayor al máximo conseguido hasta el momento.
             if (jugador.getPuntaje() > max) {
                 max = jugador.getPuntaje();
             }
 
         }
         it = jugadores.iterator();
+        // While para conseguir a los jugadores con el puntaje máximo.
         while (it.hasNext()) {
             Jugador jugador = it.next();
             if (jugador.getPuntaje() == max) {
@@ -189,6 +194,9 @@ public class Ronda {
         return ganadores;
     }
 
+    /**
+     * Imprime los puntajes de los jugadores.
+     */
     private void imprimirPuntajes() {
         Iterator<Jugador> it = jugadores.iterator();
 
@@ -200,7 +208,7 @@ public class Ronda {
     }
 
     /**
-     Calcula el puntaje de cada jugador.
+     * Calcula el puntaje de cada jugador.
      */
     private void calcularPuntajes() {
         Iterator<Jugador> it = jugadores.iterator();
@@ -212,10 +220,11 @@ public class Ronda {
     }
 
     /**
-     *Juega los trucos correspondientes a la ronda.
-     @return boolean Si no se forzo la terminacion de la partida.
+     * Juega los trucos correspondientes a la ronda.
+     * @return boolean Si no se forzo la terminacion de la partida.
      */
     private boolean jugarTrucos() {
+        // El primer jugador del truco.
         Jugador primerJugador = obtenerJugadorDespuesDeBarajeador();
 
         for (int i = 1; i <= numRonda; i++) {
@@ -225,9 +234,11 @@ public class Ronda {
             System.out.println("********************\n");
             historial.add("Inicio de truco: " + i + ".\n\n");
             System.out.println("Inicio de truco: " + i + ".\n");
+            // Si se forzó la terminación del juego.
             if (!truco.jugar()) {
                 return false;
             }
+            // El ganador será el primer jugador del siguiente truco.
             primerJugador = truco.getGanador();
             baraja.devolverCartas(truco.getCartasUsadas());
             historial.add("Fin de truco: " + i + "\n\n");
@@ -238,14 +249,21 @@ public class Ronda {
         return true;
     }
 
+    /**
+     * Obtiene al primer jugador después del que barajeó.
+     * @return Jugador Primer jugador después del que barajeó.
+     */
     private Jugador obtenerJugadorDespuesDeBarajeador() {
         Iterator<Jugador> it = jugadores.iterator();
 	while (it.hasNext()) {
 	    Jugador jugador = it.next();
 	    if (jugador.equals(barajeador)) {
+                // Si no es el último jugador de la lista, se escoge al siguiente jugador.
                 if (it.hasNext()) {
                     jugador = it.next();
                     return jugador;
+                    // Si es el último jugador de la lista, se escoge al primer
+                    // jugador de la lista.
                 } else {
                     it = jugadores.iterator();
                     jugador = it.next();
@@ -255,6 +273,7 @@ public class Ronda {
 	}
         return null;
     }
+
     /**
      * Pide a los usuarios sus apuestas.
      * @return boolean Si no se forzó la terminación de la partida.
@@ -282,10 +301,12 @@ public class Ronda {
                     System.out.println(jugador.getNombre() + " terminó la partida.\n");
 
                     return false;
+                    // Si se desea imprimir el historial.
                 } else if (apuesta == -2) {
                     System.out.println("Historial de la partida:");
                     imprimirHistorial();
                     System.out.println();
+                    // Si el usuario apostó.
                 } else {
                     jugador.setApuesta(apuesta);
                     historial.add(jugador.getNombre() + " apostó " + apuesta + ".\n");
@@ -299,7 +320,10 @@ public class Ronda {
         return true;
     }
 
-    public void imprimirHistorial() {
+    /**
+     * Imprime el historial del juego.
+     */
+    private void imprimirHistorial() {
         Iterator<String> it = historial.iterator();
         while (it.hasNext()) {
             System.out.print(it.next());

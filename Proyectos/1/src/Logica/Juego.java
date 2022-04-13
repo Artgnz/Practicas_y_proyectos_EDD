@@ -1,13 +1,13 @@
 package edd.src.Logica;
 
-import java.util.Iterator;
-
-import edd.src.Estructuras.*;
+import edd.src.Estructuras.Lista;
 import edd.src.Elementos.*;
 import edd.src.Interfaz.*;
 
+import java.util.Iterator;
+
 /**
- *Clase que representa el desarrollo de un juego de Wizard.
+ * Clase que representa el desarrollo de un juego de Wizard.
  * @author Arturo González Peñaloza
  * @author Arsenio Raudry Rico
  */
@@ -19,17 +19,17 @@ public class Juego {
     private Baraja baraja;
 
     /**
-     *Cantidad de rondas a jugar.
-    */
+     * Cantidad de rondas a jugar.
+     */
     private int totalRondas;
 
     /**
-     *Ronda actual.
+     * Ronda actual.
      */
     private Ronda ronda;
 
     /**
-     *Cantidad de jugadores a participar.
+     * Cantidad de jugadores a participar.
      */
     private int numJugadores;
 
@@ -39,12 +39,12 @@ public class Juego {
     private Lista<Jugador> jugadores;
 
     /**
-     *Historial del juego.
+     * Historial del juego.
      */
     private Lista<String> historial;
 
     /**
-     *Constructor sin parametros de Juego.
+     * Constructor sin parametros de Juego.
      */
     public Juego() {
         baraja = new Baraja();
@@ -55,8 +55,8 @@ public class Juego {
     }
 
     /**
-     *Agrega jugadores al juego.
-     *@param nombre Nombre del jugador a ingresar.
+     * Agrega jugadores al juego.
+     * @param nombre Nombre del jugador a ingresar.
      */
     public void agregaJugador(String nombre) {
         jugadores.add(new Jugador(nombre));
@@ -64,17 +64,20 @@ public class Juego {
     }
 
     /**
-     *Comienza un juego .
+     * Comienza un juego.
      */
     public void jugar() {
         boolean jugar = true;
-        int totalRondas = 60 / numJugadores; //Determina la cantidad de rondas a partir del numero de jugadores.
+        // Determina la cantidad de rondas a partir del numero de jugadores.
+        int totalRondas = 60 / numJugadores;
         for (int i = 1; i <= totalRondas; i++) {
-
-            ronda = new Ronda(baraja, jugadores, i, historial);//Crea una nueva ronda.
-            jugar = ronda.jugar();//Juega la ronda.
-
-            if (!jugar) {//Si se interrumpe la ronda, se obtiene el/los ganador(es) hasta ese momento.
+            // Crea una nueva ronda.
+            ronda = new Ronda(baraja, jugadores, i, historial);
+            // Juega la ronda.
+            jugar = ronda.jugar();
+            // Si se interrumpe la ronda, se obtiene el/los ganador(es) hasta ese momento.
+            // y se imprime el historial
+            if (!jugar) {
                 Lista<Jugador> ganadores = ronda.getGanadores();
                 if (ganadores.size() == 1) {
                     System.out.println("El jugador que iba ganando es:");
@@ -89,7 +92,8 @@ public class Juego {
                 imprimirGanadores(ganadores);
                 return;
             }
-            if (i == totalRondas) { //Tras jugar todas las rondas se obtienen el/los ganador(es) finales.
+            // Tras jugar todas las rondas se obtienen el/los ganador(es) finales.
+            if (i == totalRondas) {
                 Lista<Jugador> ganadores = ronda.getGanadores();
                 if (ganadores.size() == 1) {
                     System.out.println("El ganador es:");
@@ -102,8 +106,8 @@ public class Juego {
     }
 
     /**
-     *Imprime a los ganadores del juego.
-     *@param ganadores Lista de ganadores a imprimir.
+     * Imprime a los ganadores del juego.
+     * @param ganadores Lista de ganadores a imprimir.
      */
     private void imprimirGanadores(Lista<Jugador> ganadores) {
         Iterator<Jugador> it = ganadores.iterator();
@@ -114,13 +118,12 @@ public class Juego {
     }
 
     /**
-     Imprime el historial hasta el momento del juego.
+     * Imprime el historial hasta el momento del juego.
      */
-    public void imprimirHistorial() {
+    private void imprimirHistorial() {
         Iterator<String> it = historial.iterator();
         while (it.hasNext()) {
             System.out.print(it.next());
         }
     }
 }
-

@@ -96,7 +96,7 @@ public class Carta {
         Carta otro = (Carta) obj;
         if (otro.getNumero() != getNumero()) {
             return false;
-        } 
+        }
         if (!otro.getPalo().equals(getPalo())) {
             return false;
         }
