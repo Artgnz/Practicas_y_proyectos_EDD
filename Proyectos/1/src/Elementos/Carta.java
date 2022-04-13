@@ -41,4 +41,25 @@ public class Carta {
             return "Numero: " + this.numero + "\n Palo: " + this.palo;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+     G       return false;
+        }
+        if (!(obj instanceof Carta)) {
+            return false;
+        }
+        Carta carta = (Carta) obj;
+        if (carta.getNumero() != getNumero()) {
+            return false;
+        } 
+        if (!carta.getPalo().equals(getPalo())) {
+            return false;
+        }
+        if (!carta.getJugadoPor().equals(getJugadoPor())) {
+            return false;
+        }
+        return true;
+    }
 }

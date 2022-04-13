@@ -72,13 +72,4 @@ public class Jugador {
     public String toString(){
 	   return "Nombre: " + this.nombre + "\n Mano: " + this.mano.toString() + "\n Trucos ganados:" + this.trucosGanados + "\n Puntaje: " + this.puntaje ;
     }
-
-    @Override
-    public boolean equals(Carta carta){
-	if((this.numero == carta.numero) && (this.palo.equals(carta.palo)))
-	    return true;
-	else{
-	    return false;
-	}
-    }
 }

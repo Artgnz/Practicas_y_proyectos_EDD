@@ -1,42 +1,48 @@
 package edd.src.Logica;
+
+import java.util.Iterator;
+
 import edd.src.Estructuras.*;
+import edd.src.Elementos.*;
+
 public class Truco {
 
     private class Mesa{
 
         public Lista<Carta> mesa;
 
-
 	public Mesa(){
 	    this.mesa = new Lista<>();
 	}
 
 	public void meterCarta(Carta carta){
-	    this.mesa.add(Carta);
+	    this.mesa.add(carta);
 	}
 
 	public boolean contienePalo(String palo){
-	    Iterator it = this.mesa.iterador();
+	    Iterator<Carta> it = this.mesa.iterator();
 	    while(it.hasNext()){
 		String paloCarta = it.next().getPalo();
-		if(paloCarta.equals(palo))
-		    break return true;	
+		if(paloCarta.equals(palo)){
+		    return true;
+		}
 	    }
 	    return false;   
 	}
 
 	public boolean contieneNumero(int numero){
-	    Iterator it = this.mesa.iterador();
+	    Iterator<Carta> it = this.mesa.iterator();
 	    while(it.hasNext()){
 		int numeroCarta = it.next().getNumero();
-		if(numeroCarta == numero)
-		    break return true;	
+		if(numeroCarta == numero){
+		    return true;
+		}
 	    }
 	    return false;   
 	}
 
 	public Carta obtenerCartaMayor(String palo){
-	    Iterator it = this.mesa.iterador();
+	    Iterator<Carta> it = this.mesa.iterator();
 	    Carta cartaMayor = this.obtenerPrimerPalo(palo);
 	    while(it.hasNext()){
 		Carta aux = it.next();
@@ -47,21 +53,23 @@ public class Truco {
 	}
 
 	public Carta obtenerPrimeraNumerada(int numero){
-	    Iterator it = this.mesa.iterador();
+	    Iterator<Carta> it = this.mesa.iterator();
 	    while(it.hasNext()){
 		Carta primeraNumerada = it.next();
 		if(primeraNumerada.getNumero() == numero)
 		    return primeraNumerada;
 	    }
+	    return null;
 	}
 
 	public Carta obtenerPrimerPalo(String palo){
-	    Iterator it = this.mesa.iterador();
+	    Iterator<Carta> it = this.mesa.iterator();
 	    while(it.hasNext()){
 		Carta primerPalo = it.next();
 		if(primerPalo.getPalo().equals(palo))
 		    return primerPalo;
 	    }
+	    return null;
 	}
 	
     }
@@ -78,7 +86,7 @@ public class Truco {
      * Lista de jugadores
      */
     public Truco() {
-	this.jugadores;
+	this.jugadores = null;
 	this.paloLider = null;
 	this.cartaGanadora = null;
 	this.jugadorGanador = null;
@@ -97,7 +105,7 @@ public class Truco {
         //     }
         // }
 	this.calcularCartaGanadora();
-	this.jugadorGanador = this.cartaGanadora.getJugador();
+	this.jugadorGanador = this.cartaGanadora.getJugadoPor();
 	this.jugadorGanador.incrementarTrucosGanados();
     }
 
