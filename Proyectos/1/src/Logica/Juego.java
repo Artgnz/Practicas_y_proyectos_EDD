@@ -32,20 +32,22 @@ public class Juego {
         boolean jugar = true;
         int totalRondas = 60 / numJugadores;
         for (int i = 1; i <= totalRondas; i++) {
-            ronda = new Ronda(baraja, jugadores, i);
+            ronda = new Ronda(baraja, jugadores, i, historial);
             jugar = ronda.jugar();
-            historial.append(ronda.getHistorial());
 
             if (!jugar) {
                 Lista<Jugador> ganadores = ronda.getGanadores();
                 if (ganadores.size() == 1) {
                     System.out.println("El jugador que iba ganando es:");
+                    historial.add("El jugador que iba ganando es:\n");
                 } else{
                     System.out.println("Los jugadores que iban ganando son:");
+                    historial.add("Los jugadores que iban ganando son:\n");
                 }
                 imprimirGanadores(ganadores);
-                System.out.println("Historial de la partida:");
+                System.out.println("\nHistorial de la partida:");
                 imprimirHistorial();
+                imprimirGanadores(ganadores);
                 return;
             }
             if (i == totalRondas) {
