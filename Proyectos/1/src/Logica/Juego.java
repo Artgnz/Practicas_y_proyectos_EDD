@@ -71,7 +71,7 @@ public class Juego {
         int totalRondas = 60 / numJugadores; //Determina la cantidad de rondas a partir del numero de jugadores.
         for (int i = 1; i <= totalRondas; i++) {
 
-            ronda = new Ronda(baraja, jugadores, i);//Crea una nueva ronda.
+            ronda = new Ronda(baraja, jugadores, i, historial);//Crea una nueva ronda.
             jugar = ronda.jugar();//Juega la ronda.
 
             if (!jugar) {//Si se interrumpe la ronda, se obtiene el/los ganador(es) hasta ese momento.

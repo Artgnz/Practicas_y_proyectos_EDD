@@ -63,7 +63,8 @@ public class Ronda {
             // Si la carta es un mago.
             // if (cartaDeTriunfo.getNumero() == 14) {
             if (cartaDeTriunfo.getNumero() == 14) {
-                String mensaje = "Escoge el palo del triunfo, " + barajeador.getNombre() + "\n";
+                String mensaje = "Salió un mago.\n";
+                mensaje += "Escoge el palo del triunfo, " + barajeador.getNombre() + "\n";
                 mensaje += "Posibles opciones: \n";
                 mensaje += "\t rojo\n";
                 mensaje += "\t amarillo\n";
@@ -219,6 +220,7 @@ public class Ronda {
 
         for (int i = 1; i <= numRonda; i++) {
             Truco truco = new Truco(jugadores, primerJugador, paloDeTriunfo, historial);
+
             historial.add("********************\n");
             System.out.println("********************\n");
             historial.add("Inicio de truco: " + i + ".\n\n");

@@ -164,7 +164,6 @@ public class Truco {
 	this.paloTriunfo = null;
 	this.cartaGanadora = null;
 	this.jugadorGanador = null;
-        this.primerJugador = null;
 	this.mesa = new Mesa();
 	this.historial = historial;
     }
@@ -206,6 +205,7 @@ public class Truco {
      */
     public boolean pedirCartas() {
 	Iterator<Jugador> it = jugadores.iterator();
+
 	int contador = 0; //Contador para ver que hayan tirado todos los jugadores.
 	while (it.hasNext()) {
 	    Jugador jugador = it.next();
