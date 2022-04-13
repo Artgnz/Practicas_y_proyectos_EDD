@@ -29,13 +29,14 @@ public class Jugador {
         return this.mano;
     }
 
-    public Carta tomarCarta() {
-        /* Escoga su carta
-         * 1. Mago
-         * 2. Mago
-         * 3. rojo 6
-         */
-        return null;
+    public void tomarCarta(Carta carta) {
+	Iterator it = mano.iterador();
+	while(it.hasNext()){
+	    Carta tmp = it.next();
+	    if(tmp.equals(carta)){
+		mano.delete(carta);
+	    }
+	}
     }
     
 
@@ -54,7 +55,9 @@ public class Jugador {
     public void setTrucosGanados(int trucos){
 	this.trucosGanados = trucos;
     }
-
+    public void incrementarTrucosGanados(){
+	this.trucosGanados = this.trucosGanados + 1;
+    }
     public void calcularPuntaje(){
 	if(this.apuesta == this.trucosGanados)
 	    this.puntaje = this.puntaje + (20 + 10(this.trucosGanados));
@@ -66,5 +69,14 @@ public class Jugador {
     @Override
     public String toString(){
 	   return "Nombre: " + this.nombre + "\n Mano: " + this.mano.toString() + "\n Trucos ganados:" + this.trucosGanados + "\n Puntaje: " + this.puntaje ;
+    }
+
+    @Override
+    public boolean equals(Carta carta){
+	if((this.numero == carta.numero) && (this.palo.equals(carta.palo)))
+	    return true;
+	else{
+	    return false;
+	}
     }
 }

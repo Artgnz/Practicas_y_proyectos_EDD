@@ -1,13 +1,88 @@
 package edd.src.Logica;
-
+import edd.src.Estructuras.*;
 public class Truco {
 
+    private class Mesa{
+
+        public Lista<Carta> mesa;
+
+
+	public Mesa(){
+	    this.mesa = new Lista<>();
+	}
+
+	public void meterCarta(Carta carta){
+	    this.mesa.add(Carta);
+	}
+
+	public boolean contienePalo(String palo){
+	    Iterator it = this.mesa.iterador();
+	    while(it.hasNext()){
+		String paloCarta = it.next().getPalo();
+		if(paloCarta.equals(palo))
+		    break return true;	
+	    }
+	    return false;   
+	}
+
+	public boolean contieneNumero(int numero){
+	    Iterator it = this.mesa.iterador();
+	    while(it.hasNext()){
+		int numeroCarta = it.next().getNumero();
+		if(numeroCarta == numero)
+		    break return true;	
+	    }
+	    return false;   
+	}
+
+	public Carta obtenerCartaMayor(String palo){
+	    Iterator it = this.mesa.iterador();
+	    Carta cartaMayor = this.obtenerPrimerPalo(palo);
+	    while(it.hasNext()){
+		Carta aux = it.next();
+		if(aux.getPalo().equals(palo) && aux.getNumero()>= cartaMayor.getNumero())
+		    cartaMayor = aux;
+	    }
+	    return cartaMayor;
+	}
+
+	public Carta obtenerPrimeraNumerada(int numero){
+	    Iterator it = this.mesa.iterador();
+	    while(it.hasNext()){
+		Carta primeraNumerada = it.next();
+		if(primeraNumerada.getNumero() == numero)
+		    return primeraNumerada;
+	    }
+	}
+
+	public Carta obtenerPrimerPalo(String palo){
+	    Iterator it = this.mesa.iterador();
+	    while(it.hasNext()){
+		Carta primerPalo = it.next();
+		if(primerPalo.getPalo().equals(palo))
+		    return primerPalo;
+	    }
+	}
+	
+    }
+
+    private Lista<Jugador> jugadores;
+    private String paloLider, paloTriunfo;
+    private Carta cartaGanadora;
+    private Jugador jugadorGanador;
+    private Mesa mesa;
+    
     /* lista de cartas en mesa
      * palo lider
      * carta ganadora
      * Lista de jugadores
      */
     public Truco() {
+	this.jugadores;
+	this.paloLider = null;
+	this.cartaGanadora = null;
+	this.jugadorGanador = null;
+	this.mesa = new Mesa();
     }
 
     public void jugarTruco() {
@@ -21,10 +96,30 @@ public class Truco {
 
         //     }
         // }
+	this.calcularCartaGanadora();
+	this.jugadorGanador = this.cartaGanadora.getJugador();
+	this.jugadorGanador.incrementarTrucosGanados();
     }
 
+    public void calcularCartaGanadora(){
+	
+	if(this.mesa.contieneNumero(14))
+	    this.cartaGanadora = this.mesa.obtenerPrimeraNumerada(14);
+	else{
+	    if(this.mesa.contienePalo(this.paloTriunfo))
+		this.cartaGanadora = this.mesa.obtenerCartaMayor(this.paloTriunfo);
+	    else{
+		if(this.mesa.contienePalo(this.paloLider))
+		this.cartaGanadora = this.mesa.obtenerCartaMayor(this.paloLider);
+		else{
+		    this.cartaGanadora = this.mesa.obtenerPrimeraNumerada(0);
+		}
+	    }
+	}
+    }
+    
     /*
-     * Arreglo de n elementos cada uno con una carta del mazo
+    * Arreglo de n elementos cada uno con una carta del mazo
      * 1.. n escoge carta
      * 
      */
