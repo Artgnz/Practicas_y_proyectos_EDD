@@ -8,6 +8,7 @@ import edd.src.Logica.*;
 public class Interfaz {
     private static Scanner scn;
     private static Juego juego;
+
     /**
      * Método que pide al usuario un número entero.
      * @param scn Scanner que lee la entrada de datos.
@@ -34,6 +35,31 @@ public class Interfaz {
                 System.out.println(error);
             }
         }
+    }
+
+
+    public static String getString(String mensaje, String error, String[] opciones) {
+        String entrada;
+
+        while (true) {
+            System.out.println(mensaje);
+            if (scn.hasNextLine()) {
+                entrada = scn.nextLine();
+                for (int i = 0; i < opciones.length; i++) {
+                    if (entrada.equals(opciones[i])) {
+                        return entrada;
+                    }
+                }
+                System.out.println(error);
+            } else {
+                scn.nextLine();
+                System.out.println(error);
+            }
+        }
+    }
+
+    public static void ignoreLine() {
+        scn.nextLine();
     }
 
     public static void main(String[] args) {
