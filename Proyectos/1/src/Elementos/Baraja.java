@@ -5,10 +5,21 @@ import edd.src.Estructuras.*;
 import java.util.Random;
 import java.util.Iterator;
 
+/**
+ * Clase que representa a la baraja de cartas del juego Wizard.
+  * @author Arturo González Peñaloza
+  * @author Arsenio Raudry Rico
+*/
 public class Baraja {
 
+    /**
+     * Lista con las 60 cartas del juego wizard.
+     */
     private Lista<Carta> baraja;
 
+    /**
+     *Constructor de la baraja, cuenta con las 60 cartas, compuestas por cuatro palos numerados del 1 al 13, 4 wizards y 4 bufones.
+     */
     public Baraja() {
         baraja = new Lista<>();
 
@@ -29,6 +40,9 @@ public class Baraja {
         }
     }
 
+    /**
+     Se encarga de desordenar el orden de las cartas en la lista, representando la accion de barajear las 60 cartas.
+     */
     public void barajear() {
         // Arreglo temporal para barajear cartas.
         Carta[] tmpBaraja = new Carta[baraja.size()];
@@ -54,24 +68,49 @@ public class Baraja {
         }
     }
 
+    /**
+     *Toma la primera carta de la lista.
+     *@return Carta Carta al inicio de la lista.
+     */
     public Carta tomarCarta() {
         return baraja.pop();
     }
 
+    /**
+     *Determina si la baraja tiene cartas.
+     *@return boolean Si tiene o no cartas.
+     */
     public boolean tieneCartas() {
         return baraja.size() > 0;
     }
+
+    /**
+     *Devuelve la cantidad de cartas que hay en la baraja.
+     *@return int Cantidad de cartas en la baraja.
+     */
     public int tamano() {
         return baraja.size();
     }
 
+    /**
+     *Agrega una lista de cartas  en la baraja.
+     *@param cartas Lista de cartas a agregar.
+     */
     public void devolverCartas(Lista<Carta> cartas) {
         baraja.append(cartas);
     }
+
+    /**
+     * Agrega una carta devuelta a la baraja.
+     *@param carta Carta a agregar.
+     */
     public void devolverCarta(Carta carta) {
         baraja.add(carta);
     }
 
+    /**
+     Imprime en la pantalla las cartas de la baraja.
+     */
     public void imprimir() {
         Iterator<Carta> it = baraja.iterator();
         while (it.hasNext()) {
