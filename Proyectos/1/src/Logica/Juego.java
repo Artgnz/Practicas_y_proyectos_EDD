@@ -29,18 +29,24 @@ public class Juego {
     }
 
     public void jugar() {
+        boolean jugar = true;
         int totalRondas = 60 / numJugadores;
         for (int i = 1; i <= totalRondas; i++) {
-            ronda = new Ronda(baraja, jugadores);
-            ronda.jugar(i);
+            ronda = new Ronda(baraja, jugadores, i);
+            jugar = ronda.jugar();
             historial.append(ronda.getHistorial());
+            if (!jugar) {
+                System.out.println("Historial de la partida:");
+                imprimirHistorial();
+                return;
+            }
         }
     }
 
     public void imprimirHistorial() {
         Iterator<String> it = historial.iterator();
         while (it.hasNext()) {
-            System.out.println(it.next());
+            System.out.print(it.next());
         }
     }
 }
