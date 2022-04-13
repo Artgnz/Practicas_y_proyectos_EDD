@@ -1,4 +1,5 @@
 package edd.src.Elementos;
+import edd.src.Estructuras.*;
 
 import edd.src.Estructuras.*;
 import java.util.Random;
@@ -61,4 +62,5 @@ public class Baraja {
     public void devolverCartas(Lista<Carta> cartas) {
         baraja.append(cartas);
     }
+
 }

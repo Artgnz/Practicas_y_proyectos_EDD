@@ -31,6 +31,7 @@ public class Jugador {
     }
 
     public void tomarCarta(Carta carta) {
+
         Iterator<Carta> it = mano.iterator();
         while (it.hasNext()) {
             Carta tmp = it.next();
@@ -56,7 +57,9 @@ public class Jugador {
     public void setTrucosGanados(int trucos){
 	this.trucosGanados = trucos;
     }
-
+    public void incrementarTrucosGanados(){
+	this.trucosGanados = this.trucosGanados + 1;
+    }
     public void calcularPuntaje(){
 	if(this.apuesta == this.trucosGanados)
 	    this.puntaje = this.puntaje + (20 + 10 * (this.trucosGanados));
@@ -68,5 +71,14 @@ public class Jugador {
     @Override
     public String toString(){
 	   return "Nombre: " + this.nombre + "\n Mano: " + this.mano.toString() + "\n Trucos ganados:" + this.trucosGanados + "\n Puntaje: " + this.puntaje ;
+    }
+
+    @Override
+    public boolean equals(Carta carta){
+	if((this.numero == carta.numero) && (this.palo.equals(carta.palo)))
+	    return true;
+	else{
+	    return false;
+	}
     }
 }
