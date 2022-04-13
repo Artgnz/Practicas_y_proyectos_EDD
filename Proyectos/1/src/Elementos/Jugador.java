@@ -31,14 +31,7 @@ public class Jugador {
     }
 
     public void tomarCarta(Carta carta) {
-
-        Iterator<Carta> it = mano.iterator();
-        while (it.hasNext()) {
-            Carta tmp = it.next();
-            if (tmp.equals(carta)) {
-                mano.delete(carta);
-            }
-        }
+        mano.delete(carta);
     }
 
 
@@ -60,6 +53,7 @@ public class Jugador {
     public void incrementarTrucosGanados(){
 	this.trucosGanados = this.trucosGanados + 1;
     }
+
     public void calcularPuntaje(){
 	if(this.apuesta == this.trucosGanados)
 	    this.puntaje = this.puntaje + (20 + 10 * (this.trucosGanados));
@@ -103,5 +97,14 @@ public class Jugador {
         }
 
         return true;
+    }
+    public String getManoToString() {
+        String aRegresar = "";
+        Iterator<Carta> it = mano.iterator();
+        while (it.hasNext()) {
+            Carta carta = it.next();
+            aRegresar += carta.toString() + "\n";
+        }
+        return aRegresar;
     }
 }
