@@ -89,11 +89,12 @@ public class Interfaz {
         for (int i = 1; i <= numJugadores; i++) {
             String nombre = "";
             while (nombre.isEmpty()) {
-                System.out.println("Ingrese el nombre del jugador " + i);
+                System.out.println("Ingrese el nombre del jugador " + i + ":");
                 nombre = scn.nextLine();
             }
             juego.agregaJugador(nombre); //Agrega los jugadores.
         }
+        System.out.println();
         juego.jugar(); //Comienza el juego.
     }
 }

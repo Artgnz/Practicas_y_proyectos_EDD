@@ -70,20 +70,23 @@ public class Juego {
         boolean jugar = true;
         int totalRondas = 60 / numJugadores; //Determina la cantidad de rondas a partir del numero de jugadores.
         for (int i = 1; i <= totalRondas; i++) {
+
             ronda = new Ronda(baraja, jugadores, i);//Crea una nueva ronda.
             jugar = ronda.jugar();//Juega la ronda.
-            historial.append(ronda.getHistorial()); //Incluye el historial de la ronda.
 
             if (!jugar) {//Si se interrumpe la ronda, se obtiene el/los ganador(es) hasta ese momento.
                 Lista<Jugador> ganadores = ronda.getGanadores();
                 if (ganadores.size() == 1) {
                     System.out.println("El jugador que iba ganando es:");
+                    historial.add("El jugador que iba ganando es:\n");
                 } else{
                     System.out.println("Los jugadores que iban ganando son:");
+                    historial.add("Los jugadores que iban ganando son:\n");
                 }
                 imprimirGanadores(ganadores);
-                System.out.println("Historial de la partida:");
+                System.out.println("\nHistorial de la partida:");
                 imprimirHistorial();
+                imprimirGanadores(ganadores);
                 return;
             }
             if (i == totalRondas) { //Tras jugar todas las rondas se obtienen el/los ganador(es) finales.
