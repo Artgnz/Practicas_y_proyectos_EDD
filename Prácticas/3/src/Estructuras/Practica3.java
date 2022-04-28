@@ -6,42 +6,46 @@ import java.lang.Math;
 
 public class Practica3 {
     
-    public static void sumaCercana(Lista lista, int N){
-        // TODO ADD <Integer>
-        Lista<Integer> copia = lista.clone();
-        copia.mergeSort(new Comparator<Integer>() {
+    public static void sumaCercana(Lista<Integer> lista, int N){
+
+        Lista<Integer> copia = lista.mergeSort(new Comparator<Integer>() {
                 @Override
                 public int compare(Integer o1, Integer o2) {
                     return o1 - o2;
                 }
             });
+
         int nums[] = new int[copia.size()];
+
         int i = 0;
         for (int num : copia) {
             nums[i] = num;
             i++;
         }
 
-        int izq = 0;
-        int der = nums.length - 1;
-        int num1 = nums[izq];
-        int num2 = nums[der];
-        int diferencia = Math.abs(num1 + num2 - N);
-        while (izq < der) {
-            int difActual = Math.abs(nums[izq] + nums[der] - N);
+        int izquierda = 0;
+        int derecha = nums.length - 1;
+        int num1 = nums[izquierda];
+        int num2 = nums[derecha];
+        int diferencia = Integer.MAX_VALUE;
+        while (izquierda < derecha) {
+            int difActual = Math.abs(nums[izquierda] + nums[derecha] - N);
             if (difActual < diferencia) {
                 diferencia = difActual;
-                num1 = nums[izq];
-                num2 = nums[der];
+                num1 = nums[izquierda];
+                num2 = nums[derecha];
+                if (diferencia == 0) {
+                    break;
+                }
             }
-            if (nums[izq] + nums[der] > N) {
-                der--;
+            if (nums[izquierda] + nums[derecha] > N) {
+                derecha--;
             } else {
-                izq++;
+                izquierda++;
             }
         }
-        System.out.println("La pareja es: " + num1 + " y " + num2);
 
+        System.out.println("La pareja es: " + num1 + " y " + num2);
     }
 
     public static void permutacionesCadena(String cadena){
@@ -129,18 +133,121 @@ public class Practica3 {
 
         return primos;
     }
+
     public static void N_Reinas(int N){
 
     }
 
+    public static double sqrtBusqBin(int x) {
+        double margenDeError = 1e-5;
+        int izq = 0;
+        int der = x;
+        int mitad;
+        double respuesta = 0;
+
+        while (izq <= der) {
+            mitad = izq + (der - izq) / 2;
+            if (mitad * mitad == x) {
+                respuesta = mitad;
+                break;
+            } else if (mitad * mitad < x) {
+                izq = mitad + 1;
+                respuesta = mitad;
+            } else {
+                der = mitad - 1;
+            }
+        }
+
+        double cambio = .1;
+        while (x - (respuesta * respuesta) > margenDeError)  {
+            while (respuesta * respuesta < x) {
+                respuesta += cambio;
+            }
+            respuesta -= cambio;
+            cambio /= 10;
+        }
+        return respuesta;
+    }
     public static void main(String[] args) {
-        //Puedes hacer tus pruebas aqui
+        // Puedes hacer tus pruebas aqui
         primosQueSuman(28, 7, 2);
         primosQueSuman(23, 2, 3);
-        // int arr[] =  {10, 22, 28, 29, 30, 40}, x = 54;
         Lista<Integer> lista = new Lista<>();
         lista.add(10);
         lista.add(20);
+        System.out.println("Suma cercana de " + lista);
+
         sumaCercana(lista, 20);
+        lista.add(10);
+        System.out.println("Suma cercana de " + lista);
+        sumaCercana(lista, 20);
+
+        System.out.println(sqrtBusqBin(4));
+        System.out.println(sqrtBusqBin(3));
+        System.out.println(sqrtBusqBin(3));
+        System.out.println(sqrtBusqBin(12069));
+        lista = new Lista<>();
+        for (int i = 10; i >= 0; i--) {
+            lista.add(i);
+        }
+        System.out.println("Lista desordenada:");
+
+        System.out.println(lista);
+        lista.mergeSort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1 - o2;
+                }
+            });
+        System.out.println("Lista ordenada: ");
+        
+        System.out.println(lista.mergeSort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1 - o2;
+                }
+            }));
+
+        System.out.println(lista);
+        lista = new Lista<>();
+        lista = lista.mergeSort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1 - o2;
+                }
+        });
+        System.out.println(lista);
+        lista.add(1);
+        lista = lista.mergeSort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1 - o2;
+                }
+        });
+        System.out.println(lista);
+
+        lista = new Lista<>();
+        lista.add(2);
+        lista.add(2);
+        lista.add(3);
+        lista.add(4);
+        lista.add(1);
+        lista = lista.mergeSort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1 - o2;
+                }
+        });
+        System.out.println(lista);
+        
+        ArbolBinarioBusqueda<Integer> arbol = new ArbolBinarioBusqueda<>(lista, true);
+        System.out.println("arbol:");
+        System.out.println(arbol);
+        lista.add(12);
+        lista.add(14);
+        lista.add(16);
+        lista.add(31);
+        arbol = new ArbolBinarioBusqueda<>(lista, true);
+        System.out.println(arbol);
     }
 }
