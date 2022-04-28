@@ -158,7 +158,6 @@ public class Jugador {
         if (!otro.getMano().equals(getMano())) {
             return false;
         }
-
         if (!(otro.getApuesta() == getApuesta())) {
             return false;
         }

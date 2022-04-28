@@ -253,7 +253,7 @@ public class Lista<T> implements Collection<T> {
      * 
      * @return una copia de la lista.
      */
-    public Lista<T> clone() {
+    public Lista<T> clone{
         Lista<T> nueva = new Lista<T>();
         Nodo nodo = cabeza;
         while (nodo != null) {

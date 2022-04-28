@@ -137,6 +137,7 @@ public class ArbolBinarioCompleto<T> extends ArbolBinario<T> {
         return new Iterador();
     }
 
-
-
+    public boolean delete(T elemento) {
+        return false;
+    }
 }
