@@ -92,25 +92,26 @@ public class Practica3 {
             i++;
         }
 
-        Lista<Lista<Integer>> soluciones = sumarPrimos(0, N, S, 0, primos, new Lista<Integer>(), new Lista<Lista<Integer>>());
+        // Conseguimos una lista de listas de primos con las soluciones.
+        Lista<Lista<Integer>> soluciones = sumarNPrimos(0, N, S, 0, primos, new Lista<Integer>(), new Lista<Lista<Integer>>());
         System.out.println("Salida: ");
+
+        // Hacemos una lista de los primos ocupados
+        Lista<Integer> primosSinRepetir = new Lista<>();
+
+        // Recorremos todas las soluciones.
         for (Lista<Integer> solucion : soluciones) {
             for (int primo : solucion) {
                 System.out.print(primo + " ");
+                // Si el primo no está en la lista de primos sin repetir, lo agregamos.
+                if (!primosSinRepetir.contains(primo)) {
+                    primosSinRepetir.add(primo);
+                }
             }
             System.out.println();
         }
-        Lista<Integer> primosSinRepetir = new Lista<>();
-        for (Lista<Integer> solucion : soluciones) {
-            it = solucion.iterator();
-            while (it.hasNext()) {
-                int p = it.next();
-                if (!primosSinRepetir.contains(p)) {
-                    primosSinRepetir.add(p);
-                }
 
-            }
-        }
+        // Ordenamos la lista de los primos usados.
         primosSinRepetir = primosSinRepetir.mergeSort(new Comparator<Integer>() {
                 @Override
                 public int compare(Integer o1, Integer o2) {
@@ -118,12 +119,16 @@ public class Practica3 {
                 }
         });
         System.out.println("porque...");
+        
         it = primosSinRepetir.iterator();
+        // Si la lista solo tiene dos primos, los imprimimos separados por un "y".
         if (primosSinRepetir.size() == 2) {
             System.out.print(it.next() + " y " + it.next());
+            // Si no, los imprimimos separados por comas.
         } else {
             while (it.hasNext()) {
                 System.out.print(it.next());
+                // Si hay un primo más, imprimimos la coma.
                 if (it.hasNext()) {
                     System.out.print(", ");
                 }
@@ -131,6 +136,7 @@ public class Practica3 {
         }
 
         System.out.println(" > " + P);
+        // Imprimimos cada solución.
         for (Lista<Integer> solucion : soluciones) {
             it = solucion.iterator();
             while (it.hasNext()) {
@@ -144,18 +150,41 @@ public class Practica3 {
         }        
     }
 
-    private static Lista<Lista<Integer>> sumarPrimos(int suma, int N, int S, int indice, int primos[], Lista<Integer> posiblesPrimos, Lista<Lista<Integer>> soluciones) {
+    /**
+     * Encuentra una lista de lista de N primos mayores a P cuya suma es
+     * igual a S
+     * @param suma La suma conseguida hasta el momento.
+     * @param N Cantidad de primos mayores que N.
+     * @param S La suma.
+     * @param indice Índice del primo que se agregará.
+     * @param primos[] Primos en el rango (P, S)
+     * @param posiblesPrimos Lista con primos que es una posible respuesta.
+     * @param soluciones Lista de listas de primos cuya suma es S y tiene N términos.
+     */
+    private static Lista<Lista<Integer>> sumarNPrimos(int suma, int N, int S, int indice, int primos[], Lista<Integer> posiblesPrimos, Lista<Lista<Integer>> soluciones) {
+        // Si la suma de los primos en la lista es igual a S y son N primos.
         if (suma == S && posiblesPrimos.size() == N) {
+            // Se agrega una copia de la lista de primos a las soluciones.
             soluciones.add(posiblesPrimos.clone());
             return soluciones;
         }
+        // Si ya no hay primos, o la suma es mayor a S o la posible respuesta tiene más primos que N.
         if (indice >= primos.length || suma > S || posiblesPrimos.size() >= N) {
-            return null;
+            return soluciones;
         }
-        posiblesPrimos.add(primos[indice]);
-        sumarPrimos(suma + primos[indice], N, S, indice + 1, primos, posiblesPrimos, soluciones);
+        // Primo en el índice indicado por índice
+        int primo = primos[indice];
+        // Se agrega un primo a la posible respuesta.
+        posiblesPrimos.add(primo);
+
+        // Aumentamos el índice en uno.
+        indice++;
+        // Llamada recursiva donde se incluye un primo más. 
+        sumarNPrimos(suma + primo, N, S, indice, primos, posiblesPrimos, soluciones);
+        // Se quita el último primo de la lista.
         posiblesPrimos.pop();
-        sumarPrimos(suma, N, S, indice + 1, primos, posiblesPrimos, soluciones);
+        // Llamada recursiva sin incluir al primo.
+        sumarNPrimos(suma, N, S, indice, primos, posiblesPrimos, soluciones);
         return soluciones;
     }
 
@@ -198,27 +227,38 @@ public class Practica3 {
 
     }
 
+    /**
+     * Calcula la raíz cuadrada de un número entero.
+     * @param x Número al que se le calculará la raíz cuadrada.
+     * @return La raíz cuadrada del número con un márgen de error de 1e-5.
+     */
     public static double sqrtBusqBin(int x) {
-        double margenDeError = 1e-5;
         int izq = 0;
         int der = x;
         int mitad;
         double respuesta = 0;
 
         while (izq <= der) {
+            // Consguimos la mitad entre izq y der.
             mitad = izq + (der - izq) / 2;
+            // Si mitad por mitad es x, ya encontramos la raíz cuadrada.
             if (mitad * mitad == x) {
                 respuesta = mitad;
                 break;
+                // Si mitad por mitad es menor que x, aumentamos izq.
             } else if (mitad * mitad < x) {
                 izq = mitad + 1;
                 respuesta = mitad;
+                // Si mitad por mitad es mayor que x, disminuimos der.
             } else {
                 der = mitad - 1;
             }
         }
-
+        // Valor que se aumentará o restará a la respuesta.
         double cambio = .1;
+        // Margen de error para la raíz cuadrada.
+        double margenDeError = 1e-5;
+        // Mientras la resta sea mayor que el margen de error.
         while (x - (respuesta * respuesta) > margenDeError)  {
             while (respuesta * respuesta < x) {
                 respuesta += cambio;
@@ -228,6 +268,7 @@ public class Practica3 {
         }
         return respuesta;
     }
+
     public static void main(String[] args) {
         // Puedes hacer tus pruebas aqui
         Lista<Integer> lista = new Lista<>();
@@ -245,14 +286,16 @@ public class Practica3 {
         System.out.println("De la lista " + lista + ", la pareja de números cuya suma es la más cercana a 1 es: ");
         sumaCercana(lista, 1);
         lista = lista.mergeSort(new Comparator<Integer>() {
-                @Override
-                public int compare(Integer o1, Integer o2) {
-                    return o1 - o2;
-                }
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
         });
-        
+
         // Pruebas de primosQueSuman
         primosQueSuman(28, 7, 2);
         primosQueSuman(23, 2, 3);
+        primosQueSuman(15, 2, 3);
+        ArbolBinarioBusqueda<Integer> arbol = new ArbolBinarioBusqueda<>(lista, true);
     }
 }
