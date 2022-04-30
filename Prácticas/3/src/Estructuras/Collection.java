@@ -13,12 +13,12 @@ public interface Collection<T> extends Iterable<T> {
     */
     public void add(T elemento);
 
-    /**
-     * Elimina un elemento de la colección.
-     * 
-     * @param elemento el elemento a eliminar.
-     */
-    public boolean delete(T elemento);
+    // /**
+    //  * Elimina un elemento de la colección.
+    //  * 
+    //  * @param elemento el elemento a eliminar.
+    //  */
+    // public boolean delete(T elemento);
 
     // /**
     //  * Regresa un elemento de la colección.
@@ -75,6 +75,7 @@ public interface Collection<T> extends Iterable<T> {
      */
     public String toString();
     
+   
 
 
 }
