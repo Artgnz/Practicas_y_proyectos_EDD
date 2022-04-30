@@ -192,11 +192,22 @@ public class Lista<T> implements Collection<T> {
      * @return El elemento a sacar.
      */
     public T pop(){
-        T valor = ultimo.elemento;
-        ultimo = ultimo.anterior;
-        ultimo.siguiente = null;
-        longi --;
-        return valor;
+        if (longi == 0) {
+            throw new NoSuchElementException("La lista está vacía.");
+        }
+
+        T elemento = ultimo.elemento;
+
+        if (longi == 1) {
+            cabeza = ultimo = null;
+            longi = 0;
+            return elemento;
+        } else {
+            ultimo = ultimo.anterior;
+            ultimo.siguiente = null;
+            longi --;
+        }
+        return elemento;
     }
 
     /**
@@ -392,7 +403,7 @@ public class Lista<T> implements Collection<T> {
 
         int mitad = longi/2;
         Nodo aux = cabeza;
-        while(aux != null && mitad --!= 0 ){ 
+        while(aux != null && mitad-- != 0 ){ 
             izq.add(aux.elemento);
             aux = aux.siguiente;
         }
@@ -400,8 +411,8 @@ public class Lista<T> implements Collection<T> {
             der.add(aux.elemento);
             aux = aux.siguiente;
         }
-        System.out.println("izq: " + izq.toString());
-        System.out.println("der: " + der.toString());
+        // System.out.println("izq: " + izq.toString());
+        // System.out.println("der: " + der.toString());
         izq = izq.mergeSort(comparador);
         der = der.mergeSort(comparador);
         return merge(izq, der, comparador);
