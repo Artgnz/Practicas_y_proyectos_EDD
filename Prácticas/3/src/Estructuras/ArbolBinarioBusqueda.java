@@ -47,12 +47,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
             raiz = buildSorted(lista);
         }
         else{
-            Lista<T> copia = lista.mergeSort(new Comparator<T> () {
-                    @Override
-                    public int compare(T o1, T o2) {
-                        return o1.compareTo(o2);
-                    }
-                });
+	    raiz = buildUnsorted(lista);
         }
 
     }
@@ -163,12 +158,70 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     public void insert(Vertice root, T elem) {
+	if(elem == null)
+	    throw new IllegalArgumentException("El elemento es null");
+	else{
+	    if(root == null){
+		Vertice nuevo = nuevoVertice(elem);
+		root = nuevo;
+	    }
+
+	    if(elem.compareTo(root.elemento) < 0){
+		if(root.izquierdo == null){
+		    Vertice nuevo = nuevoVertice(elem);
+		    root.izquierdo = nuevo;
+		}
+		else{
+		    insert(root.izquierdo, elem);
+		}
+	    }
+
+	    if(elem.compareTo(root.elemento)>0){
+		if(root.izquierdo == null){
+		    Vertice nuevo = nuevoVertice(elem);
+		    root.derecho = nuevo;
+		}
+		else{
+		    insert(root.derecho, elem);
+		}
+	    }
+	}
+	
     }
+
+    public Vertice convertBST(ArbolBinario<T> arbolBinario){
+	if(arbolBinario.raiz == null)
+	    throw new IllegalArgumentException("El arbol es null");
+	else{
+
+	    Iterator<T> it = iterator();
+	    Lista<T> lista = new Lista<>();
+	    // Se hace una lista con los elementos.
+	    while (it.hasNext()) {
+		lista.add(it.next());
+	    }
+        // Se construye el árbol con buildSorted.
+	    raiz = buildUnsorted(lista);
+	    return raiz;
+	}
+	
+    }
+    
     @Override
     public Iterator<T> iterator() {
         return new Iterador();
     }
-
+    
+    public Vertice buildUnsorted(Lista<T> lista){
+	Lista<T> copia = lista.mergeSort(new Comparator<T> () {
+                    @Override
+                    public int compare(T o1, T o2) {
+                        return o1.compareTo(o2);
+                    }
+                });
+	return buildSorted(copia);
+    }
+    
     public Vertice buildSorted(Lista<T> lista) {
         int tamano = lista.size();
         return buildSorted(lista.iterator(), tamano);
@@ -198,6 +251,6 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
             }
         }
         return str;
-
     }
+
 }
