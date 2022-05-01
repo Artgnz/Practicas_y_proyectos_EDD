@@ -296,6 +296,10 @@ public class Practica3 {
         primosQueSuman(28, 7, 2);
         primosQueSuman(23, 2, 3);
         primosQueSuman(15, 2, 3);
+        // Prueba de buildSorted
         ArbolBinarioBusqueda<Integer> arbol = new ArbolBinarioBusqueda<>(lista, true);
+        System.out.println("Lista ordenada: " + lista);
+        System.out.println("BST a partir de anterior lista: " + arbol);
+
     }
 }
