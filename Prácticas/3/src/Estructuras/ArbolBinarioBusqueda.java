@@ -7,6 +7,11 @@ import edd.src.Estructuras.Lista;
 import java.util.Iterator;
 import java.util.Comparator;
 
+/**
+ * Implementación de árbol binario de búsqueda.
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<T> {
     private class Iterador implements Iterator<T> {
         private Pila<Vertice> pila;
