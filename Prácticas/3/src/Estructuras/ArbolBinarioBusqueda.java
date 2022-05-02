@@ -57,6 +57,15 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     /**
+     * Busca un elemento en el árbol.
+     * @param elem Elemento que se busca.
+     * @return boolean Si se encuentra el elemento.
+     */
+    public boolean search(T elem) {
+        return search(raiz, elem);
+    }
+
+    /**
      * Busca un elemento en el árbol binario de búsqueda.
      * @param raíz Raíz del árbol de búsqueda en el que se busca.
      * @param elem Elemento que se busca.
@@ -144,7 +153,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     /**
      * Balancea el árbol BST.
      */
-    public void Balance() {
+    public void balance() {
         Iterator<T> it = iterator();
         Lista<T> lista = new Lista<>();
         // Se hace una lista con los elementos.
@@ -219,15 +228,26 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         return vRaiz;
     }
 
+    /**
+     * Regresa una representación en cadena del árbol.
+     * @return Representación en cadena del árbol.
+     */
     public String toString() {
-        Iterator<T> it = iterator();
-        String str = "";
-        while (it.hasNext()) {
-            str += it.next();
-            if (it.hasNext()) {
-                str += " ";
-            }
+        return toString(raiz);
+    }
+
+    /**
+     * Regresa una representación en cadena del árbol.
+     * @param raiz Vértice para la cadena.
+     * @return Representación en cadena del árbol.
+     */
+    private String toString(Vertice raiz) {
+        if (raiz == null) {
+            return "";
         }
+        String str = toString(raiz.izquierdo);
+        str +=  raiz.elemento.toString() + " ";
+        str += toString(raiz.derecho);
         return str;
     }
 }

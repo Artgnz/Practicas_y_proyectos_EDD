@@ -273,7 +273,6 @@ public class Practica3 {
         // Puedes hacer tus pruebas aqui
         Lista<Integer> lista = new Lista<>();
         lista.add(1);
-        lista.add(1);
         lista.add(2);
         lista.add(3);
         lista.add(5);
@@ -300,6 +299,20 @@ public class Practica3 {
         ArbolBinarioBusqueda<Integer> arbol = new ArbolBinarioBusqueda<>(lista, true);
         System.out.println("Lista ordenada: " + lista);
         System.out.println("BST a partir de anterior lista: " + arbol);
+
+        // Prueba de search
+        System.out.println("¿Se encuentra el " + 6 + " en el árbol? " + arbol.search(6));
+        System.out.println("¿Se encuentra el " + 3 + " en el árbol? " + arbol.search(3));
+        System.out.println("¿Se encuentra el " + 1 + " en el árbol? " + arbol.search(1));
+
+        // Prueba de delete
+        arbol.delete(3);
+        arbol.delete(1);
+        System.out.println("Se eliminaron: 3, 1 del árbol");
+        System.out.println(arbol);
+
+        // Prueba de balance
+        arbol.balance();
 
     }
 }
