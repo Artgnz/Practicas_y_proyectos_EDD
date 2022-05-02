@@ -1,3 +1,4 @@
+
 package edd.src.Estructuras;
 
 import java.util.NoSuchElementException;
@@ -51,12 +52,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
             raiz = buildSorted(lista);
         }
         else{
-            Lista<T> copia = lista.mergeSort(new Comparator<T> () {
-                    @Override
-                    public int compare(T o1, T o2) {
-                        return o1.compareTo(o2);
-                    }
-                });
+	    raiz = buildUnsorted(lista);
         }
 
     }
@@ -182,19 +178,91 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     /**
-     * Agrega un elemento al árbol.
+     * Agrega un elemento a un arbol.
+     * @param elemento Elemento del vertice a agregar.
      */
     public void add(T elemento) {
         insert(raiz, elemento);
     }
-
+    /**
+     * Inserta un vertice al arbol.
+     * @param root Raiz del arbol a insertar un elemento.
+     * @param elem Elemento del vertice a insertar.
+     */
     public void insert(Vertice root, T elem) {
+	if(elem == null)
+	    throw new IllegalArgumentException("El elemento es null");
+	else{
+	    if(root == null){
+		Vertice nuevo = nuevoVertice(elem);
+		root = nuevo;
+	    }
+
+	    if(elem.compareTo(root.elemento) < 0){
+		if(root.izquierdo == null){
+		    Vertice nuevo = nuevoVertice(elem);
+		    root.izquierdo = nuevo;
+		}
+		else{
+		    insert(root.izquierdo, elem);
+		}
+	    }
+
+	    if(elem.compareTo(root.elemento)>0){
+		if(root.izquierdo == null){
+		    Vertice nuevo = nuevoVertice(elem);
+		    root.derecho = nuevo;
+		}
+		else{
+		    insert(root.derecho, elem);
+		}
+	    }
+	}
+	
+    }
+    /**
+     *Convierte un arbol binario a un arbol binario de busqueda.
+     *@param arbolBinario Arbol binario a convertir.
+     *@param Vertice Raiz del arbol convertido.
+     */
+    public Vertice convertBST(ArbolBinario<T> arbolBinario){
+	if(arbolBinario.raiz == null)
+	    throw new IllegalArgumentException("El arbol es null");
+	else{
+
+	    Iterator<T> it = iterator();
+	    Lista<T> lista = new Lista<>();
+	    // Se hace una lista con los elementos.
+	    while (it.hasNext()) {
+		lista.add(it.next());
+	    }
+        // Se construye el árbol con buildUnsorted.
+	    raiz = buildUnsorted(lista);
+	    return raiz;
+	}
+	
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterador();
     }
+
+    /**
+     *Crea un arbol binario ordenado a partir de una lista desordenada
+     *@param lista Lista desordenada a convertir en arbol binario de busqueda.
+     *@return Vertice Raiz del BST construido.
+     */
+    public Vertice buildUnsorted(Lista<T> lista){
+	Lista<T> copia = lista.mergeSort(new Comparator<T> () {
+                    @Override
+                    public int compare(T o1, T o2) {
+                        return o1.compareTo(o2);
+                    }
+                });
+	return buildSorted(copia);
+    }
+    
 
     /**
      * Construye un árbol BST a partir de una lista ordenada.
@@ -234,8 +302,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     /**
-     * Regresa una representación en cadena del árbol.
-     * @return Representación en cadena del árbol.
+     * Regresa una representación en cadena del árbol en in-OrderDFS.
+     * @return String Representación en cadena del árbol en in-OrderDFS.
      */
     public String toString() {
         return toString(raiz);
@@ -255,4 +323,5 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         str += toString(raiz.derecho);
         return str;
     }
+
 }
