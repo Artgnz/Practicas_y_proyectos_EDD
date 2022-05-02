@@ -4,6 +4,11 @@ import java.util.Iterator;
 import java.util.Comparator;
 import java.lang.Math;
 
+/**
+ * Métodos de la práctica 3.
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class Practica3 {
 
     /**
