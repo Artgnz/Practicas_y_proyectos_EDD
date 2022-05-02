@@ -337,7 +337,7 @@ public abstract class ArbolBinario<T> implements Collection<T> {
      */
 
     private String toString(Vertice v, int l, int[] m) {
-        String s = v.toString() + "\n";
+        String s = v.elemento.toString() + "\n";
         m[l] = 1;
 
         if (v.izquierdo != null && v.derecho != null) {
