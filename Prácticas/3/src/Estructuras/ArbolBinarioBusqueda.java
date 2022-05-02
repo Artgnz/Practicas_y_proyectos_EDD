@@ -153,10 +153,18 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         return raiz;
     }
 
+    /**
+     *Agrega un elemento a un arbol.
+     *@param elemento Elemento del vertice a agregar.
+     */
     public void add(T elemento) {
         insert(raiz, elemento);
     }
-
+    /**
+     *Inserta un vertice al arbol.
+     *@param root Raiz del arbol a insertar un elemento.
+     *@param elem Elemento del vertice a insertar.
+     */
     public void insert(Vertice root, T elem) {
 	if(elem == null)
 	    throw new IllegalArgumentException("El elemento es null");
@@ -188,7 +196,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 	}
 	
     }
-
+    /**
+     *Convierte un arbol binario a un arbol binario de busqueda.
+     *@param arbolBinario Arbol binario a convertir.
+     *@param Vertice Raiz del arbol convertido.
+     */
     public Vertice convertBST(ArbolBinario<T> arbolBinario){
 	if(arbolBinario.raiz == null)
 	    throw new IllegalArgumentException("El arbol es null");
@@ -200,7 +212,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 	    while (it.hasNext()) {
 		lista.add(it.next());
 	    }
-        // Se construye el árbol con buildSorted.
+        // Se construye el árbol con buildUnsorted.
 	    raiz = buildUnsorted(lista);
 	    return raiz;
 	}
@@ -211,7 +223,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     public Iterator<T> iterator() {
         return new Iterador();
     }
-    
+    /**
+     *Crea un arbol binario ordenado a partir de una lista desordenada
+     *@param lista Lista desordenada a convertir en arbol binario de busqueda.
+     *@return Vertice Raiz del BST construido.
+     */
     public Vertice buildUnsorted(Lista<T> lista){
 	Lista<T> copia = lista.mergeSort(new Comparator<T> () {
                     @Override
@@ -240,7 +256,10 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         raiz.derecho = buildSorted(it, hojasArbolDerecho);
         return raiz;
     }
-
+    /**
+     *Metodo toString que imprime al arbol en in-OrderDFS.
+     *@return String Recorrido del arbol en in-OrderDFS.
+     */
     public String toString() {
         Iterator<T> it = iterator();
         String str = "";

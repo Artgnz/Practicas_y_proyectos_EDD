@@ -218,9 +218,82 @@ public class Practica3 {
 
         return primos;
     }
-
+    /**
+     *Se encarga de imprimir las soluciones al problema de las N_Reinas dado un entero n, si no tiene soluciones, no imprime nada.
+     *@param N Dimensiones del tablero y cantidad de reinas a colocar.
+     */
     public static void N_Reinas(int N){
+	//Creamos matriz;
+	int[][] tablero = new int[N][N];
+	for(int i = 0; i <N; i++){
+	    for(int j=0; j<N; j++)
+		tablero[i][j] = 0;
+	}
+	colocarReinas(tablero, 0);
+    }
+    /**
+     *Metodo encargado de poner las reinas en el tablero.
+     *@param tablero Tablero de las n reinas.
+     *@param j Columna del tablero.
+     */
+    public static void colocarReinas(int[][] tablero, int j){
+	int i = 0;
+	while(i<tablero.length){//Recorremos todas las casillas de la primera columna.
+	    if(esValido(tablero,i,j)){//Si es valida la casilla ponemos una reina.
+		tablero[i][j]=1;
+		if(j<tablero.length-1){
+		    colocarReinas(tablero, j+1);//Si hay mas columnas restantes, les colocamos reinas.
+		}
+		else{
+		    imprimirTablero(tablero);//Si llegamos a la columna final, tenemos una solucion.
+		}
+		tablero[i][j]=0;//Backtracking volvemos a ponerla en 0, para asi buscar mas soluciones al momento de recorrer i.
+	    }
+	    i++;
+	}
+    }
+    /**
+     *Determina si cierta pocision en el tablero es valida para colocar una reina.
+     *@param tablero Tablero de las n reinas.
+     *@param i Fila del tablero.
+     *@param j Columna del tablero.
+     */
+    public static boolean esValido(int[][] tablero, int i, int j){
 
+	for(int x=0; x < j; x++){//Verifica si no hay reinas a los lados.
+	    if(tablero[i][x] == 1)
+		return false;
+	}
+
+    	for(int t = 0; j<tablero.length && (i-t)>=0 && (j-t)>=0; t++){//Verifica que no haya reinas en diagonal.
+	    if(tablero[i-t][j-t] == 1)
+		return false;
+	}
+
+	for(int t = 0; t < tablero.length && (i+t)<tablero.length && (j-t)>=0; t++){ //Verifica que no haya reinas en diagonal.
+	    if(tablero[i+t][j-t] == 1)
+		return false;
+	}
+
+	return true;
+    }
+
+    /**
+     *Imprime el tablero de las N Reinas.
+     *@param tablero matriz que representa el tablero.
+     */
+    public static void imprimirTablero(int[][] tablero){
+	for(int i= 0; i<tablero.length; i++)
+	    System.out.print("===");
+	  System.out.println("");
+	for(int i = 0; i <tablero.length; i++){
+	    for(int j=0; j<tablero.length; j++)
+		System.out.print(tablero[i][j] + "  ");
+	    System.out.println("");
+	}
+        for(int i= 0; i<tablero.length; i++)
+	    System.out.print("===");
+	  System.out.println("");
     }
 
     /**
@@ -341,5 +414,6 @@ public class Practica3 {
         primosQueSuman(23, 2, 3);
         primosQueSuman(15, 2, 3);
         ArbolBinarioBusqueda<Integer> arbol = new ArbolBinarioBusqueda<>(lista, true);
+	N_Reinas(4);
     }
 }
