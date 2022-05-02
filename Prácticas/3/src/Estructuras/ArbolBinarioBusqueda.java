@@ -8,6 +8,11 @@ import edd.src.Estructuras.Lista;
 import java.util.Iterator;
 import java.util.Comparator;
 
+/**
+ * Implementación de árbol binario de búsqueda.
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<T> {
     private class Iterador implements Iterator<T> {
         private Pila<Vertice> pila;
@@ -53,6 +58,15 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     /**
+     * Busca un elemento en el árbol.
+     * @param elem Elemento que se busca.
+     * @return boolean Si se encuentra el elemento.
+     */
+    public boolean search(T elem) {
+        return search(raiz, elem);
+    }
+
+    /**
      * Busca un elemento en el árbol binario de búsqueda.
      * @param raíz Raíz del árbol de búsqueda en el que se busca.
      * @param elem Elemento que se busca.
@@ -79,7 +93,12 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
             return search(raiz.izquierdo, elem);
         }
     }
-    // TODO: delete quizá deba ser private.
+    /**
+     * Elimina un elemento del BST.
+     * @param elemento Elemento a borra.
+     * @return Si se pudo borrar el elemento.
+     */
+    @Override
     public boolean delete(T elemento) {
         int elementosAnterior = elementos;
         raiz = delete(raiz, elemento);
@@ -122,7 +141,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
                 return vertice.izquierdo;
             }
             // Buscamos el sucesor inOrder.
-            Vertice mayorAnterior = menorQueActual(vertice.izquierdo);
+            Vertice mayorAnterior = sucesorInOrder(vertice.izquierdo);
             // El elemento del vértice será el del sucesor inOrder.
             vertice.elemento = mayorAnterior.elemento;
             // Se elimna el sucesorinOrder.
@@ -135,7 +154,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     /**
      * Balancea el árbol BST.
      */
-    public void Balance() {
+    public void balance() {
         Iterator<T> it = iterator();
         Lista<T> lista = new Lista<>();
         // Se hace una lista con los elementos.
@@ -146,7 +165,12 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         raiz = buildSorted(lista);
     }
 
-    private Vertice menorQueActual(Vertice raiz) {
+    /**
+     * Encuentra el sucesor inOrder.
+     * @param raiz La raíz del árbol.
+     * @return el sucesor inOrder.
+     */
+    private Vertice sucesorInOrder(Vertice raiz) {
         while (raiz != null && raiz.izquierdo != null) {
             raiz = raiz.izquierdo;
         }
@@ -154,16 +178,16 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     /**
-     *Agrega un elemento a un arbol.
-     *@param elemento Elemento del vertice a agregar.
+     * Agrega un elemento a un arbol.
+     * @param elemento Elemento del vertice a agregar.
      */
     public void add(T elemento) {
         insert(raiz, elemento);
     }
     /**
-     *Inserta un vertice al arbol.
-     *@param root Raiz del arbol a insertar un elemento.
-     *@param elem Elemento del vertice a insertar.
+     * Inserta un vertice al arbol.
+     * @param root Raiz del arbol a insertar un elemento.
+     * @param elem Elemento del vertice a insertar.
      */
     public void insert(Vertice root, T elem) {
 	if(elem == null)
@@ -218,11 +242,12 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 	}
 	
     }
-    
+
     @Override
     public Iterator<T> iterator() {
         return new Iterador();
     }
+
     /**
      *Crea un arbol binario ordenado a partir de una lista desordenada
      *@param lista Lista desordenada a convertir en arbol binario de busqueda.
@@ -238,37 +263,64 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 	return buildSorted(copia);
     }
     
+
+    /**
+     * Construye un árbol BST a partir de una lista ordenada.
+     * @param lista Lista ordenada.
+     * @return la raíz del árbol.
+     */
     public Vertice buildSorted(Lista<T> lista) {
         int tamano = lista.size();
-        return buildSorted(lista.iterator(), tamano);
+        return buildSorted(lista.iterator(), 0, tamano - 1);
     }
 
-    private Vertice buildSorted(Iterator<T> it, int n) {
-        if (n <= 0) {
+    /**
+     * Construye un BST a partir de un iterador de una lista ordenada.
+     * @param it Iterador de la lista ordenada.
+     * @param izquierda Desde que índice de la lista construir el árbol.
+     * @param derecha Hasta que índice de la lista construir el árbol.
+     * @return La raíz del árbol.
+     */
+    private Vertice buildSorted(Iterator<T> it, int izquierda, int derecha) {
+        // Si izquierda es mayor que derecha, se regresa null.
+        if (izquierda > derecha) {
             return null;
         }
 
-        Vertice izq = buildSorted(it, n / 2);
-        Vertice raiz = nuevoVertice(it.next());
-        raiz.izquierdo = izq;
-        int hojasArbolDerecho = n - (n / 2) - 1;
-
-        raiz.derecho = buildSorted(it, hojasArbolDerecho);
-        return raiz;
+        // El número que se encuentra a la mitad de izquierda y derecha.
+        int mitad = izquierda + (derecha - izquierda) / 2;
+        // Se construye el subárbol izquierdo.
+        Vertice vIzq = buildSorted(it, izquierda, mitad - 1);
+        // Se crea la raíz del árbol.
+        Vertice vRaiz = nuevoVertice(it.next());
+        // Se asigna el subárbol izquierdo como vértice izquierdo de este árbol.
+        vRaiz.izquierdo = vIzq;
+        // Se construye el subárbol derecho.
+        vRaiz.derecho = buildSorted(it, mitad + 1, derecha);
+        // Se regresa la raíz del árbol
+        return vRaiz;
     }
+
     /**
-     *Metodo toString que imprime al arbol en in-OrderDFS.
-     *@return String Recorrido del arbol en in-OrderDFS.
+     * Regresa una representación en cadena del árbol en in-OrderDFS.
+     * @return String Representación en cadena del árbol en in-OrderDFS.
      */
     public String toString() {
-        Iterator<T> it = iterator();
-        String str = "";
-        while (it.hasNext()) {
-            str += it.next();
-            if (it.hasNext()) {
-                str += " ";
-            }
+        return toString(raiz);
+    }
+
+    /**
+     * Regresa una representación en cadena del árbol.
+     * @param raiz Vértice para la cadena.
+     * @return Representación en cadena del árbol.
+     */
+    private String toString(Vertice raiz) {
+        if (raiz == null) {
+            return "";
         }
+        String str = toString(raiz.izquierdo);
+        str +=  raiz.elemento.toString() + " ";
+        str += toString(raiz.derecho);
         return str;
     }
 

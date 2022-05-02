@@ -4,6 +4,11 @@ import java.util.Iterator;
 import java.util.Comparator;
 import java.lang.Math;
 
+/**
+ * Métodos de la práctica 3.
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class Practica3 {
 
     /**
@@ -63,7 +68,7 @@ public class Practica3 {
             }
         }
 
-        System.out.println("La pareja es " + num1 + " y " + num2 + " y suma es " + (num1 + num2));
+        System.out.println("La pareja es " + num1 + " y " + num2 + " y su suma es " + (num1 + num2));
     }
 
     /**
@@ -390,7 +395,6 @@ public class Practica3 {
         // Puedes hacer tus pruebas aqui
         Lista<Integer> lista = new Lista<>();
         lista.add(1);
-        lista.add(1);
         lista.add(2);
         lista.add(3);
         lista.add(5);
@@ -413,7 +417,25 @@ public class Practica3 {
         primosQueSuman(28, 7, 2);
         primosQueSuman(23, 2, 3);
         primosQueSuman(15, 2, 3);
+        // Prueba de buildSorted
         ArbolBinarioBusqueda<Integer> arbol = new ArbolBinarioBusqueda<>(lista, true);
-	N_Reinas(4);
+
+        System.out.println("Lista ordenada: " + lista);
+        System.out.println("BST a partir de anterior lista: " + arbol);
+
+        // Prueba de search
+        System.out.println("¿Se encuentra el " + 6 + " en el árbol? " + arbol.search(6));
+        System.out.println("¿Se encuentra el " + 3 + " en el árbol? " + arbol.search(3));
+        System.out.println("¿Se encuentra el " + 1 + " en el árbol? " + arbol.search(1));
+
+        // Prueba de delete
+        arbol.delete(3);
+        arbol.delete(1);
+        System.out.println("Se eliminaron: 3, 1 del árbol");
+        System.out.println(arbol);
+
+        // Prueba de balance
+        arbol.balance();
+  	N_Reinas(4);
     }
 }
