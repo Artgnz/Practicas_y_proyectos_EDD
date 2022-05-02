@@ -63,7 +63,7 @@ public class Practica3 {
             }
         }
 
-        System.out.println("La pareja es " + num1 + " y " + num2 + " y suma es " + (num1 + num2));
+        System.out.println("La pareja es " + num1 + " y " + num2 + " y su suma es " + (num1 + num2));
     }
 
     public static void permutacionesCadena(String cadena){
