@@ -200,7 +200,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         }
         Vertice v = nuevoVertice(elemento);
         ultimoAgregado = v;
-        insert(raiz, elemento);
+        raiz = insert(raiz, elemento);
     }
     /**
      * Inserta un vertice al arbol.
@@ -213,6 +213,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
         if(root == null){
             Vertice nuevo = nuevoVertice(elem);
+            elementos++;
             return nuevo;
         }
 

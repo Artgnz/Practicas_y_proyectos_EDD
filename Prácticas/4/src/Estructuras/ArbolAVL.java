@@ -99,12 +99,13 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
         if (elem.compareTo(v.elemento) < 0) {
             v.izquierdo = insert(v.izquierdo, elem);
-        }
-
-        if (elem.compareTo(v.elemento) > 0) {
+        } else if (elem.compareTo(v.elemento) > 0) {
             v.derecho = insert(v.derecho, elem);
 
+        } else {
+            return v;
         }
+
         v.altura = altura(v);
 
         int balance = getBalanceVertice(v);
