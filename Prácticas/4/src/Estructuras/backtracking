@@ -1,0 +1,12 @@
+Eliges un punto de inicial. 
+while(Problema no este resuelto){
+    ForEach camino desde el punto inicial
+        if el camino es valido
+            a <- recursividad con el resto del Problema
+            return a
+        else
+            regresas un paso.
+            return false -> NO ES UNA SOLUCION VALIDA
+    return false -> NO EXISTE SOLUCION
+}   
+return true
