@@ -154,11 +154,74 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         hijoDer.altura = altura(hijoDer);
         return hijoDer;
     }
-
-    public void delete() {
-
+    @Override
+    public boolean delete(T elemento) {
+	int elementosAnterior = elementos;
+	raiz = delete(raiz, elemento);
+	return elementos == elementosAnterior-1;
     }
 
+    public Vertice delete(Vertice vertice, T elem) {
+	VerticeAVL v = (VerticeAVL) vertice;
+	
+	if(v == null){
+	    return null;
+	}
+
+	if(elem == null){
+	    throw new IllegalArgumentException("El elemento es null.");
+	}
+
+	 if (elem.compareTo(v.elemento) < 0) {
+	     v.izquierdo = delete(v.izquierdo, elem);
+        }
+
+        else if (elem.compareTo(v.elemento) > 0) {
+            v.derecho = delete(v.derecho, elem);
+        }
+
+         else {
+     
+            if (v.izquierdo == null) {   
+                return v.derecho;
+            }
+     
+            if (v.derecho == null) {     
+                return v.izquierdo;
+            }
+     
+            Vertice mayorAnterior = sucesorInOrder(v.izquierdo);     
+            v.elemento = mayorAnterior.elemento;    
+            v.derecho = delete(v.izquierdo, v.elemento);
+            elementos--;
+        }
+	 v.altura = altura(v);
+
+	 int balance = getBalanceVertice(v);
+
+	 VerticeAVL vIzq = (VerticeAVL) v.izquierdo;
+	 VerticeAVL vDer = (VerticeAVL) v.derecho;
+
+	 if(balance>=2){
+	     if(getBalanceVertice(vIzq) >= 1){
+		 return rotaDerecha(v);
+	     } else {
+		 v.izquierdo=rotaIzquierda(vIzq);
+		 return rotaDerecha(v);
+	     }
+	 }
+
+	 if(balance == -2){
+	     if(getBalanceVertice(vDer) <= -1){
+		 return rotaIzquierda(v);
+	     } else {
+		 v.derecho = rotaDerecha(vDer);
+		 return rotaIzquierda(v);
+	     }
+	 }
+        return v;
+    }
+    
     @Override
     protected Vertice nuevoVertice(T elemento) {
         return new VerticeAVL(elemento);

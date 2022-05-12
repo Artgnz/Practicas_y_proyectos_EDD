@@ -182,7 +182,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param raiz La raíz del árbol.
      * @return el sucesor inOrder.
      */
-    private Vertice sucesorInOrder(Vertice raiz) {
+    public Vertice sucesorInOrder(Vertice raiz) {
         while (raiz != null && raiz.izquierdo != null) {
             raiz = raiz.izquierdo;
         }
