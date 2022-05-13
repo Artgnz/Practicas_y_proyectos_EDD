@@ -232,11 +232,99 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         return hijoDer;
     }
 
-    public void delete() {
 
+    @Override
+    /**
+     * Elimina un elemento del Arbol AVL.
+     * @param elemento Elemento a borra.
+     * @return Si se pudo borrar el elemento.
+     */
+    public boolean delete(T elemento) {
+	int elementosAnterior = elementos;
+	raiz = delete(raiz, elemento);
+	return elementos == elementosAnterior-1;
     }
 
     /**
+     * Elimina un elemento del árbol.
+     * @param vertice Raíz del árbol del que se elimina.
+     * @param elem Elemento a eliminar.
+     * @return raíz La raíz del árbol donde se eliminó.
+     */
+    public Vertice delete(Vertice vertice, T elem) {
+	VerticeAVL v = (VerticeAVL) vertice;
+	
+	if(v == null){
+	    return null;
+	}
+
+	if(elem == null){
+	    throw new IllegalArgumentException("El elemento es null.");
+	}
+
+	 if (elem.compareTo(v.elemento) < 0) {
+	     v.izquierdo = delete(v.izquierdo, elem);
+        }
+
+        else if (elem.compareTo(v.elemento) > 0) {
+            v.derecho = delete(v.derecho, elem);
+        }
+
+         else {
+     
+            if (v.izquierdo == null) {
+                return v.derecho;
+            }
+     
+            if (v.derecho == null) {     
+                return v.izquierdo;
+            }
+     
+            Vertice mayorAnterior = sucesorInOrder(v.derecho);     
+            v.elemento = mayorAnterior.elemento;    
+            v.derecho = delete(v.derecho, v.elemento);
+            elementos--;
+        }
+
+	 v.altura = altura(v);
+
+	 int balance = getBalanceVertice(v);
+
+	 VerticeAVL vIzq = (VerticeAVL) v.izquierdo;
+	 VerticeAVL vDer = (VerticeAVL) v.derecho;
+
+	 if(balance>=2){
+	     if(getBalanceVertice(vIzq) >= 1){
+		 return rotaDerecha(v);
+	     } else {
+		 v.izquierdo=rotaIzquierda(vIzq);
+		 return rotaDerecha(v);
+	     }
+	 }
+
+	 if(balance == -2){
+	     if(getBalanceVertice(vDer) <= -1){
+		 return rotaIzquierda(v);
+	     } else {
+		 v.derecho = rotaDerecha(vDer);
+		 return rotaIzquierda(v);
+	     }
+	 }
+        return v;
+    }
+
+    /**
+     * Encuentra el sucesor inOrder.
+     * @param raiz La raíz del árbol.
+     * @return el sucesor inOrder.
+     */
+     private Vertice sucesorInOrder(Vertice raiz) {
+        while (raiz != null && raiz.izquierdo != null) {
+            raiz = raiz.izquierdo;
+        }
+        return raiz;
+    }
+    
      * Crea un nuevo vértice de árbol AVL
      * @param elemento Elemento con el que se creará el vértice.
      * @return Vertice El vértice AVL creado.
