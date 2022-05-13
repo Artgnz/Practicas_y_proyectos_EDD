@@ -324,7 +324,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         }
         return raiz;
     }
-    
+    /*
      * Crea un nuevo vértice de árbol AVL
      * @param elemento Elemento con el que se creará el vértice.
      * @return Vertice El vértice AVL creado.
