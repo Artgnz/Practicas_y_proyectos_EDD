@@ -22,11 +22,16 @@ public class Practica4 {
             if (!estaBalanceadoArbol(arbolAVL)) {
                 System.out.println("El método add falla");
                 System.out.println(arbolAVL.altura());
-
             }            
 
         }
 
+	// Prueba de delete
+	System.out.println(arbolAVL.toString());
+	arbolAVL.delete(20);
+	if(!estaBalanceadoArbol(arbolAVL)){
+	    System.out.println("El metodo delete falla");
+	}
     }
 
     private static boolean estaBalanceadoArbol(ArbolBinario arbol) {

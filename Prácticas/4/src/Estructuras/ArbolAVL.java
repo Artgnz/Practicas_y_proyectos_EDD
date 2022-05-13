@@ -154,13 +154,26 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
         hijoDer.altura = altura(hijoDer);
         return hijoDer;
     }
+
+
     @Override
+    /**
+     * Elimina un elemento del Arbol AVL.
+     * @param elemento Elemento a borra.
+     * @return Si se pudo borrar el elemento.
+     */
     public boolean delete(T elemento) {
 	int elementosAnterior = elementos;
 	raiz = delete(raiz, elemento);
 	return elementos == elementosAnterior-1;
     }
 
+    /**
+     * Elimina un elemento del árbol.
+     * @param vertice Raíz del árbol del que se elimina.
+     * @param elem Elemento a eliminar.
+     * @return raíz La raíz del árbol donde se eliminó.
+     */
     public Vertice delete(Vertice vertice, T elem) {
 	VerticeAVL v = (VerticeAVL) vertice;
 	
@@ -182,7 +195,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
          else {
      
-            if (v.izquierdo == null) {   
+            if (v.izquierdo == null) {
                 return v.derecho;
             }
      
@@ -190,11 +203,12 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
                 return v.izquierdo;
             }
      
-            Vertice mayorAnterior = sucesorInOrder(v.izquierdo);     
+            Vertice mayorAnterior = sucesorInOrder(v.derecho);     
             v.elemento = mayorAnterior.elemento;    
-            v.derecho = delete(v.izquierdo, v.elemento);
+            v.derecho = delete(v.derecho, v.elemento);
             elementos--;
         }
+
 	 v.altura = altura(v);
 
 	 int balance = getBalanceVertice(v);
@@ -220,6 +234,18 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 	     }
 	 }
         return v;
+    }
+
+    /**
+     * Encuentra el sucesor inOrder.
+     * @param raiz La raíz del árbol.
+     * @return el sucesor inOrder.
+     */
+     private Vertice sucesorInOrder(Vertice raiz) {
+        while (raiz != null && raiz.izquierdo != null) {
+            raiz = raiz.izquierdo;
+        }
+        return raiz;
     }
     
     @Override

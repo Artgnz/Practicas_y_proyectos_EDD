@@ -153,11 +153,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
                 return vertice.izquierdo;
             }
             // Buscamos el sucesor inOrder.
-            Vertice mayorAnterior = sucesorInOrder(vertice.izquierdo);
+            Vertice mayorAnterior = sucesorInOrder(vertice.derecho);
             // El elemento del vértice será el del sucesor inOrder.
             vertice.elemento = mayorAnterior.elemento;
             // Se elimna el sucesorinOrder.
-            vertice.derecho = delete(vertice.izquierdo, vertice.elemento);
+            vertice.derecho = delete(vertice.derecho, vertice.elemento);
             elementos--;
         }
         return vertice;
@@ -182,7 +182,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      * @param raiz La raíz del árbol.
      * @return el sucesor inOrder.
      */
-    public Vertice sucesorInOrder(Vertice raiz) {
+    private Vertice sucesorInOrder(Vertice raiz) {
         while (raiz != null && raiz.izquierdo != null) {
             raiz = raiz.izquierdo;
         }
