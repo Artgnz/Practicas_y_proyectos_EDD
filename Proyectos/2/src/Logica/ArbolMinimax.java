@@ -2,7 +2,6 @@ package edd.src.Logica;
 import edd.src.Estructuras.Lista;
 import edd.src.Estructuras.ArbolBinario;
 import edd.src.Estructuras.Cola;
-import edd.src.Elementos.*;
 import edd.src.Interfaz.*;
 import java.util.NoSuchElementException;
 import java.util.Iterator;
