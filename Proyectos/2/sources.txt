@@ -11,9 +11,7 @@
 ./src/Estructuras/PushPop.java
 ./src/Estructuras/VerticeArbolBinario.java
 ./src/Estructuras/ArbolBinarioBusqueda.java
-./src/Elementos/Jugador.java
 ./src/Interfaz/Interfaz.java
 ./src/Logica/Juego.java
-./src/Logica/Pieza.java
 ./src/Logica/EncerradoPieza.java
 ./src/Logica/EncerradoTablero.java
