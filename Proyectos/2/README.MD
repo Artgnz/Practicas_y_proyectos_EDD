@@ -11,6 +11,7 @@ El proyecto consiste principalmente de tres partes:
    a. EncerradoPieza.java. Es una enumeración que se encarga de representar a una pieza del juego.
    b. EncerradoTablero.java. Es la encargada de representar el tablero del juego. Provee métodos para mover fichas y verificar que los movimientos sean válidos.
    c. Juego.java. Se encarga del desarrollo general del juego, establece y desarrolla las rondas.
+   d. Las clases relacionadas con minimax.
 
 3. Estructuras. Está constituida por aquellas estructuras de datos que desarrollamos en las clases de laboratorio.
 

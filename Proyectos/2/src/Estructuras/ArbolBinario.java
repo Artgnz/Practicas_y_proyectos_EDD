@@ -13,7 +13,8 @@ import java.util.Comparator;
  * deja la implementación de varias en manos de las subclases concretas.
  * </p>
  */
-public abstract class ArbolBinario<T> implements Collection<T> {
+public abstract
+    class ArbolBinario<T> implements Collection<T> {
     /**
      * Clase interna protegida para vértices.
      */
