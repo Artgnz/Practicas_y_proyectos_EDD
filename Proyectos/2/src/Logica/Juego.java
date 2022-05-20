@@ -1,6 +1,8 @@
 package edd.src.Logica;
 
 import edd.src.Estructuras.Lista;
+import edd.src.Estructuras.VerticeArbolBinario;
+import edd.src.Elementos.*;
 import edd.src.Interfaz.*;
 
 /**
@@ -152,6 +154,20 @@ public class Juego {
             }
             System.out.println("Tablero final:");
             System.out.println(tablero);
+            String movimientoComputadora;
+            // Aquí es donde la computadora debe jugar
+	    ArbolMinimax minimax = new ArbolMinimax(tablero,10);
+	    movimientoComputadora = minimax.obtenerMejorMovimiento(minimax.raiz());
+	    System.out.println("Movimiento de la computadora: " + movimientoComputadora);
+
+	    tablero = tablero.mover(movimientoComputadora);
+            if (tablero.esVictoria()) {
+                System.out.println("++++++++++++++++++++");
+                System.out.println("La computadora gana!");
+                System.out.println("Tablero final:");
+                System.out.println(tablero);
+                System.out.println("++++++++++++++++++++");
+                break;
             System.out.println("++++++++++++++++++++");
             return;
         }
@@ -187,6 +203,7 @@ public class Juego {
                     System.out.println("++++++++++++++++++++");
                     break;
                 }
+
             }
         jugador++;
         }

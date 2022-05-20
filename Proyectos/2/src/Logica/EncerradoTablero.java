@@ -92,8 +92,6 @@ public class EncerradoTablero {
         colocar(tempPosicion, de, EncerradoPieza.V);
         // Marca la posición de destino con la pieza del turno.
         colocar(tempPosicion, hacia, turno);
-        // Asigna el tablero al nuevo
-        posicion = tempPosicion;
 
         return new EncerradoTablero(tempPosicion, turno.opuesto());
     }
