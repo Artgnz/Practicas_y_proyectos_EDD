@@ -50,7 +50,6 @@ public class EncerradoTablero {
         String hacia = movimiento.split("-")[1];
         colocar(tempPosicion, de, EncerradoPieza.V);
         colocar(tempPosicion, hacia, turno);
-        posicion = tempPosicion;
         return new EncerradoTablero(tempPosicion, turno.opuesto());
     }
 

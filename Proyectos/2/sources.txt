@@ -17,3 +17,5 @@
 ./src/Logica/Pieza.java
 ./src/Logica/EncerradoPieza.java
 ./src/Logica/EncerradoTablero.java
+./src/Logica/ArbolMinimax.java
+./src/Logica/Jugada.java
