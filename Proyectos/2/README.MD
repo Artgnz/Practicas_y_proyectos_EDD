@@ -30,4 +30,4 @@ El proyecto consiste principalmente de tres partes:
 
 # Inconvenientes
 
-Tuvimos dificultades al momento de implementar detalles como la entrada de una configuración inicial personalizada. Además, nos resultó complicado verificar que los movimientos que el usuario introdujera fueran válidos.
+Tuvimos dificultades al momento de implementar detalles como la entrada de una configuración inicial personalizada. Además, nos resultó complicado verificar que los movimientos que el usuario introdujera fueran válidos. De igual forma, la implementación del árbol de minimax fue complicada.
