@@ -1,6 +1,6 @@
 package edd.src.Estructuras;
 
-public class Pokemon {
+public class Pokemon  {
     String nombre;
     String tipo;
     int nivel;

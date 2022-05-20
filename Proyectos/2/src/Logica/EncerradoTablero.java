@@ -29,6 +29,14 @@ public class EncerradoTablero {
         this.turno = turno;
     }
     /**
+     * Constructor que recibe posiciones de fichas..
+     * @param turno Turno del jugador.
+     */
+    public EncerradoTablero(EncerradoPieza[][] pPosicion) {
+        this.posicion = pPosicion;
+        turno = EncerradoPieza.R;
+    }
+    /**
      * Constructor del tablero. Establece un arreglo de piezas con posiciones predeterminadas y un jugador
      * predeterminado.
      */
