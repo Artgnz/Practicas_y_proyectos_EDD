@@ -20,13 +20,13 @@ public interface Collection<T> extends Iterable<T> {
      */
     public boolean delete(T elemento);
 
-    // /**
-    //  * Regresa un elemento de la colección.
-    //  * y lo elimina.
-    //  * 
-    //  * @return El elemento a sacar.
-    //  */
-    // public T pop();
+    /**
+     * Regresa un elemento de la colección.
+     * y lo elimina.
+     * 
+     * @return El elemento a sacar.
+     */
+    //public T pop();
 
     /**
      * Regresa el número de elementos en la colección.
@@ -75,7 +75,6 @@ public interface Collection<T> extends Iterable<T> {
      */
     public String toString();
     
-   
 
 
 }

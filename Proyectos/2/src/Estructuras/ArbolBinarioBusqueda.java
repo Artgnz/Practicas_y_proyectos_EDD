@@ -57,6 +57,18 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
     }
 
+    protected Vertice ultimoAgregado;
+    /**
+     * Constructor sin parámetros. Para no perder el constructor sin parámetros
+     * de {@link ArbolBinario}.
+     */
+    public ArbolBinarioBusqueda() {
+        super();
+    }
+
+    public ArbolBinarioBusqueda(Collection<T> coleccion) {
+        super(coleccion);
+    }
     /**
      * Busca un elemento en el árbol.
      * @param elem Elemento que se busca.
@@ -141,11 +153,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
                 return vertice.izquierdo;
             }
             // Buscamos el sucesor inOrder.
-            Vertice mayorAnterior = sucesorInOrder(vertice.izquierdo);
+            Vertice mayorAnterior = sucesorInOrder(vertice.derecho);
             // El elemento del vértice será el del sucesor inOrder.
             vertice.elemento = mayorAnterior.elemento;
             // Se elimna el sucesorinOrder.
-            vertice.derecho = delete(vertice.izquierdo, vertice.elemento);
+            vertice.derecho = delete(vertice.derecho, vertice.elemento);
             elementos--;
         }
         return vertice;
@@ -177,53 +189,51 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         return raiz;
     }
 
+
     /**
      * Agrega un elemento a un arbol.
      * @param elemento Elemento del vertice a agregar.
      */
     public void add(T elemento) {
-        insert(raiz, elemento);
+        if (elemento == null) {
+            throw new IllegalArgumentException("elemento nulo");
+        }
+        Vertice v = nuevoVertice(elemento);
+        ultimoAgregado = v;
+        raiz = insert(raiz, elemento);
     }
     /**
      * Inserta un vertice al arbol.
      * @param root Raiz del arbol a insertar un elemento.
      * @param elem Elemento del vertice a insertar.
      */
-    public void insert(Vertice root, T elem) {
-	if(elem == null)
-	    throw new IllegalArgumentException("El elemento es null");
-	else{
-	    if(root == null){
-		Vertice nuevo = nuevoVertice(elem);
-		root = nuevo;
-	    }
+    public Vertice insert(Vertice root, T elem) {
+        if(elem == null)
+            throw new IllegalArgumentException("El elemento es null");
 
-	    if(elem.compareTo(root.elemento) < 0){
-		if(root.izquierdo == null){
-		    Vertice nuevo = nuevoVertice(elem);
-		    root.izquierdo = nuevo;
-		}
-		else{
-		    insert(root.izquierdo, elem);
-		}
-	    }
+        if(root == null){
+            Vertice nuevo = nuevoVertice(elem);
+            elementos++;
+            return nuevo;
+        }
 
-	    if(elem.compareTo(root.elemento)>0){
-		if(root.izquierdo == null){
-		    Vertice nuevo = nuevoVertice(elem);
-		    root.derecho = nuevo;
-		}
-		else{
-		    insert(root.derecho, elem);
-		}
-	    }
-	}
-	
+        if(elem.compareTo(root.elemento) < 0){
+            root.izquierdo = insert(root.izquierdo, elem);
+        }
+
+        if(elem.compareTo(root.elemento) > 0){
+            root.derecho = insert(root.derecho, elem);
+
+        }
+
+        return root;
     }
+	
+  
     /**
-     *Convierte un arbol binario a un arbol binario de busqueda.
-     *@param arbolBinario Arbol binario a convertir.
-     *@param Vertice Raiz del arbol convertido.
+     * Convierte un arbol binario a un arbol binario de busqueda.
+     * @param arbolBinario Arbol binario a convertir.
+     * @param Vertice Raiz del arbol convertido.
      */
     public Vertice convertBST(ArbolBinario<T> arbolBinario){
 	if(arbolBinario.raiz == null)
@@ -243,6 +253,11 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 	
     }
 
+    /**
+     * Regresa un iterador para iterar el árbol. El árbol se itera en orden.
+     * 
+     * @return un iterador para iterar el árbol.
+     */
     @Override
     public Iterator<T> iterator() {
         return new Iterador();
@@ -324,4 +339,19 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         return str;
     }
 
+    /**
+     * Regresa el vértice que contiene el último elemento agregado al
+     * árbol. Este método sólo se puede garantizar que funcione
+     * <em>inmediatamente</em> después de haber invocado al método {@link
+     * agrega}. Si cualquier operación distinta a agregar sobre el árbol se
+     * ejecuta después de haber agrefgado un elemento, el comportamiento de este
+     * método es indefinido.
+     * 
+     * @return el vértice que contiene el último elemento agregado al árbol, si
+     *         el método es invocado inmediatamente después de agregar un
+     *         elemento al árbol.
+     */
+    public VerticeArbolBinario<T> getUltimoVerticeAgregado() {
+        return ultimoAgregado;
+    }
 }
