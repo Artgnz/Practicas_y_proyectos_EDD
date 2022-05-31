@@ -12,7 +12,7 @@ public class Practica5 {
     public static void main(String[] args) {
         // Prueba de heapSort
         Lista<Integer> l1 = new Lista<>();
-        for (int i = 3; i >= 0; i--) {
+        for (int i = 40; i >= 0; i--) {
             l1.add(i);
         }
         System.out.println("Lista: " + l1);

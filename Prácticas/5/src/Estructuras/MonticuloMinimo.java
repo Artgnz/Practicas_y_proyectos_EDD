@@ -340,40 +340,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
         return esMontMin(arr, 2 * i + 1) && esMontMin(arr, 2 * i + 2);
     }
 
-    public static <T extends ComparableIndexable<T>> T[] MontMax_MontMin(T[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i].setIndice(i);
-        }
-
-        for(int j = (arr.length-1) /2; j >= 0; j--){
-            heapify(arr, j);
-        }
-        return arr;
-    }
-
-    private static <T extends ComparableIndexable<T>> void heapify(T[] arr, int i) {
-        int izq = i * 2 + 1;
-        int der = i * 2 + 1;
-        int minimo = i;
-
-        if (izq < arr.length && arr[izq].compareTo(arr[i]) < 0) {
-            minimo = izq;
-        }
-        if (der < arr.length && arr[der].compareTo(arr[minimo]) < 0) {
-            minimo = der;
-        }
-        if (minimo == i) {
-            return;
-        } else {
-            swapExterno(arr[minimo], arr[i], arr);
-            heapify(arr, minimo);
-        }
-    }
-    private static <T extends ComparableIndexable<T>> void swapExterno(T i, T j, T[] arr) {
-        int aux = j.getIndice();
-        arr[i.getIndice()] = j;
-        arr[j.getIndice()] = i;
-        j.setIndice(i.getIndice());
-        i.setIndice(aux);
+    public static <T> MonticuloMinimo<T> MontMax_MontMin(MonticuloMaximo<T> mon) {
+        return new MonticuloMinimo<T>(mon, mon.size());
     }
 }
