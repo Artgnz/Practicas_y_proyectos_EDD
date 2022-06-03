@@ -48,28 +48,46 @@ public class Practica5 {
 
 	//Pruebas MaxHeap
 
-        //Pruebas esMaxHeap
+        //Pruebas esMontMax
 	System.out.println("¿Es montículo máximo: {5,4,3,2,1}?");
 	System.out.println(MonticuloMaximo.esMontMax(new Integer[] {5,4,3,2,1}));
         System.out.println("¿Es montículo máximo: {5,3,4,3,1}?");
 	System.out.println(MonticuloMaximo.esMontMax(new Integer[] {5,3,4,3,1}));
-	System.out.println("¿Es montículo mínimo: {3, 2, 2, 3, 2, 1}?");
+	System.out.println("¿Es montículo máximo: {3, 2, 2, 3, 2, 1}?");
         System.out.println(MonticuloMaximo.esMontMax(new Integer[] {3, 2, 2, 3, 2, 1}));
-	System.out.println("¿Es montículo mínimo: {9,7,4,5,1,6}?");
+	System.out.println("¿Es montículo máximo: {9,7,4,5,1,6}?");
         System.out.println(MonticuloMaximo.esMontMax(new Integer[] {9,7,4,5,1,6}));
-        System.out.println("¿Es montículo mínimo: {2,3,4,5,2,15}?");
+        System.out.println("¿Es montículo máximo: {2,3,4,5,2,15}?");
         System.out.println(MonticuloMaximo.esMontMax(new Integer[] {15,14,13,12,15,3}));
-        System.out.println("¿Es montículo mínimo: {2,3,4,5,10,3}?");
+        System.out.println("¿Es montículo máxínimo: {2,3,4,5,10,3}?");
         System.out.println(MonticuloMaximo.esMontMax(new Integer[] {10,9,8,7,1,9}));
-        System.out.println("¿Es montículo mínimo: {2,3,4,5,10,15}?");
+        System.out.println("¿Es montículo máximo: {2,3,4,5,10,15}?");
         System.out.println(MonticuloMaximo.esMontMax(new Integer[] {15,14,13,12,7,2}));
 	
+	Lista<CustomInteger> lista = new Lista<>();
+	for(int i = 25; i>= 0; i--){
+	    lista.add(new CustomInteger(i));
+	}
+
+	MonticuloMaximo<CustomInteger> m = new MonticuloMaximo<>(lista, lista.size());
+
+	System.out.println("Monticulo Maximo: " + m);
+
 	//Prueba Insert
+
+	m.add(new CustomInteger(30));
+	System.out.println("Monticulo con 30 insertado: " + m.toString());
 	
 	//Prueba Delete
+	m.delete();
+	System.out.println("Monticulo Maximo con 30 eliminado: " + m.toString());
+	
+	//Prueba MontMax_MontMin
 
-	//Prueba MontMin_MontMax
+	MonticuloMinimo<CustomInteger> min = MonticuloMinimo.MontMax_MontMin(m);
+	System.out.println("Monticulo Maximo a Monticulo minimo: " + min.toString());
 
-	//
+	MonticuloMaximo<CustomInteger> max = MonticuloMaximo.MontMin_MontMax(min);
+	System.out.println("Monticulo Minimo a Monticulo Maximo: " + max.toString());
     }
 }

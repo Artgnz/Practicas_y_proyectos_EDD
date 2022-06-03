@@ -341,7 +341,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
         return esMontMin(arr, 2 * i + 1) && esMontMin(arr, 2 * i + 2);
     }
 
-    public static <T> MonticuloMinimo<T> MontMax_MontMin(MonticuloMaximo<T> mon) {
+    public static <T extends ComparableIndexable<T>>  MonticuloMinimo<T> MontMax_MontMin(MonticuloMaximo<T> mon) {
         return new MonticuloMinimo<T>(mon, mon.size());
     }
 }

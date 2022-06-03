@@ -70,13 +70,20 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         return (T[])(new ComparableIndexable[n]);
     }
 
+    /**
+     *Constructor sin parametros de MonticuloMaximo.
+     */
     public MonticuloMaximo(){
         elementos = 0;
         arbol = nuevoArreglo(100);
     }
 
 
-
+    /**
+     *Constructor sin parametros de MonticuloMaximo.
+     *@param iterable Estructura iterable.
+     *@param n Cantidad de elementos que tendra el monticulo.
+     */
     public MonticuloMaximo(Iterable<T> iterable, int n ){
         elementos = n;
         arbol = nuevoArreglo(n);
@@ -92,6 +99,10 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         }
     }
 
+    /**
+     *Metodo que permite ordenar los elementos de la estructura de manera que este este ordenada como monticulo maximo.
+     *@param i Indice
+     */
     private void monticuloMax(int i){
         int izq = i * 2 +1 ;
         int der = i * 2 + 2;
@@ -114,7 +125,10 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
             monticuloMax(maximo);
         }
     }
-
+    /**
+     *Inserta un elemento al monticulo.
+     *@param elemento Elemento a insertar.
+     */
     @Override public void add(T elemento){
         if (elementos == arbol.length) {
             duplicaSize();
@@ -125,6 +139,9 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         recorreArriba(elementos - 1);
     }
 
+    /**
+     *Duplica el tamanio del arreglo del monticulo.
+     */
     private void duplicaSize(){
         T[] arr = nuevoArreglo(arbol.length * 2);
         elementos = 0;
@@ -134,6 +151,10 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         this.arbol = arr;
     }
 
+    /**
+     *Recamoda los elementos que estan arriba del elemento actual.
+     *@param i Indice.
+     */
     private void recorreArriba(int i){
         int padre = (i-1) / 2;
         int m = i;
@@ -186,7 +207,12 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         recorreAbajo(i);
         return true;
     }
-    
+
+    /**
+     *Intercambia los elementos dados dos indices del arreglo del monticulo.
+     *@param i Primer indice.
+     *@param j Segundo indice.
+     */
     private void swap(T i, T j) {
         int aux = j.getIndice();
         arbol[i.getIndice()] = j;
@@ -194,7 +220,10 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         j.setIndice(i.getIndice());
         i.setIndice(aux);
     }
-
+    /**
+     *Recamoda los elementos que estan abajo del elemento actual.
+     *@param i Indice.
+     */
     private void recorreAbajo(int i){
         if(i < 0){
             return;
@@ -221,7 +250,6 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
             recorreAbajo(max);   
         }
     }
-
 
     @Override public boolean contains(T elemento){
         for(T e: arbol){
@@ -256,6 +284,10 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
     }
 
 
+    /**
+     *ToString dle monticulo.
+     @return String Cadena que representa al monticulo.
+     */
     @Override public String toString(){
         String resultado ="";
         for (int i = 0; i <elementos; i++) {
@@ -291,10 +323,21 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
     public Iterator<T> iterator() {
         return new Iterador();
     }
-
+    /**
+     *Determina si un arreglo es Monticulo Maximo.
+     @param arr Arreglo a evaluar.
+     @return boolean Si es o no Monticulo Maximo.
+     */
     public static <T extends Comparable<T>> boolean esMontMax(T[] arr) {
         return esMontMax(arr, 0);
     }
+
+        /**
+     *Determina si un arreglo es Monticulo Maximo dado el indice de un elemento.
+     @param arr Arreglo a evaluar.
+     @param i Indice.
+     @return boolean Si es o no Monticulo Maximo.
+     */
     private static <T extends Comparable<T>> boolean esMontMax(T[] arr, int i) {
         if (2 * i + 2 > arr.length) {
             return true;
@@ -308,40 +351,7 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         return esMontMax(arr, 2 * i + 1) && esMontMax(arr, 2 * i + 2);
     }
 
-    public static <T extends ComparableIndexable<T>> T[] MontMin_MontMax(T[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i].setIndice(i);
-        }
-
-        for(int j = (arr.length-1) /2; j >= 0; j--){
-            heapify(arr, j);
-        }
-        return arr;
-    }
-
-    private static <T extends ComparableIndexable<T>> void heapify(T[] arr, int i) {
-        int izq = i * 2 + 1;
-        int der = i * 2 + 1;
-        int maximo = i;
-
-        if (izq < arr.length && arr[izq].compareTo(arr[i]) > 0) {
-            maximo = izq;
-        }
-        if (der < arr.length && arr[der].compareTo(arr[minimo]) > 0) {
-            maximo = der;
-        }
-        if (maximo == i) {
-            return;
-        } else {
-            swapExterno(arr[maximo], arr[i], arr);
-            heapify(arr, maximo);
-        }
-    }
-    private static <T extends ComparableIndexable<T>> void swapExterno(T i, T j, T[] arr) {
-        int aux = j.getIndice();
-        arr[i.getIndice()] = j;
-        arr[j.getIndice()] = i;
-        j.setIndice(i.getIndice());
-        i.setIndice(aux);
+        public static <T extends ComparableIndexable<T>> MonticuloMaximo<T> MontMin_MontMax(MonticuloMinimo<T> mon) {
+        return new MonticuloMaximo<T>(mon, mon.size());
     }
 }
