@@ -350,12 +350,12 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
             // Se regresa verdadero, ya que no tiene hijos.
             return true;
         }
-        // Si el hijo izquierdo del elemento al que apunta el índice es mayor que el padre.
+        // Si el hijo izquierdo del elemento al que apunta el índice es menor que el padre.
         if (arr[i].compareTo(arr[2 * i + 1]) > 0) {
             // Regresa falso ya que no cumple con la definición de montículo mínimo
             return false;
         }
-        // Si el hijo izquierdo del elemento al que apunta el índice es mayor que el padre.
+        // Si el hijo derecho del elemento al que apunta el índice es menor que el padre.
         if (2 * i + 2 != arr.length && arr[i].compareTo(arr[2 * i + 2]) > 0) {
             // Regresa falso ya que no cumple con la definición de montículo mínimo
             return false;

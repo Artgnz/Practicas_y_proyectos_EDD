@@ -7,7 +7,9 @@ import java.util.NoSuchElementException;
 /** 
  * 
  * Clase para monticulos maximos (Maxheaps)
-*/
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico 
+ */
 public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collection<T>{
     
     
@@ -30,7 +32,7 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
 
 
     private static class Adaptador<T extends Comparable<T>>
-    implements ComparableIndexable<Adaptador<T>>{
+        implements ComparableIndexable<Adaptador<T>>{
 
         private T elemento;
 
@@ -89,9 +91,9 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
         arbol = nuevoArreglo(n);
         int i = 0;
         for (T e : iterable) {
-           arbol[i] = e;
-           arbol[i].setIndice(i);
-           i ++;
+            arbol[i] = e;
+            arbol[i].setIndice(i);
+            i ++;
         }
         for(int j = (elementos-1) /2; j >= 0; j--){
             monticuloMax(j);
@@ -287,7 +289,7 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
     /**
      *ToString dle monticulo.
      @return String Cadena que representa al monticulo.
-     */
+    */
     @Override public String toString(){
         String resultado ="";
         for (int i = 0; i <elementos; i++) {
@@ -323,35 +325,48 @@ public class MonticuloMaximo<T extends ComparableIndexable<T>> implements Collec
     public Iterator<T> iterator() {
         return new Iterador();
     }
+
     /**
-     *Determina si un arreglo es Monticulo Maximo.
-     @param arr Arreglo a evaluar.
-     @return boolean Si es o no Monticulo Maximo.
+     * Determina si un arreglo es Monticulo Maximo.
+     * @param arr Arreglo a evaluar.
+     * @return boolean Si es o no Monticulo Maximo.
      */
     public static <T extends Comparable<T>> boolean esMontMax(T[] arr) {
         return esMontMax(arr, 0);
     }
 
-        /**
-     *Determina si un arreglo es Monticulo Maximo dado el indice de un elemento.
-     @param arr Arreglo a evaluar.
-     @param i Indice.
-     @return boolean Si es o no Monticulo Maximo.
+    /**
+     * Determina si un arreglo es Monticulo Maximo dado el indice de un elemento.
+     * @param arr Arreglo a evaluar.
+     * @param i Indice.
+     * @return boolean Si es o no Monticulo Maximo.
      */
     private static <T extends Comparable<T>> boolean esMontMax(T[] arr, int i) {
+        // Si el índice que se revisa es índice de una hoja del árbol.
         if (2 * i + 2 > arr.length) {
             return true;
         }
+        // Si el hijo izquierdo del elemento al que apunta el índice es mayor que el padre.
         if (arr[i].compareTo(arr[2 * i + 1]) < 0) {
             return false;
         }
+        // Si el hijo derecho del elemento al que apunta el índice es mayor que el padre.
         if (2 * i + 2 != arr.length && arr[i].compareTo(arr[2 * i + 2]) < 0) {
             return false;
         }
+        // Llamada recursiva sobre los hijos.
         return esMontMax(arr, 2 * i + 1) && esMontMax(arr, 2 * i + 2);
     }
 
-        public static <T extends ComparableIndexable<T>> MonticuloMaximo<T> MontMin_MontMax(MonticuloMinimo<T> mon) {
+    /**
+     * Convierte un montículo mínimo en uno máximo.
+     * Complejidad O(n) porque el método empleado para la construcción del
+     * montículo máximo tiene complejidad de O(n).
+     * @param <T> Tipo del que puede ser el arreglo.
+     * @param mon Montículo mínimo que se convertirá en montículo máximo.
+     * @return montículo máximo a partir del montículo mínimo.
+     */
+    public static <T extends ComparableIndexable<T>> MonticuloMaximo<T> MontMin_MontMax(MonticuloMinimo<T> mon) {
         return new MonticuloMaximo<T>(mon, mon.size());
     }
 }
