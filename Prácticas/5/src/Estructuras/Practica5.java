@@ -1,6 +1,12 @@
 package edd.src.Estructuras;
 
 import java.lang.Math;
+
+/**
+ * Pruebas de la práctica 5.
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class Practica5 {
 
     public static void main(String[] args) {

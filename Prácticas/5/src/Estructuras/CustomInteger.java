@@ -1,5 +1,10 @@
 package edd.src.Estructuras;
 
+/**
+ * Clase que sirve como Integer que implementa a ComparableIndexable.
+ * @author Arturo González Peñaloza
+ * @author Emilio Arsenio Raudry Rico
+ */
 public class CustomInteger implements ComparableIndexable<CustomInteger>{
     Integer i;
     int indice;
