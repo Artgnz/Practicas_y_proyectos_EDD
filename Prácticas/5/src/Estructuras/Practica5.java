@@ -6,6 +6,7 @@ import edd.src.Estructuras.ArbolBinario;
 import edd.src.Estructuras.CustomInteger;
 import edd.src.Estructuras.Lista;
 import edd.src.Estructuras.MonticuloMinimo;
+import edd.src.Estructuras.MonticuloMaximo;
 
 public class Practica5 {
 
@@ -34,5 +35,31 @@ public class Practica5 {
         System.out.println(MonticuloMinimo.esMontMin(new Integer[] {2,3,4,5,10,3}));
         System.out.println("¿Es montículo mínimo: {2,3,4,5,10,15}?");
         System.out.println(MonticuloMinimo.esMontMin(new Integer[] {2,3,4,5,10,15}));
+
+	//Pruebas MaxHeap
+
+        //Pruebas esMaxHeap
+	System.out.println("¿Es montículo máximo: {5,4,3,2,1}?");
+	System.out.println(MonticuloMaximo.esMontMax(new Integer[] {5,4,3,2,1}));
+        System.out.println("¿Es montículo máximo: {5,3,4,3,1}?");
+	System.out.println(MonticuloMaximo.esMontMax(new Integer[] {5,3,4,3,1}));
+	System.out.println("¿Es montículo mínimo: {3, 2, 2, 3, 2, 1}?");
+        System.out.println(MonticuloMaximo.esMontMax(new Integer[] {3, 2, 2, 3, 2, 1}));
+	System.out.println("¿Es montículo mínimo: {9,7,4,5,1,6}?");
+        System.out.println(MonticuloMaximo.esMontMax(new Integer[] {9,7,4,5,1,6}));
+        System.out.println("¿Es montículo mínimo: {2,3,4,5,2,15}?");
+        System.out.println(MonticuloMaximo.esMontMax(new Integer[] {15,14,13,12,15,3}));
+        System.out.println("¿Es montículo mínimo: {2,3,4,5,10,3}?");
+        System.out.println(MonticuloMaximo.esMontMax(new Integer[] {10,9,8,7,1,9}));
+        System.out.println("¿Es montículo mínimo: {2,3,4,5,10,15}?");
+        System.out.println(MonticuloMaximo.esMontMax(new Integer[] {15,14,13,12,7,2}));
+	
+	//Prueba Insert
+	
+	//Prueba Delete
+
+	//Prueba MontMin_MontMax
+
+	//
     }
 }
