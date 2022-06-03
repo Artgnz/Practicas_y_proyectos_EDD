@@ -3,4 +3,4 @@
 
 compilar -> javac -d . src/Estructuras/*.java
 
-Ejecutar pruebas -> java edd.src.Estructuras.Practica4
+Ejecutar pruebas -> java edd.src.Estructuras.Practica5
