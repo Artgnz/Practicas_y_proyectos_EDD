@@ -86,6 +86,16 @@ public class pruebamonti{
 
 
 
+        System.out.println("Prueba con ints");
+        MonticuloMinimo<CustomInteger> m = new MonticuloMinimo<>();
+        for (int i = 25; i >= 0; i--) {
+            m.add(new CustomInteger(i));
+            m.add(new CustomInteger(i));
+        }
+        while (!m.isEmpty()) {
+            System.out.println(m.delete());
+        }
+
     }
 
 
