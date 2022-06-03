@@ -4,15 +4,15 @@ import java.time.Year;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/** 
- * 
+/**
+ *
  * Clase para monticulos minimos (Minheaps)
 */
 public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collection<T>{
-    
-    
+
+
     private class Iterador implements Iterator<T>{
-        
+
         private int indice;
 
         @Override public boolean hasNext(){
@@ -88,7 +88,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
         }
         for(int j = (elementos-1) /2; j >= 0; j--){
             monticuloMin(j);
-            
+
         }
     }
 
@@ -145,10 +145,10 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
             recorreArriba(m);
         }
     }
-    
+
     /**
      * Elimina el elemento minimo del monticulo
-     * 
+     *
      */
     public T delete(){
         if(elementos == 0){
@@ -166,8 +166,8 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
     }
 
     /**
-     * Elimina un elmento del monticulo
-     * 
+     * Elimina un elmento monticulo
+     *
      */
 
     @Override public boolean delete(T elemento){
@@ -186,7 +186,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
         recorreAbajo(i);
         return true;
     }
-    
+
     private void swap(T i, T j) {
         int aux = j.getIndice();
         arbol[i.getIndice()] = j;
@@ -219,14 +219,14 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
             }
         }
         if(arbol[min].compareTo(arbol[i])<0){
-            //Este swap ya esta 
+            //Este swap ya esta
             swap(arbol[i], arbol[min]);
-            
+
             recorreAbajo(min);
-            
+
         }
-        
-        
+
+
 
     }
 
@@ -242,7 +242,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
     @Override public boolean isEmpty(){
         return elementos == 0;
     }
-    
+
     @Override
     public void empty() {
         for (int i = 0; i < elementos; i++) {
@@ -292,7 +292,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
     /**
      * Regresa un iterador para iterar el montículo mínimo. El montículo se
      * itera en orden BFS.
-     * 
+     *
      * @return un iterador para iterar el montículo mínimo.
      */
     @Override
@@ -308,7 +308,7 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
     */
     public static <T extends Comparable<T>> Lista<T> heapSort(Collection<T> coleccion) {
         Lista<Adaptador<T>> lAdaptador = new Lista<Adaptador<T>>();
-        
+
         Lista<T> l = new Lista<T>();
 
         for (T elemento : coleccion) {
@@ -321,12 +321,13 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
             l.add(monticuloMinimo.delete().elemento);
         }
         return l;
-    
+
     }
 
     public static <T extends Comparable<T>> boolean esMontMin(T[] arr) {
         return esMontMin(arr, 0);
     }
+
     private static <T extends Comparable<T>> boolean esMontMin(T[] arr, int i) {
         if (2 * i + 2 > arr.length) {
             return true;

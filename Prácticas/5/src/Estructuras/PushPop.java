@@ -102,8 +102,7 @@ public abstract class PushPop<T> {
             } 
             aux1 = aux1.siguiente;
             aux2 = aux2.siguiente;
-        }  
-        return true;
+        } return true;
     }
 
 
