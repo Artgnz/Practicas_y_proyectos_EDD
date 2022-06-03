@@ -311,37 +311,68 @@ public class MonticuloMinimo<T extends ComparableIndexable<T>> implements Collec
 
         Lista<T> l = new Lista<T>();
 
+        // Agregamos a los elementos de la colección a la lista.
         for (T elemento : coleccion) {
             lAdaptador.add(new Adaptador<>(elemento));
         }
 
+        // Creamos un montículo mínimo a partir de la lista.
         MonticuloMinimo<Adaptador<T>> monticuloMinimo = new MonticuloMinimo<>(lAdaptador, lAdaptador.size());
 
         while (!monticuloMinimo.isEmpty()) {
+            // Consiguimos al elemento mínimo y se agrega a la lista.
             l.add(monticuloMinimo.delete().elemento);
         }
         return l;
 
     }
 
+    /**
+     * Indica si un arreglo es un montículo mínimo.
+     * @param <T> tipo del que puede ser el arreglo.
+     * @param arr Arreglo que se revisará.
+     * @return si el arreglo es un montículo mínimo.
+     */
     public static <T extends Comparable<T>> boolean esMontMin(T[] arr) {
         return esMontMin(arr, 0);
     }
 
+    /**
+     * Indica si un arreglo es un montículo mínimo.
+     * @param <T> tipo del que puede ser el arreglo.
+     * @param arr Arreglo que se revisará.
+     * @param i Índice del arreglo que se está revisando.
+     * @return si el arreglo es un montículo mínimo.
+     */
     private static <T extends Comparable<T>> boolean esMontMin(T[] arr, int i) {
+        // Si el índice que se revisa es índice de una hoja del árbol.
         if (2 * i + 2 > arr.length) {
+            // Se regresa verdadero, ya que no tiene hijos.
             return true;
         }
+        // Si el hijo izquierdo del elemento al que apunta el índice es mayor que el padre.
         if (arr[i].compareTo(arr[2 * i + 1]) > 0) {
+            // Regresa falso ya que no cumple con la definición de montículo mínimo
             return false;
         }
+        // Si el hijo izquierdo del elemento al que apunta el índice es mayor que el padre.
         if (2 * i + 2 != arr.length && arr[i].compareTo(arr[2 * i + 2]) > 0) {
+            // Regresa falso ya que no cumple con la definición de montículo mínimo
             return false;
         }
+        // Llamada recursiva sobre los hijos.
         return esMontMin(arr, 2 * i + 1) && esMontMin(arr, 2 * i + 2);
     }
 
-    public static <T> MonticuloMinimo<T> MontMax_MontMin(MonticuloMaximo<T> mon) {
-        return new MonticuloMinimo<T>(mon, mon.size());
-    }
+    // /**
+    //  * Convierte un montículo máximo en uno mínimo.
+    //  * Complejidad O(n) porque el método empleado para la construcción del
+    //  * montículo mínimo tiene complejidad de O(n).
+    //  * @param <T> Tipo del que puede ser el arreglo.
+    //  * @param mon Montículo máximo que se convertirá en montículo mínimo.
+    //  * @return montículo mínimo a partir del montículo máximo.
+    //  */
+    // public static <T extends ComparableIndexable<T>> MonticuloMinimo<T> MontMax_MontMin(MonticuloMaximo<T> mon) {
+    //     return new MonticuloMinimo<T>(mon, mon.size());
+    // }
 }
