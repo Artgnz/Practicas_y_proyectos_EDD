@@ -1,16 +1,15 @@
 package edd.src.Estructuras;
 
 public class CustomInteger implements ComparableIndexable<CustomInteger>{
-    int i;
+    Integer i;
     int indice;
-    
 
-    public CustomInteger(int pI) {
+    public CustomInteger(Integer pI) {
         i = pI;
     }
 
     public String toString() {
-        return "i: " + i ;
+        return i.toString();
     }
     
     @Override

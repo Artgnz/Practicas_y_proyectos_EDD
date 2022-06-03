@@ -33,9 +33,11 @@ public class Cola<T> extends PushPop<T> {
         Nodo nuevo = new Nodo(elemento);
         if (cabeza == null) {
             this.cabeza = ultimo = nuevo;
+            longi++;
             return;
         }
         ultimo.siguiente = nuevo;
         ultimo = nuevo;
+        longi++;
     }
 }
